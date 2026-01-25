@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Not Found</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <a class="skipLink" href="#main">Skip to content</a>
+  <canvas id="bgCanvas" class="bgCanvas" aria-hidden="true"></canvas>
+  <div class="bgVignette" aria-hidden="true"></div>
+  <header class="topbar">
+    <div class="container">
+      <a class="brand" href="./index.html">Quantum Annealing Courses</a>
+    </div>
+  </header>
+  <main class="container" id="main">
+    <section class="hero">
+      <h1>Page not found</h1>
+      <p class="muted">Return to the course catalog.</p>
+      <div class="actions"><a class="btn" href="./index.html">Go home</a></div>
+    </section>
+  </main>
+
+  <script src="assets/js/app.js"></script>
+  <script>
+    window.App.initBackground();
+  </script>
+</body>
+</html>

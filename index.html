@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quantum Annealing Courses</title>
+  <meta name="description" content="Free mini course series on quantum annealing, QUBO modeling, and routing applications." />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <a class="skipLink" href="#main">Skip to content</a>
+  <canvas id="bgCanvas" class="bgCanvas" aria-hidden="true"></canvas>
+  <div class="bgVignette" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="container topbarInner">
+      <a class="brand" href="./index.html" aria-label="Go to home">
+        <span class="brandMark" aria-hidden="true"></span>
+        <span class="brandText">Quantum Annealing Courses</span>
+      </a>
+
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="navlink" href="#start">Start</a>
+        <a class="navlink" href="#path">Learning path</a>
+        <a class="navlink" href="#courses">Courses</a>
+        <a class="navlink" href="#resources">Resources</a>
+        <a class="navlink navlinkStrong" href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </div>
+
+    <div class="container topbarSub">
+      <div class="searchWrap" role="search">
+        <label class="srOnly" for="searchInput">Search</label>
+        <input id="searchInput" class="searchInput" type="search" placeholder="Search courses, tags, lessons" autocomplete="off" />
+        <button id="clearBtn" class="iconBtn" type="button" aria-label="Clear search" title="Clear search">✕</button>
+      </div>
+
+      <div class="chipRow" id="tagChips" aria-label="Tag filters"></div>
+    </div>
+  </header>
+
+  <main class="container" id="main">
+
+    <section class="hero" id="start">
+      <div class="heroGrid">
+        <div class="heroLeft">
+          <div class="pill">
+            <span class="pillDot" aria-hidden="true"></span>
+            <span>Static on GitHub Pages, videos on YouTube</span>
+          </div>
+
+          <h1 class="heroTitle">Learn quantum annealing through modeling and routing</h1>
+
+          <p class="heroDesc">
+            A clear learning flow from intuition to Ising and QUBO, then to constraint patterns and routing style applications.
+            This site stays simple to maintain: update <span class="code">data/courses.json</span> and push to GitHub.
+          </p>
+
+          <div class="heroActions">
+            <a class="btn btnPrimary" href="#path">Start with the learning path</a>
+            <a class="btn btnGhost" href="#courses">Browse course catalog</a>
+          </div>
+
+          <div class="heroMeta" aria-label="Site stats">
+            <div class="metaCard">
+              <div class="metaKpi" id="kpiCourses">0</div>
+              <div class="metaLabel">Courses</div>
+            </div>
+            <div class="metaCard">
+              <div class="metaKpi" id="kpiLessons">0</div>
+              <div class="metaLabel">Lessons</div>
+            </div>
+            <div class="metaCard">
+              <div class="metaKpi" id="kpiMinutes">0</div>
+              <div class="metaLabel">Total minutes</div>
+            </div>
+          </div>
+
+          <div class="miniInfoRow">
+            <div class="miniInfo">
+              <div class="miniInfoTitle">How you will learn</div>
+              <div class="miniInfoText">Watch, model, apply. Short lessons, practical templates, then projects.</div>
+            </div>
+            <div class="miniInfo">
+              <div class="miniInfoTitle">Who it is for</div>
+              <div class="miniInfoText">Students and engineers who want to translate problems into QUBO and run solvers.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="heroRight">
+          <article class="focusCard" aria-label="Start here">
+            <div class="focusHead">
+              <div class="focusBadge">Start here</div>
+              <div class="focusHint">Recommended first lesson</div>
+            </div>
+
+            <div class="focusBody">
+              <div class="focusTitle" id="startTitle">Loading</div>
+              <div class="focusDesc" id="startDesc">Fetching course data</div>
+
+              <div class="focusMeta">
+                <span class="badge" id="startMetaA">Lesson</span>
+                <span class="badge" id="startMetaB">Time</span>
+              </div>
+
+              <div class="focusActions">
+                <a class="btn btnPrimary" id="startBtn" href="#courses">Start lesson</a>
+                <a class="btn btnGhost" id="startCourseBtn" href="#courses">View course</a>
+              </div>
+            </div>
+
+            <div class="focusFoot">
+              <div class="mutedSmall">Tip: after each video, open the resources to view code and slides.</div>
+            </div>
+          </article>
+
+          <article class="focusCard softFocus" aria-label="Continue learning" id="continueCard" style="display:none">
+            <div class="focusHead">
+              <div class="focusBadge">Continue</div>
+              <div class="focusHint">Pick up where you left</div>
+            </div>
+
+            <div class="focusBody">
+              <div class="focusTitle" id="continueTitle">Last lesson</div>
+              <div class="focusDesc" id="continueDesc">Resume your progress</div>
+
+              <div class="focusMeta">
+                <span class="badge" id="continueMetaA">Progress</span>
+                <span class="badge" id="continueMetaB">Saved</span>
+              </div>
+
+              <div class="focusActions">
+                <a class="btn btnPrimary" id="continueBtn" href="#courses">Continue</a>
+                <button class="btn btnGhost" id="clearProgressBtn" type="button">Clear</button>
+              </div>
+            </div>
+
+            <div class="focusFoot">
+              <div class="mutedSmall">Progress is saved locally in your browser.</div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="sectionHead">
+      <h2 class="sectionTitle">How to learn</h2>
+      <p class="sectionDesc">A simple loop that keeps you moving forward</p>
+    </section>
+
+    <section class="stepsGrid" aria-label="How to learn steps">
+      <article class="stepCard">
+        <div class="stepIcon">1</div>
+        <div>
+          <div class="stepTitle">Watch</div>
+          <div class="stepText">Build intuition with short videos and clear examples.</div>
+        </div>
+      </article>
+
+      <article class="stepCard">
+        <div class="stepIcon">2</div>
+        <div>
+          <div class="stepTitle">Model</div>
+          <div class="stepText">Translate constraints into QUBO templates you can reuse.</div>
+        </div>
+      </article>
+
+      <article class="stepCard">
+        <div class="stepIcon">3</div>
+        <div>
+          <div class="stepTitle">Apply</div>
+          <div class="stepText">Use the templates to solve routing and scheduling style problems.</div>
+        </div>
+      </article>
+    </section>
+
+    <section class="sectionHead" id="path">
+      <h2 class="sectionTitle">Recommended learning path</h2>
+      <p class="sectionDesc">One clear route for first time learners</p>
+    </section>
+
+    <section class="pathGrid">
+      <article class="pathCard">
+        <div class="pathTop">
+          <div class="pathPill">Phase 1</div>
+          <div class="pathTitle">Foundations</div>
+        </div>
+        <ul class="pathList">
+          <li>What is quantum annealing</li>
+          <li>Optimization landscape and intuition</li>
+          <li>Ising variables and energy</li>
+        </ul>
+        <div class="pathActions">
+          <a class="btn btnPrimary" id="pathBtn1" href="#courses">Start Phase 1</a>
+        </div>
+      </article>
+
+      <article class="pathCard">
+        <div class="pathTop">
+          <div class="pathPill">Phase 2</div>
+          <div class="pathTitle">QUBO modeling</div>
+        </div>
+        <ul class="pathList">
+          <li>QUBO formulation patterns</li>
+          <li>Penalty design and constraints</li>
+          <li>Debugging with small instances</li>
+        </ul>
+        <div class="pathActions">
+          <a class="btn btnGhost" id="pathBtn2" href="#courses">Go to Phase 2</a>
+        </div>
+      </article>
+
+      <article class="pathCard">
+        <div class="pathTop">
+          <div class="pathPill">Phase 3</div>
+          <div class="pathTitle">Applications</div>
+        </div>
+        <ul class="pathList">
+          <li>TSP and VRP style problems</li>
+          <li>Dynamic routing concepts</li>
+          <li>Capstone mini project</li>
+        </ul>
+        <div class="pathActions">
+          <a class="btn btnGhost" id="pathBtn3" href="#courses">Go to Phase 3</a>
+        </div>
+      </article>
+    </section>
+
+    <section class="sectionHead" id="courses">
+      <div class="sectionHeadRow">
+        <div>
+          <h2 class="sectionTitle">Course catalog</h2>
+          <p class="sectionDesc">Generated from <span class="code">data/courses.json</span></p>
+        </div>
+        <div class="sectionTools">
+          <label class="srOnly" for="sortSelect">Sort courses</label>
+          <select id="sortSelect" class="select" aria-label="Sort courses">
+            <option value="recommended">Recommended</option>
+            <option value="title">Title</option>
+            <option value="lessons">Lesson count</option>
+            <option value="minutes">Total minutes</option>
+          </select>
+          <div class="mutedSmall" id="resultCount">0 results</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="courseGrid" class="grid" aria-live="polite"></section>
+
+    <section class="sectionHead" id="resources">
+      <h2 class="sectionTitle">Resources</h2>
+      <p class="sectionDesc">Quick links that support learning</p>
+    </section>
+
+    <section class="resourceQuickGrid" aria-label="Resource quick links">
+      <a class="resItem" href="data/courses.json" target="_blank" rel="noopener">
+        <div class="resIcon">D</div>
+        <div>
+          <div class="resMetaTitle">Course data</div>
+          <div class="resMetaType">JSON</div>
+        </div>
+      </a>
+
+      <a class="resItem" href="docs/" target="_blank" rel="noopener">
+        <div class="resIcon">S</div>
+        <div>
+          <div class="resMetaTitle">Slides</div>
+          <div class="resMetaType">PDF</div>
+        </div>
+      </a>
+
+      <a class="resItem" href="https://github.com/" target="_blank" rel="noopener">
+        <div class="resIcon">C</div>
+        <div>
+          <div class="resMetaTitle">Code</div>
+          <div class="resMetaType">GitHub</div>
+        </div>
+      </a>
+
+      <a class="resItem" href="#about">
+        <div class="resIcon">R</div>
+        <div>
+          <div class="resMetaTitle">References</div>
+          <div class="resMetaType">Reading list</div>
+        </div>
+      </a>
+    </section>
+
+    <section class="sectionHead" id="about">
+      <h2 class="sectionTitle">About</h2>
+      <p class="sectionDesc">A lightweight platform that stays learning focused</p>
+    </section>
+
+    <section class="split">
+      <article class="card softCard">
+        <h2 class="cardHeading">What this site is</h2>
+        <p class="muted">
+          A free, public learning hub for quantum annealing, QUBO modeling, and routing applications.
+          Videos are hosted on YouTube. Code and documents live in GitHub.
+        </p>
+        <div class="callout">
+          Goal: help you start quickly, then learn by building.
+        </div>
+      </article>
+
+      <article class="card softCard">
+        <h2 class="cardHeading">How to maintain</h2>
+        <ol class="steps">
+          <li>Edit <span class="code">data/courses.json</span> and replace YouTube IDs</li>
+          <li>Add resource links for slides, notebooks, and papers</li>
+          <li>Commit and push, GitHub Pages updates after deployment</li>
+        </ol>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footerInner">
+      <span class="muted">Sunset theme starter for GitHub Pages.</span>
+      <a class="footerLink" href="./index.html">Back to top</a>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="assets/js/app.js"></script>
+  <script>
+    window.App.initBackground();
+    window.App.renderHome();
+    window.App.renderKpis();
+    window.App.renderHomeStartCards();
+  </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Course</title>
+  <meta name="description" content="Course detail page" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <a class="skipLink" href="#main">Skip to content</a>
+  <canvas id="bgCanvas" class="bgCanvas" aria-hidden="true"></canvas>
+  <div class="bgVignette" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="container topbarInner">
+      <a class="brand" href="./index.html" aria-label="Go to home">
+        <span class="brandMark" aria-hidden="true"></span>
+        <span class="brandText">Quantum Annealing Courses</span>
+      </a>
+
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="navlink" href="./index.html#courses">Courses</a>
+        <a class="navlink navlinkStrong" href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" id="main">
+    <div class="breadcrumbs" id="breadcrumbs"></div>
+
+    <section class="hero compactHero" id="courseHero"></section>
+
+    <section class="progressWrap" id="courseProgress" style="display:none" aria-label="Course progress">
+      <div class="progressTop">
+        <div class="mutedSmall" id="courseProgressText">Progress</div>
+        <a class="btn btnGhost" id="resumeBtn" href="#" style="display:none">Resume</a>
+      </div>
+      <div class="progressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="progressFill" id="courseProgressFill" style="width:0%"></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="cardHeadRow">
+        <h2 class="cardHeading">Lessons</h2>
+        <div class="mutedSmall" id="courseStats"></div>
+      </div>
+      <ol class="lessonlist" id="lessonList"></ol>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footerInner">
+      <span class="muted">Edit content in <span class="code">data/courses.json</span>.</span>
+      <a class="footerLink" href="./index.html#courses">Back to courses</a>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="assets/js/app.js"></script>
+  <script>
+    window.App.initBackground();
+    window.App.renderCourse();
+  </script>
+</body>
+</html>

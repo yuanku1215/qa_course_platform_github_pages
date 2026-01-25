@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lesson</title>
+  <meta name="description" content="Lesson page" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <a class="skipLink" href="#main">Skip to content</a>
+  <canvas id="bgCanvas" class="bgCanvas" aria-hidden="true"></canvas>
+  <div class="bgVignette" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="container topbarInner">
+      <a class="brand" href="./index.html" aria-label="Go to home">
+        <span class="brandMark" aria-hidden="true"></span>
+        <span class="brandText">Quantum Annealing Courses</span>
+      </a>
+
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="navlink" id="backToCourse" href="./index.html">Back to course</a>
+        <a class="navlink navlinkStrong" href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" id="main">
+    <div class="breadcrumbs" id="breadcrumbs"></div>
+
+    <section class="hero compactHero" id="lessonHero"></section>
+
+    <section class="video">
+      <div class="videoTopRow">
+        <div class="videoMeta" id="videoMeta"></div>
+        <div class="videoNav" id="videoNav"></div>
+      </div>
+
+      <div class="videoaspect">
+        <iframe
+          id="ytFrame"
+          src=""
+          title="Lesson video"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <section class="card" id="resourcesCard" style="display:none">
+      <h2 class="cardHeading">Resources</h2>
+      <div class="resGrid" id="resourceList"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footerInner">
+      <span class="muted">YouTube is used for hosting and delivery.</span>
+      <a class="footerLink" href="./index.html#courses">Back to courses</a>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="assets/js/app.js"></script>
+  <script>
+    window.App.initBackground();
+    window.App.renderLesson();
+  </script>
+</body>
+</html>
