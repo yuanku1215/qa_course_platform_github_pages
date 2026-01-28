@@ -793,3 +793,39 @@ a { color: inherit; }
     margin-top: 24px;
   }
 }
+
+/* =================================
+   Global animated background fix
+   ================================= */
+
+.bgCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  pointer-events: none;
+}
+
+.bgVignette {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* 確保所有頁面內容在背景之上 */
+body {
+  position: relative;
+  z-index: 0;
+}
+
+/* 避免某些 section 不小心蓋掉背景 */
+.courseHero,
+.coursePage,
+.practiceSection,
+footer,
+header {
+  background: transparent;
+}
+
