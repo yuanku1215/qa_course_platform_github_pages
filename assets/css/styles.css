@@ -38,6 +38,76 @@ a { color: inherit; }
   z-index: 9999;
 }
 
+/* =================================
+   Course – Full-width video layout
+   不改 HTML 結構，只放大視覺
+   ================================= */
+
+.coursePage {
+  margin-top: 24px;
+}
+
+/* 讓 courseHero 脫離 container 的限制 */
+.courseHero {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  padding: 32px 48px;
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(280px, 3fr);
+  gap: 32px;
+  align-items: start;
+}
+
+/* Video */
+.courseVideo iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  border: none;
+}
+
+/* Downloads */
+.courseDownloads {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: sticky;
+  top: 96px;
+}
+
+/* Practice */
+.practiceSection {
+  margin-top: 48px;
+}
+
+.practiceItem {
+  margin-bottom: 20px;
+}
+
+.practiceSolution {
+  margin-top: 12px;
+}
+
+.solutionCode {
+  background: rgba(255,255,255,0.06);
+  padding: 12px;
+  border-radius: 10px;
+  overflow-x: auto;
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+  .courseHero {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+
+  .courseDownloads {
+    position: static;
+  }
+}
+
+
 .skipLink:focus { left: 12px; }
 
 .bgCanvas {
