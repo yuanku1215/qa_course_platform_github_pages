@@ -709,3 +709,87 @@ a { color: inherit; }
   }
 }
 
+/* =================================
+   Course – 85% width + practice panel
+   ================================= */
+
+.courseHero {
+  width: 85vw;
+  max-width: 1600px;
+  margin: 32px auto 0;
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(280px, 1.2fr);
+  gap: 32px;
+  align-items: start;
+}
+
+/* 左側影片區 */
+.courseVideo iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  border: none;
+}
+
+/* 下載在影片下方 */
+.courseDownloadsInline {
+  margin-top: 14px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* 右側例題面板 */
+.coursePracticePanel {
+  height: calc(100vh - 140px);
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.coursePracticePanel::-webkit-scrollbar {
+  width: 6px;
+}
+
+.coursePracticePanel::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.2);
+  border-radius: 6px;
+}
+
+/* Practice item */
+.practiceItem {
+  margin-bottom: 10px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.04);
+}
+
+.practiceSummary {
+  cursor: pointer;
+  padding: 10px 12px;
+  font-weight: 600;
+}
+
+.practiceDetail {
+  padding: 10px 14px 14px;
+}
+
+.practiceAnswer pre {
+  background: rgba(0,0,0,0.35);
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 6px;
+  overflow-x: auto;
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+  .courseHero {
+    width: 100%;
+    grid-template-columns: 1fr;
+    padding: 0 16px;
+  }
+
+  .coursePracticePanel {
+    height: auto;
+    margin-top: 24px;
+  }
+}
