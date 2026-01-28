@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 
-<body>
+<body id="top">
   <!-- Background -->
   <canvas id="bgCanvas" class="bgCanvas" aria-hidden="true"></canvas>
   <div class="bgVignette" aria-hidden="true"></div>
@@ -18,10 +18,9 @@
     <div class="container topbarInner">
       <span class="brandText">Quantum Annealing</span>
 
-      <nav>
-        <a class="btn btnGhost" href="lessons.html">
-          View lessons →
-        </a>
+      <nav class="nav">
+        <a class="btn btnGhost" href="lessons.html">Lessons</a>
+        <a class="btn btnGhost" href="https://github.com/" target="_blank">GitHub</a>
       </nav>
     </div>
   </header>
@@ -29,29 +28,83 @@
   <!-- Main -->
   <main>
 
-    <!-- Hero (near full screen) -->
+    <!-- HERO -->
     <section class="hero heroFull">
       <div class="container heroInner">
+
+        <!-- Badge -->
+        <div class="focusBadge">GitHub Pages Learning Hub</div>
+
         <h1 class="heroTitle">
           Learn Quantum Annealing
         </h1>
 
         <p class="heroSubtitle">
-          From Ising and QUBO modeling to routing and scheduling applications.
+          Build intuition, master QUBO modeling, and apply quantum inspired optimization
+          to routing and scheduling problems.
         </p>
 
+        <!-- CTA -->
         <div class="heroActions">
-          <a class="btn btnPrimary btnLarge" href="lessons.html">
+          <a class="btn btnPrimary btnLarge" id="startBtn" href="lessons.html">
             Start learning
           </a>
           <a class="btn btnGhost btnLarge" href="lessons.html">
-            View all courses
+            View lessons
           </a>
         </div>
+
+        <!-- KPI -->
+        <div class="heroMeta">
+          <div class="card metaCard">
+            <div class="metaKpi" id="kpiCourses">—</div>
+            <div class="mutedTiny">Courses</div>
+          </div>
+          <div class="card metaCard">
+            <div class="metaKpi" id="kpiLessons">—</div>
+            <div class="mutedTiny">Lessons</div>
+          </div>
+          <div class="card metaCard">
+            <div class="metaKpi" id="kpiMinutes">—</div>
+            <div class="mutedTiny">Minutes</div>
+          </div>
+        </div>
+
       </div>
     </section>
 
+    <!-- CONTINUE (optional, auto hide) -->
+    <section class="container" id="continueSection" style="display:none;">
+      <article class="focusCard softFocus">
+        <div class="focusBadge" style="background: var(--accent2);">
+          Continue learning
+        </div>
+
+        <h2 id="continueTitle">Last lesson</h2>
+        <p class="muted" id="continueDesc">
+          Resume where you left off.
+        </p>
+
+        <div class="btnRow">
+          <a class="btn btnPrimary" id="continueBtn" href="#">Resume</a>
+          <button class="btn btnGhost" id="clearProgressBtn">
+            Clear
+          </button>
+        </div>
+      </article>
+    </section>
+
   </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footerInner">
+      <span class="mutedSmall">
+        Quantum Annealing Learning Hub
+      </span>
+      <a class="btn btnGhost" href="#top">Back to top</a>
+    </div>
+  </footer>
 
   <!-- Script -->
   <script src="assets/js/home.js"></script>
