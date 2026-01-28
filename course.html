@@ -6,37 +6,72 @@
   <title>Course | Quantum Annealing</title>
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
-<body>
-  <canvas id="bgCanvas" class="bgCanvas"></canvas>
-  <div class="bgVignette"></div>
 
+<body id="top">
+  <!-- Background -->
+  <canvas id="bgCanvas" class="bgCanvas" aria-hidden="true"></canvas>
+  <div class="bgVignette" aria-hidden="true"></div>
+
+  <!-- Header -->
   <header class="topbar">
     <div class="container topbarInner">
       <a href="lessons.html" class="btn btnGhost">← Lessons</a>
+      <span class="brandText">Quantum Annealing</span>
     </div>
   </header>
 
+  <!-- Main -->
   <main class="coursePage">
 
-    <!-- 上半部：影片 + 下載 -->
-    <section class="courseHero">
+    <!-- ================= 上半部：影片 + 下載 ================= -->
+    <section class="courseHero container">
+
+      <!-- 左：影片（70%） -->
       <div class="courseVideo">
-        <iframe src="" id="courseVideo" allowfullscreen></iframe>
+        <iframe
+          id="courseVideo"
+          title="Course video"
+          loading="lazy"
+          allowfullscreen>
+        </iframe>
       </div>
 
+      <!-- 右：下載（30%） -->
       <aside class="courseDownloads">
-        <h3>Downloads</h3>
-        <a class="btn btnGhost btnFull" id="dlSlides">Slides</a>
-        <a class="btn btnGhost btnFull" id="dlPDF">PDF</a>
-        <a class="btn btnGhost btnFull" id="dlPodcast">Podcast（中文）</a>
+        <h3 class="cardHeading">Downloads</h3>
+
+        <a class="btn btnGhost btnFull" id="dlSlides" target="_blank" rel="noopener">
+          Keynote
+        </a>
+        <a class="btn btnGhost btnFull" id="dlPDF" target="_blank" rel="noopener">
+          PDF
+        </a>
+        <a class="btn btnGhost btnFull" id="dlPodcast" target="_blank" rel="noopener">
+          Podcast (Chinese)
+        </a>
       </aside>
+
     </section>
 
-    <!-- 下半部：例題 -->
-    <section class="container practiceSection" id="practice"></section>
+    <!-- ================= 下半部：例題 ================= -->
+    <section class="container practiceSection">
+      <h2 class="sectionTitle">Practice & Explanation</h2>
+      <div id="practice"></div>
+    </section>
 
   </main>
 
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footerInner">
+      <span class="mutedSmall">Quantum Annealing Learning Hub</span>
+      <a class="btn btnGhost" href="#top">Back to top</a>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <!-- 背景一定要先 -->
+  <script src="assets/js/background.js"></script>
   <script src="assets/js/course.js"></script>
 </body>
 </html>
