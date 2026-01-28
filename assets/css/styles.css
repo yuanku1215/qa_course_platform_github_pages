@@ -1,3 +1,7 @@
+/* =====================================================
+   Design tokens
+   ===================================================== */
+
 :root {
   --bg: #070a12;
   --panel: rgba(255,255,255,0.06);
@@ -12,791 +16,34 @@
   --accent2: #ff4d6d;
 }
 
+/* =====================================================
+   Base
+   ===================================================== */
+
 * { box-sizing: border-box; }
 
 html, body { height: 100%; }
 
 body {
   margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont,
+               "Segoe UI", Roboto, Arial, sans-serif;
   color: var(--text);
-  background: radial-gradient(900px 520px at 18% 10%, rgba(255,138,31,0.18), transparent),
-              radial-gradient(820px 520px at 78% 12%, rgba(255,77,109,0.16), transparent),
-              var(--bg);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  background:
+    radial-gradient(900px 520px at 18% 10%, rgba(255,138,31,0.18), transparent),
+    radial-gradient(820px 520px at 78% 12%, rgba(255,77,109,0.16), transparent),
+    var(--bg);
+  position: relative;
+  z-index: 0;
 }
 
-a { color: inherit; }
-
-.skipLink {
-  position: absolute;
-  left: -9999px;
-  top: 8px;
-  background: #fff;
-  color: #000;
-  padding: 10px 12px;
-  border-radius: 12px;
-  z-index: 9999;
-}
-
-/* =================================
-   Course – Full-width video layout
-   不改 HTML 結構，只放大視覺
-   ================================= */
-
-.coursePage {
-  margin-top: 24px;
-}
-
-/* 讓 courseHero 脫離 container 的限制 */
-.courseHero {
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  padding: 32px 48px;
-  display: grid;
-  grid-template-columns: minmax(0, 7fr) minmax(280px, 3fr);
-  gap: 32px;
-  align-items: start;
-}
-
-/* Video */
-.courseVideo iframe {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  border-radius: 16px;
-  border: none;
-}
-
-/* Downloads */
-.courseDownloads {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  position: sticky;
-  top: 96px;
-}
-
-/* Practice */
-.practiceSection {
-  margin-top: 48px;
-}
-
-.practiceItem {
-  margin-bottom: 20px;
-}
-
-.practiceSolution {
-  margin-top: 12px;
-}
-
-.solutionCode {
-  background: rgba(255,255,255,0.06);
-  padding: 12px;
-  border-radius: 10px;
-  overflow-x: auto;
-}
-
-/* Mobile */
-@media (max-width: 900px) {
-  .courseHero {
-    grid-template-columns: 1fr;
-    padding: 20px;
-  }
-
-  .courseDownloads {
-    position: static;
-  }
-}
-
-
-.skipLink:focus { left: 12px; }
-
-.bgCanvas {
-  position: fixed;
-  inset: 0;
-  z-index: -2;
-  width: 100%;
-  height: 100%;
-}
-
-.bgVignette {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background: radial-gradient(900px 520px at 50% 0%, transparent, rgba(0,0,0,0.55));
-}
-
-.container {
-  width: min(1180px, calc(100% - 40px));
-  margin: 0 auto;
-}
-
-.topbar {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  backdrop-filter: blur(14px);
-  background: rgba(7,10,18,0.62);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-}
-
-.topbarInner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 0;
-}
-
-.brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-}
-
-.brandMark {
-  width: 12px;
-  height: 12px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  box-shadow: 0 0 0 6px rgba(255,138,31,0.12);
-}
-
-.brandText {
-  font-weight: 700;
-  letter-spacing: 0.2px;
-}
-
-.nav { display: flex; gap: 12px; }
-
-.navlink {
-  text-decoration: none;
-  padding: 10px 12px;
-  border-radius: 14px;
-  color: var(--muted);
-}
-
-.navlink:hover { background: rgba(255,255,255,0.06); color: var(--text); }
-
-.navlinkStrong {
-  background: rgba(255,138,31,0.16);
-  color: var(--text);
-  border: 1px solid rgba(255,138,31,0.22);
-}
-
-.topbarSub {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  padding: 0 0 14px;
-}
-
-.searchWrap {
-  flex: 1;
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  padding: 10px 12px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.10);
-  border-radius: 18px;
-}
-
-.searchInput {
-  flex: 1;
-  border: 0;
-  outline: 0;
-  background: transparent;
-  color: var(--text);
-  font-size: 14px;
-}
-
-.iconBtn {
-  border: 0;
-  background: rgba(255,255,255,0.08);
-  color: var(--text);
-  width: 34px;
-  height: 34px;
-  border-radius: 12px;
-  cursor: pointer;
-}
-
-.iconBtn:hover { background: rgba(255,255,255,0.12); }
-
-.chipRow {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
-
-.chip {
-  border: 1px solid rgba(255,255,255,0.10);
-  background: rgba(255,255,255,0.04);
-  color: var(--muted);
-  border-radius: 999px;
-  padding: 8px 10px;
-  font-size: 13px;
-  cursor: pointer;
-  user-select: none;
-}
-
-.chip:hover { color: var(--text); background: rgba(255,255,255,0.07); }
-
-.chipActive {
-  color: var(--text);
-  border-color: rgba(255,138,31,0.35);
-  background: rgba(255,138,31,0.14);
-}
-
-.heroGrid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
-  gap: 22px;
-  padding: 26px 0 18px;
-  align-items: stretch;
-}
-
-.heroLeft { padding: 10px 0; }
-
-.focusBadge {
-  display: inline-flex;
-  align-items: center;
-  padding: 8px 12px;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.10);
-  color: var(--muted);
-  font-size: 13px;
-}
-
-.heroTitle {
-  font-size: 44px;
-  line-height: 1.05;
-  margin: 14px 0 10px;
-  letter-spacing: -0.6px;
-}
+a { color: inherit; text-decoration: none; }
 
 .muted { color: var(--muted); }
 
-.heroSubtitle {
-  margin: 0 0 16px;
-  font-size: 15.5px;
-  line-height: 1.6;
-}
-
-.heroMeta {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-  margin-top: 12px;
-}
-
-.card {
-  background: var(--panel);
-  border: 1px solid rgba(255,255,255,0.10);
-  box-shadow: var(--shadow);
-  border-radius: var(--radius);
-}
-
-.metaCard { padding: 14px 14px; }
-
-.metaKpi {
-  font-size: 26px;
-  font-weight: 700;
-}
-
-.mutedTiny {
-  color: rgba(238,242,255,0.62);
-  font-size: 12px;
-}
-
-.heroRight { display: flex; }
-
-.focusCard {
-  width: 100%;
-  padding: 18px 18px;
-  border-radius: var(--radius);
-  background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.04));
-  border: 1px solid rgba(255,255,255,0.10);
-  box-shadow: var(--shadow);
-}
-
-.focusCard h2 {
-  margin: 12px 0 8px;
-  font-size: 22px;
-}
-
-.focusMeta {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin: 12px 0 14px;
-}
-
-.badge {
-  font-size: 12px;
-  color: rgba(238,242,255,0.75);
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.05);
-  border-radius: 999px;
-  padding: 7px 10px;
-}
-
-.btnRow { display: flex; gap: 10px; flex-wrap: wrap; }
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 10px 12px;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.12);
-  text-decoration: none;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 14px;
-}
-
-.btnPrimary {
-  background: linear-gradient(135deg, var(--accent), #ffb45a);
-  border-color: rgba(255,138,31,0.38);
-  color: #0b1020;
-}
-
-.btnPrimary:hover { filter: brightness(1.03); }
-
-.btnGhost {
-  background: rgba(255,255,255,0.06);
-  color: var(--text);
-}
-
-.btnGhost:hover { background: rgba(255,255,255,0.09); }
-
-.sectionHead {
-  padding: 22px 0 10px;
-}
-
-.sectionTitle {
-  margin: 0;
-  font-size: 24px;
-}
-
-.videoTopRow {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 14px;
-}
-
-.courseControls {
-  display: inline-flex;
-  gap: 10px;
-  align-items: center;
-}
-
-.selectGhost {
-  appearance: none;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.06);
-  color: var(--text);
-  border-radius: 14px;
-  padding: 10px 12px;
-  font-weight: 600;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-}
-
-.courseCard {
-  padding: 16px 16px 14px;
-  border-radius: var(--radius);
-  border: 1px solid rgba(255,255,255,0.10);
-  background: rgba(255,255,255,0.05);
-  box-shadow: var(--shadow);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  min-height: 180px;
-}
-
-.courseCardTop {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.courseTitle {
-  margin: 0;
-  font-size: 18px;
-  letter-spacing: -0.2px;
-}
-
-.courseDesc {
-  margin: 0;
-  color: rgba(238,242,255,0.68);
-  line-height: 1.55;
-  font-size: 13.5px;
-}
-
-.pillRow {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.pill {
-  font-size: 12px;
-  color: rgba(238,242,255,0.72);
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.04);
-  border-radius: 999px;
-  padding: 7px 10px;
-}
-
-.courseActions {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 2px;
-}
-
-.btnSmall {
-  padding: 9px 10px;
-  border-radius: 13px;
-  font-size: 13px;
-}
-
-.btnResume {
-  background: rgba(255,77,109,0.12);
-  border-color: rgba(255,77,109,0.25);
-}
-
-.footer {
-  margin-top: 34px;
-  padding: 24px 0 44px;
-  border-top: 1px solid rgba(255,255,255,0.08);
-}
-
-.footerInner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.mutedSmall { color: rgba(238,242,255,0.62); font-size: 13px; }
-
-.resourceGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-
-.softFocus { background: rgba(255,255,255,0.04); }
-
-.toast {
-  position: fixed;
-  right: 18px;
-  bottom: 18px;
-  padding: 12px 14px;
-  border-radius: 16px;
-  background: rgba(15,18,30,0.72);
-  border: 1px solid rgba(255,255,255,0.12);
-  color: var(--text);
-  backdrop-filter: blur(12px);
-  box-shadow: var(--shadow);
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 160ms ease, transform 160ms ease;
-  pointer-events: none;
-}
-
-.toastShow {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-@media (max-width: 980px) {
-  .heroGrid { grid-template-columns: 1fr; }
-  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-
-@media (max-width: 640px) {
-  .container { width: calc(100% - 28px); }
-  .heroTitle { font-size: 34px; }
-  .grid { grid-template-columns: 1fr; }
-  .topbarSub { flex-direction: column; align-items: stretch; }
-  .chipRow { justify-content: flex-start; }
-}
-/* ===============================
-   Courses overview (Home)
-   =============================== */
-
-.courseOverview {
-  margin-top: 64px;
-  margin-bottom: 80px;
-}
-
-.sectionTitle {
-  font-size: 1.6rem;
-  margin-bottom: 24px;
-}
-
-.courseIndexList {
-  display: grid;
-  gap: 14px;
-}
-
-.courseIndexItem {
-  display: grid;
-  grid-template-columns: 72px 1fr;
-  align-items: center;
-  padding: 16px 18px;
-  border-radius: 14px;
-  text-decoration: none;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.06);
-  transition: background 0.2s ease, transform 0.15s ease;
-}
-
-.courseIndexItem:hover {
-  background: rgba(255,255,255,0.08);
-  transform: translateY(-1px);
-}
-
-.courseIndexCode {
-  font-weight: 600;
-  font-size: 1.1rem;
-  opacity: 0.9;
-}
-
-.courseIndexTitle {
-  font-size: 1rem;
-  line-height: 1.4;
-}
-
-.courseIndexList {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.courseIndexItem {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.courseIndexMain {
-  display: flex;
-  gap: 14px;
-  align-items: baseline;
-  text-decoration: none;
-}
-
-.courseIndexCode {
-  font-weight: 600;
-  opacity: 0.75;
-}
-
-.courseIndexActions {
-  display: flex;
-  gap: 8px;
-}
-
-.btnTiny {
-  padding: 6px 10px;
-  font-size: 12px;
-}
-
-.courseHero {
-  display: grid;
-  grid-template-columns: 7fr 3fr;
-  gap: 24px;
-  margin-top: 32px;
-}
-
-.courseVideo iframe {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  border-radius: 14px;
-  border: none;
-}
-
-.courseDownloads {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.practiceSection {
-  margin-top: 48px;
-}
-
-.practiceItem {
-  margin-bottom: 18px;
-}
-
-.practiceTitle {
-  margin-bottom: 6px;
-}
-
-.practiceSolution {
-  margin-top: 12px;
-}
-
-.solutionCode {
-  background: rgba(255,255,255,0.06);
-  padding: 12px;
-  border-radius: 10px;
-  overflow-x: auto;
-}
-
-
-/* ===============================
-   Course – Full Screen Video
-   =============================== */
-
-.courseHeroFull {
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  background: transparent;
-  padding: 32px 48px 24px;
-}
-
-.courseHeroInner {
-  display: grid;
-  grid-template-columns: minmax(0, 7fr) minmax(280px, 3fr);
-  gap: 32px;
-  align-items: start;
-}
-
-/* Video */
-.courseVideo iframe {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 9;
-  border-radius: 16px;
-  border: none;
-}
-
-/* Downloads */
-.courseDownloads {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  position: sticky;
-  top: 96px;
-}
-
-/* Mobile fallback */
-@media (max-width: 900px) {
-  .courseHeroInner {
-    grid-template-columns: 1fr;
-  }
-
-  .courseHeroFull {
-    padding: 20px;
-  }
-
-  .courseDownloads {
-    position: static;
-  }
-}
-
-/* =================================
-   Course – 85% width + practice panel
-   ================================= */
-
-.courseHero {
-  width: 85vw;
-  max-width: 1600px;
-  margin: 32px auto 0;
-  display: grid;
-  grid-template-columns: minmax(0, 3fr) minmax(280px, 1.2fr);
-  gap: 32px;
-  align-items: start;
-}
-
-/* 左側影片區 */
-.courseVideo iframe {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  border-radius: 16px;
-  border: none;
-}
-
-/* 下載在影片下方 */
-.courseDownloadsInline {
-  margin-top: 14px;
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-/* 右側例題面板 */
-.coursePracticePanel {
-  height: calc(100vh - 140px);
-  overflow-y: auto;
-  padding-right: 8px;
-}
-
-.coursePracticePanel::-webkit-scrollbar {
-  width: 6px;
-}
-
-.coursePracticePanel::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.2);
-  border-radius: 6px;
-}
-
-/* Practice item */
-.practiceItem {
-  margin-bottom: 10px;
-  border-radius: 10px;
-  background: rgba(255,255,255,0.04);
-}
-
-.practiceSummary {
-  cursor: pointer;
-  padding: 10px 12px;
-  font-weight: 600;
-}
-
-.practiceDetail {
-  padding: 10px 14px 14px;
-}
-
-.practiceAnswer pre {
-  background: rgba(0,0,0,0.35);
-  padding: 10px;
-  border-radius: 8px;
-  margin-top: 6px;
-  overflow-x: auto;
-}
-
-/* Mobile */
-@media (max-width: 900px) {
-  .courseHero {
-    width: 100%;
-    grid-template-columns: 1fr;
-    padding: 0 16px;
-  }
-
-  .coursePracticePanel {
-    height: auto;
-    margin-top: 24px;
-  }
-}
-
-/* =================================
-   Global animated background fix
-   ================================= */
+/* =====================================================
+   Animated background (GLOBAL)
+   ===================================================== */
 
 .bgCanvas {
   position: fixed;
@@ -812,20 +59,251 @@ a { color: inherit; }
   inset: 0;
   z-index: -1;
   pointer-events: none;
+  background: radial-gradient(
+    900px 520px at 50% 0%,
+    transparent,
+    rgba(0,0,0,0.55)
+  );
 }
 
-/* 確保所有頁面內容在背景之上 */
-body {
-  position: relative;
-  z-index: 0;
+/* =====================================================
+   Layout helpers
+   ===================================================== */
+
+.container {
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
 }
 
-/* 避免某些 section 不小心蓋掉背景 */
-.courseHero,
-.coursePage,
-.practiceSection,
-footer,
-header {
-  background: transparent;
+/* =====================================================
+   Topbar
+   ===================================================== */
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(14px);
+  background: rgba(7,10,18,0.62);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
+.topbarInner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+}
+
+.brandText {
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.nav {
+  display: flex;
+  gap: 12px;
+}
+
+/* =====================================================
+   Buttons
+   ===================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.btnPrimary {
+  background: linear-gradient(135deg, var(--accent), #ffb45a);
+  color: #0b1020;
+  border-color: rgba(255,138,31,0.38);
+}
+
+.btnGhost {
+  background: rgba(255,255,255,0.06);
+  color: var(--text);
+}
+
+.btnGhost:hover { background: rgba(255,255,255,0.1); }
+
+.btnFull {
+  width: 100%;
+}
+
+.btnDisabled {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+/* =====================================================
+   HERO (home)
+   ===================================================== */
+
+.hero {
+  padding: 88px 0 64px;
+  text-align: center;
+}
+
+.heroTitle {
+  font-size: 44px;
+  margin-bottom: 12px;
+}
+
+.heroSubtitle {
+  max-width: 720px;
+  margin: 0 auto 24px;
+  line-height: 1.6;
+}
+
+.heroActions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.heroMeta {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.metaCard {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+}
+
+.metaKpi {
+  font-size: 26px;
+  font-weight: 700;
+}
+
+/* =====================================================
+   COURSE PAGE (核心重點)
+   ===================================================== */
+
+.coursePage {
+  margin-top: 24px;
+}
+
+/* --- 85% 寬主區 --- */
+.courseHero {
+  width: 90vw;          /* ← 改這行 */
+  max-width: 1700px;    /* ← 可選：稍微放大上限，影片更爽 */
+  margin: 32px auto 0;
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(280px, 1.2fr);
+  gap: 32px;
+  align-items: start;
+}
+
+/* 左：影片 */
+.courseVideo iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  border: none;
+}
+
+/* 影片下下載 */
+.courseDownloadsInline {
+  margin-top: 16px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* 右：可捲動例題 */
+.coursePracticePanel {
+  height: calc(100vh - 140px);
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.coursePracticePanel::-webkit-scrollbar {
+  width: 6px;
+}
+
+.coursePracticePanel::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.25);
+  border-radius: 6px;
+}
+
+/* 例題 */
+.practiceItem {
+  background: var(--panel2);
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+.practiceSummary {
+  cursor: pointer;
+  padding: 10px 14px;
+  font-weight: 600;
+}
+
+.practiceDetail {
+  padding: 10px 14px 14px;
+}
+
+.practiceAnswer pre {
+  background: rgba(0,0,0,0.35);
+  padding: 10px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin-top: 6px;
+}
+
+/* =====================================================
+   Footer
+   ===================================================== */
+
+.footer {
+  margin-top: 64px;
+  padding: 32px 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.footerInner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mutedSmall {
+  font-size: 13px;
+  color: rgba(238,242,255,0.62);
+}
+
+/* =====================================================
+   Responsive
+   ===================================================== */
+
+@media (max-width: 900px) {
+  .courseHero {
+    width: 100%;
+    grid-template-columns: 1fr;
+    padding: 0 16px;
+  }
+
+  .coursePracticePanel {
+    height: auto;
+    margin-top: 24px;
+  }
+
+  .heroTitle {
+    font-size: 34px;
+  }
+}
