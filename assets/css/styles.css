@@ -1016,3 +1016,410 @@ p{margin: 0 0 10px 0}
 @media (max-width: 680px){
   .videoNav{justify-content: flex-start}
 }
+
+/* ===========================
+   INDEX PAGE MISSING STYLES
+   Paste this AFTER your current CSS
+   =========================== */
+
+/* Generic section head */
+.sectionHead{
+  padding: 22px 0 10px 0;
+}
+.sectionHeadRow{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap: 12px;
+  flex-wrap:wrap;
+}
+.sectionTitle{
+  margin: 0;
+  font-size: 22px;
+  font-weight: 950;
+  letter-spacing: 0.2px;
+}
+.sectionDesc{
+  margin: 8px 0 0 0;
+  color: rgba(255,247,237,0.74);
+  font-weight: 800;
+}
+
+/* Home hero layout (index.html uses heroGrid/Left/Right) */
+.heroGrid{
+  display:grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 16px;
+  align-items:start;
+}
+@media (max-width: 980px){
+  .heroGrid{grid-template-columns: 1fr}
+}
+
+.heroLeft{min-width:0}
+.heroRight{min-width:0}
+
+.heroDesc{
+  margin: 12px 0 0 0;
+  color: rgba(255,247,237,0.78);
+  font-size: 16px;
+  line-height: 1.65;
+  font-weight: 800;
+}
+
+/* KPI cards on home */
+.metaCard{
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  box-shadow: var(--shadow2);
+  padding: 12px 14px;
+  min-width: 140px;
+}
+.metaKpi{
+  font-size: 26px;
+  font-weight: 980;
+  letter-spacing: 0.2px;
+  line-height: 1.1;
+}
+.metaLabel{
+  margin-top: 6px;
+  color: rgba(255,247,237,0.72);
+  font-weight: 850;
+  font-size: 13px;
+}
+
+/* Small info row under KPI */
+.miniInfoRow{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+@media (max-width: 920px){
+  .miniInfoRow{grid-template-columns: 1fr}
+}
+.miniInfo{
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  box-shadow: var(--shadow2);
+  padding: 14px;
+}
+.miniInfoTitle{
+  font-weight: 950;
+  margin-bottom: 6px;
+}
+.miniInfoText{
+  color: rgba(255,247,237,0.78);
+  font-weight: 800;
+  line-height: 1.6;
+}
+
+/* Focus cards (Start here / Continue) */
+.focusCard{
+  border-radius: var(--radiusLg);
+  border: 1px solid rgba(255,255,255,0.12);
+  background:
+    radial-gradient(560px 420px at 20% 20%, rgba(255,211,106,0.12), transparent 60%),
+    radial-gradient(560px 420px at 88% 30%, rgba(255,61,90,0.10), transparent 65%),
+    rgba(255,255,255,0.04);
+  box-shadow: var(--shadow);
+  padding: 16px;
+}
+.focusCard.softFocus{
+  background: rgba(255,255,255,0.04);
+  box-shadow: var(--shadow2);
+}
+
+.focusHead{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.focusBadge{
+  display:inline-flex;
+  align-items:center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,106,0,0.35);
+  background: rgba(255,106,0,0.12);
+  font-weight: 950;
+}
+.focusHint{
+  color: rgba(255,247,237,0.70);
+  font-weight: 850;
+  font-size: 13px;
+}
+
+.focusBody{padding: 6px 0 0 0}
+.focusTitle{
+  font-weight: 980;
+  font-size: 20px;
+  margin: 0 0 8px 0;
+}
+.focusDesc{
+  margin: 0 0 12px 0;
+  color: rgba(255,247,237,0.78);
+  font-weight: 800;
+  line-height: 1.6;
+}
+
+.focusMeta{
+  display:flex;
+  flex-wrap:wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.focusActions{
+  display:flex;
+  flex-wrap:wrap;
+  gap: 10px;
+}
+
+.focusFoot{
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,0.10);
+}
+
+/* Steps grid */
+.stepsGrid{
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  padding-bottom: 6px;
+}
+@media (max-width: 920px){
+  .stepsGrid{grid-template-columns: 1fr}
+}
+
+.stepCard{
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  box-shadow: var(--shadow2);
+  padding: 14px;
+  display:flex;
+  gap: 12px;
+  align-items:flex-start;
+}
+
+.stepIcon{
+  width: 34px;
+  height: 34px;
+  border-radius: 14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: rgba(255,106,0,0.12);
+  border: 1px solid rgba(255,106,0,0.22);
+  font-weight: 980;
+  flex: 0 0 auto;
+}
+
+.stepTitle{
+  font-weight: 980;
+  margin: 0 0 6px 0;
+}
+.stepText{
+  color: rgba(255,247,237,0.78);
+  font-weight: 800;
+  line-height: 1.6;
+}
+
+/* Learning path cards */
+.pathGrid{
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  padding-bottom: 6px;
+}
+@media (max-width: 980px){
+  .pathGrid{grid-template-columns: 1fr}
+}
+
+.pathCard{
+  border-radius: var(--radiusLg);
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  box-shadow: var(--shadow2);
+  padding: 14px;
+  display:flex;
+  flex-direction:column;
+  gap: 12px;
+}
+
+.pathTop{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap: 10px;
+}
+.pathPill{
+  display:inline-flex;
+  align-items:center;
+  padding: 8px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.04);
+  color: rgba(255,247,237,0.80);
+  font-weight: 950;
+  font-size: 12px;
+}
+.pathTitle{
+  font-weight: 980;
+  font-size: 18px;
+}
+
+.pathList{
+  margin: 0;
+  padding-left: 18px;
+  color: rgba(255,247,237,0.82);
+  line-height: 1.75;
+  font-weight: 800;
+  font-size: 13px;
+}
+.pathActions{margin-top:auto}
+
+/* Home course catalog grid uses .grid */
+.grid{
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  padding-bottom: 18px;
+}
+@media (max-width: 1100px){
+  .grid{grid-template-columns: repeat(2, minmax(0, 1fr))}
+}
+@media (max-width: 720px){
+  .grid{grid-template-columns: 1fr}
+}
+
+/* Card internals used by JS for course cards */
+.cardtitle{
+  margin: 0 0 10px 0;
+  font-size: 18px;
+  font-weight: 980;
+  letter-spacing: 0.2px;
+}
+.tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.tag{
+  display:inline-flex;
+  align-items:center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.04);
+  color: rgba(255,247,237,0.78);
+  font-weight: 900;
+  font-size: 12px;
+}
+
+.actions{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 10px;
+  flex-wrap:wrap;
+  margin-top: 12px;
+}
+
+/* Resource quick grid (index uses resourceQuickGrid + resItem + resIcon etc.) */
+.resourceQuickGrid{
+  display:grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  padding-bottom: 6px;
+}
+@media (max-width: 980px){
+  .resourceQuickGrid{grid-template-columns: repeat(2, minmax(0, 1fr))}
+}
+@media (max-width: 520px){
+  .resourceQuickGrid{grid-template-columns: 1fr}
+}
+
+.resItem{
+  display:flex;
+  gap: 12px;
+  align-items:flex-start;
+  text-decoration:none;
+  padding: 14px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  box-shadow: var(--shadow2);
+  transition: transform 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+}
+.resItem:hover{
+  transform: translateY(-1px);
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,211,106,0.18);
+}
+.resIcon{
+  width: 38px;
+  height: 38px;
+  border-radius: 14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: rgba(255,106,0,0.12);
+  border: 1px solid rgba(255,106,0,0.22);
+  color: rgba(255,247,237,0.92);
+  font-weight: 980;
+  flex: 0 0 auto;
+}
+.resMetaTitle{
+  font-weight: 980;
+  margin: 0;
+}
+.resMetaType{
+  margin-top: 4px;
+  color: rgba(255,247,237,0.70);
+  font-weight: 850;
+  font-size: 13px;
+}
+
+/* Split section on index (#about uses .split + .callout + .steps) */
+.split{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding-bottom: 22px;
+}
+@media (max-width: 920px){
+  .split{grid-template-columns: 1fr}
+}
+
+.callout{
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.03);
+  color: rgba(255,247,237,0.82);
+  font-weight: 850;
+  line-height: 1.6;
+}
+
+.steps{
+  margin: 0;
+  padding-left: 18px;
+  color: rgba(255,247,237,0.82);
+  line-height: 1.75;
+  font-weight: 850;
+}
+
+/* Optional: keep sticky header from overlapping anchors */
+:target{
+  scroll-margin-top: 110px;
+}
