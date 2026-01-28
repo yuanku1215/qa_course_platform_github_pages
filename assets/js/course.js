@@ -1,35 +1,31 @@
 // assets/js/course.js
 (function () {
-  const params = new URLSearchParams(window.location.search);
-  const courseId = params.get("course");
-
-  if (!courseId) return;
+  const params = new URLSearchParams(location.search);
+  const id = params.get("course");
+  if (!id) return;
 
   fetch("data/courses.json", { cache: "no-store" })
     .then(r => r.json())
     .then(data => {
-      const course = data.courses.find(c => c.id === courseId);
+      const course = data.courses.find(c => c.id === id);
       if (!course) return;
 
-      // ===== 影片 =====
-      const video = document.getElementById("courseVideo");
+      /* ===== Video ===== */
+      const iframe = document.getElementById("courseVideo");
       if (course.video) {
-        video.src = course.video;
+        iframe.src = course.video;
       } else {
-        video.replaceWith(createPlaceholder("Video not available"));
+        iframe.replaceWith(makePlaceholder("Video not available"));
       }
 
-      // ===== 下載 =====
-      bindDownload("dlSlides", course.downloads?.slides);
-      bindDownload("dlPDF", course.downloads?.pdf);
-      bindDownload("dlPodcast", course.downloads?.podcast);
+      /* ===== Downloads ===== */
+      bindLink("dlSlides", course.downloads?.slides);
+      bindLink("dlPDF", course.downloads?.pdf);
+      bindLink("dlPodcast", course.downloads?.podcast);
 
-      // ===== 例題 =====
-      const practiceWrap = document.getElementById("practice");
-      if (!Array.isArray(course.practice) || !course.practice.length) {
-        practiceWrap.innerHTML = `<p class="muted">No practice problems available.</p>`;
-        return;
-      }
+      /* ===== Practice ===== */
+      const practice = document.getElementById("practice");
+      if (!Array.isArray(course.practice)) return;
 
       course.practice.forEach((p, i) => {
         const item = document.createElement("article");
@@ -52,19 +48,19 @@
         const btn = item.querySelector("button");
         const sol = item.querySelector(".practiceSolution");
 
-        btn.addEventListener("click", () => {
+        btn.onclick = () => {
           const open = !sol.hasAttribute("hidden");
           sol.toggleAttribute("hidden");
           btn.textContent = open ? "View solution" : "Hide solution";
-        });
+        };
 
-        practiceWrap.appendChild(item);
+        practice.appendChild(item);
       });
     });
 
-  // ===== helpers =====
+  /* ===== helpers ===== */
 
-  function bindDownload(id, url) {
+  function bindLink(id, url) {
     const el = document.getElementById(id);
     if (!el) return;
 
@@ -72,12 +68,11 @@
       el.href = url;
     } else {
       el.classList.add("btnDisabled");
-      el.removeAttribute("href");
       el.textContent += " (N/A)";
     }
   }
 
-  function createPlaceholder(text) {
+  function makePlaceholder(text) {
     const div = document.createElement("div");
     div.className = "videoPlaceholder";
     div.textContent = text;
