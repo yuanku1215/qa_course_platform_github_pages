@@ -18,9 +18,11 @@
     <div class="container topbarInner">
       <span class="brandText">Quantum Annealing</span>
 
-      <nav class="nav">
+      <nav class="nav" aria-label="Primary navigation">
         <a class="btn btnGhost" href="lessons.html">Lessons</a>
-        <a class="btn btnGhost" href="https://github.com/" target="_blank">GitHub</a>
+        <a class="btn btnGhost" href="https://github.com/" target="_blank" rel="noopener">
+          GitHub
+        </a>
       </nav>
     </div>
   </header>
@@ -29,7 +31,7 @@
   <main>
 
     <!-- HERO -->
-    <section class="hero heroFull">
+    <section class="hero heroFull" aria-label="Hero">
       <div class="container heroInner">
 
         <!-- Badge -->
@@ -55,7 +57,7 @@
         </div>
 
         <!-- KPI -->
-        <div class="heroMeta">
+        <div class="heroMeta" aria-label="Key metrics">
           <div class="card metaCard">
             <div class="metaKpi" id="kpiCourses">—</div>
             <div class="mutedTiny">Courses</div>
@@ -74,7 +76,7 @@
     </section>
 
     <!-- CONTINUE (optional, auto hide) -->
-    <section class="container" id="continueSection" style="display:none;">
+    <section class="container" id="continueSection" style="display:none;" aria-label="Continue learning">
       <article class="focusCard softFocus">
         <div class="focusBadge" style="background: var(--accent2);">
           Continue learning
@@ -87,7 +89,7 @@
 
         <div class="btnRow">
           <a class="btn btnPrimary" id="continueBtn" href="#">Resume</a>
-          <button class="btn btnGhost" id="clearProgressBtn">
+          <button class="btn btnGhost" id="clearProgressBtn" type="button">
             Clear
           </button>
         </div>
@@ -106,7 +108,9 @@
     </div>
   </footer>
 
-  <!-- Script -->
+  <!-- Scripts -->
+  <!-- ⚠️ 順序很重要：background 先、home 後 -->
+  <script src="assets/js/background.js"></script>
   <script src="assets/js/home.js"></script>
 </body>
 </html>
