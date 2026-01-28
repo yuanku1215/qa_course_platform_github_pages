@@ -19,7 +19,8 @@
 
   --radius: 18px;
   --radiusLg: 24px;
-  --maxw: 1120px;
+  /* Wider layout so the page feels more “full screen” on large displays */
+  --maxw: 1360px;
 
   --focus: rgba(255, 211, 106, 0.55);
 }
@@ -624,7 +625,7 @@ p{margin: 0 0 10px 0}
   font-size: 13px;
 }
 
-/* 你說 audio 那邊附註要英文：加一個「英文註記」用這個 class */
+/* Optional small note under a download item (use for the Audio card, etc.) */
 .downloadNote{
   margin-top: 6px;
   color: rgba(255,247,237,0.68);
@@ -632,9 +633,7 @@ p{margin: 0 0 10px 0}
   font-size: 12px;
   line-height: 1.55;
 }
-/* 建議你把中文註記改成英文，例如：
-   “LLM-generated podcast outline audio”
-*/
+
 
 .downloadCta{
   font-weight: 950;
@@ -856,7 +855,7 @@ p{margin: 0 0 10px 0}
   line-height: 1.55;
 }
 
-/* Course number list (你截圖那個 101 102 201...) */
+/* Course number list (e.g., 101, 102, 201, 202...) */
 .courseNumList{
   display:flex;
   flex-direction:column;
@@ -883,6 +882,11 @@ p{margin: 0 0 10px 0}
   transform: translateY(-1px);
   background: rgba(255,255,255,0.06);
   border-color: rgba(255,211,106,0.18);
+}
+
+.courseNumItemActive{
+  border-color: rgba(255,106,0,0.38);
+  background: rgba(255,106,0,0.12);
 }
 
 .courseNumLeft{

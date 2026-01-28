@@ -165,6 +165,7 @@
               <div class="downloadText">
                 <div class="downloadTitle">Audio Summary</div>
                 <div class="downloadMeta">course101_podcast.mp3</div>
+                <div class="downloadNote">LLM generated outline as a podcast style recap</div>
               </div>
               <div class="downloadCta" aria-hidden="true">Download</div>
             </a>
@@ -290,6 +291,40 @@
 
       <!-- RIGHT: Sticky sidebar -->
       <aside class="courseSide" aria-label="Course sidebar">
+        <section class="sideCard" aria-label="Course list">
+          <div class="sideTitle">Courses</div>
+          <div class="courseNumList">
+            <a class="courseNumItem" data-course="101" href="./course.html?course=101">
+              <span class="courseNumLeft"><span class="courseNumDot" aria-hidden="true"></span><span class="courseNumCode">101</span></span>
+              <span class="mutedTiny">Now</span>
+            </a>
+            <a class="courseNumItem" data-course="102" href="./course.html?course=102">
+              <span class="courseNumLeft"><span class="courseNumDot" aria-hidden="true"></span><span class="courseNumCode">102</span></span>
+              <span class="mutedTiny">Next</span>
+            </a>
+            <a class="courseNumItem" data-course="201" href="./course.html?course=201">
+              <span class="courseNumLeft"><span class="courseNumDot" aria-hidden="true"></span><span class="courseNumCode">201</span></span>
+              <span class="mutedTiny">Soon</span>
+            </a>
+            <a class="courseNumItem" data-course="202" href="./course.html?course=202">
+              <span class="courseNumLeft"><span class="courseNumDot" aria-hidden="true"></span><span class="courseNumCode">202</span></span>
+              <span class="mutedTiny">Soon</span>
+            </a>
+            <a class="courseNumItem" data-course="301" href="./course.html?course=301">
+              <span class="courseNumLeft"><span class="courseNumDot" aria-hidden="true"></span><span class="courseNumCode">301</span></span>
+              <span class="mutedTiny">Soon</span>
+            </a>
+            <a class="courseNumItem" data-course="302" href="./course.html?course=302">
+              <span class="courseNumLeft"><span class="courseNumDot" aria-hidden="true"></span><span class="courseNumCode">302</span></span>
+              <span class="mutedTiny">Soon</span>
+            </a>
+            <a class="courseNumItem" data-course="303" href="./course.html?course=303">
+              <span class="courseNumLeft"><span class="courseNumDot" aria-hidden="true"></span><span class="courseNumCode">303</span></span>
+              <span class="mutedTiny">Soon</span>
+            </a>
+          </div>
+        </section>
+
         <section class="sideCard">
           <div class="sideTitle">On this page</div>
           <nav class="sideNav" aria-label="Page sections">
@@ -340,6 +375,19 @@
     if (window.App && typeof window.App.renderCourse === "function") {
       window.App.renderCourse();
     }
+
+    // Highlight current course number in the sidebar.
+    (function () {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const current = params.get("course") || "101";
+        document.querySelectorAll(".courseNumItem[data-course]").forEach(function (a) {
+          a.classList.toggle("courseNumItemActive", a.getAttribute("data-course") === current);
+        });
+      } catch (e) {
+        // no-op
+      }
+    })();
 
     // Optional: simple local progress hook for the "Mark watched" button.
     // You can replace this with your own progress logic in app.js.
