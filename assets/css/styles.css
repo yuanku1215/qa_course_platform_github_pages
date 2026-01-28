@@ -462,3 +462,49 @@ a { color: inherit; }
   .topbarSub { flex-direction: column; align-items: stretch; }
   .chipRow { justify-content: flex-start; }
 }
+/* ===============================
+   Courses overview (Home)
+   =============================== */
+
+.courseOverview {
+  margin-top: 64px;
+  margin-bottom: 80px;
+}
+
+.sectionTitle {
+  font-size: 1.6rem;
+  margin-bottom: 24px;
+}
+
+.courseIndexList {
+  display: grid;
+  gap: 14px;
+}
+
+.courseIndexItem {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  align-items: center;
+  padding: 16px 18px;
+  border-radius: 14px;
+  text-decoration: none;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.courseIndexItem:hover {
+  background: rgba(255,255,255,0.08);
+  transform: translateY(-1px);
+}
+
+.courseIndexCode {
+  font-weight: 600;
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.courseIndexTitle {
+  font-size: 1rem;
+  line-height: 1.4;
+}
