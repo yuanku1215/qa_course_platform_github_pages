@@ -1,309 +1,194 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Course 101 | Quantum Annealing</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Course 101 | Quantum Annealing</title>
+  <meta name="description" content="Course 101: Ising model and QUBO formulation." />
 
-<style>
-:root {
-  --bg: #0b1020;
-  --panel: #111833;
-  --card: #161f44;
-  --text: #e5e7eb;
-  --muted: #9ca3af;
-  --accent: #60a5fa;
-  --border: rgba(255,255,255,0.08);
-}
-
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: radial-gradient(1200px 600px at 20% -10%, #1a245a, transparent),
-              radial-gradient(800px 500px at 90% 10%, #0f3460, transparent),
-              var(--bg);
-  color: var(--text);
-}
-
-/* Layout */
-.page {
-  min-height: 100vh;
-  padding: 24px 32px 64px;
-}
-
-/* Top section */
-.heroGrid {
-  display: grid;
-  grid-template-columns: minmax(0, 3fr) minmax(260px, 1fr);
-  gap: 24px;
-  align-items: stretch;
-}
-
-/* Video */
-.videoWrap {
-  background: var(--panel);
-  border-radius: 18px;
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-}
-
-.videoFrame {
-  position: relative;
-  width: 100%;
-  padding-top: 56.25%;
-  border-radius: 14px;
-  overflow: hidden;
-}
-
-.videoFrame iframe {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
-}
-
-/* Downloads */
-.downloadBox {
-  background: var(--panel);
-  border-radius: 18px;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.downloadTitle {
-  font-weight: 600;
-  font-size: 15px;
-}
-
-.downloadItem {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 12px;
-  border-radius: 12px;
-  background: var(--card);
-  text-decoration: none;
-  color: var(--text);
-  border: 1px solid var(--border);
-  font-size: 14px;
-}
-
-.downloadItem:hover {
-  border-color: var(--accent);
-}
-
-/* Practice */
-.practiceSection {
-  margin-top: 48px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.practiceTitle {
-  font-size: 22px;
-  font-weight: 600;
-}
-
-/* Each problem */
-.problem {
-  background: var(--panel);
-  border-radius: 18px;
-  border: 1px solid var(--border);
-  overflow: hidden;
-}
-
-.problemHeader {
-  padding: 16px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-}
-
-.problemHeader:hover {
-  background: rgba(255,255,255,0.03);
-}
-
-.problemIndex {
-  font-weight: 600;
-  color: var(--accent);
-}
-
-.problemToggle {
-  font-size: 13px;
-  color: var(--muted);
-}
-
-/* Body */
-.problemBody {
-  display: none;
-  padding: 20px;
-  border-top: 1px solid var(--border);
-}
-
-.problemGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-.block {
-  background: var(--card);
-  border-radius: 14px;
-  padding: 16px;
-  border: 1px solid var(--border);
-}
-
-.blockTitle {
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--muted);
-  margin-bottom: 8px;
-}
-
-.math {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  background: rgba(0,0,0,0.35);
-  padding: 10px;
-  border-radius: 10px;
-  margin-top: 8px;
-}
-
-/* Open state */
-.problem.open .problemBody {
-  display: block;
-}
-
-/* Responsive */
-@media (max-width: 900px) {
-  .heroGrid {
-    grid-template-columns: 1fr;
-  }
-  .problemGrid {
-    grid-template-columns: 1fr;
-  }
-}
-</style>
+  <!-- 共用母風格 -->
+  <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 
 <body>
-<div class="page">
+  <a class="skipLink" href="#main">Skip to content</a>
 
-  <!-- TOP -->
-  <section class="heroGrid">
-    <div class="videoWrap">
-      <div class="videoFrame">
-        <iframe
-          src="https://www.youtube.com/embed/VIDEO_ID"
-          allowfullscreen
-          loading="lazy">
-        </iframe>
-      </div>
+  <canvas id="bgCanvas" class="bgCanvas" aria-hidden="true"></canvas>
+  <div class="bgVignette" aria-hidden="true"></div>
+
+  <!-- Header -->
+  <header class="topbar">
+    <div class="container topbarInner">
+      <a class="brand" href="./index.html">
+        <span class="brandMark"></span>
+        <span class="brandText">Quantum Annealing</span>
+      </a>
+
+      <nav class="nav">
+        <a class="navlink" href="./index.html#courses">Courses</a>
+        <a class="navlink navlinkStrong" href="https://github.com/" target="_blank">GitHub</a>
+      </nav>
     </div>
+  </header>
 
-    <aside class="downloadBox">
-      <div class="downloadTitle">Downloads</div>
+  <!-- ================= Main ================= -->
+  <main class="container" id="main">
 
-      <a class="downloadItem" href="#">
-        <span>Keynote</span>
-        <span>⌘</span>
-      </a>
+    <!-- ================= Hero / Video ================= -->
+    <section class="heroGrid">
 
-      <a class="downloadItem" href="#">
-        <span>PDF</span>
-        <span>PDF</span>
-      </a>
+      <!-- Left: Video -->
+      <div class="focusCard">
+        <div class="focusBadge">Course 101</div>
 
-      <a class="downloadItem" href="#">
-        <span>Podcast（中文）</span>
-        <span>♪</span>
-      </a>
-    </aside>
-  </section>
+        <h1 class="heroTitle" style="margin-top:12px;">
+          Ising Model and QUBO Formulation
+        </h1>
 
-  <!-- PRACTICE -->
-  <section class="practiceSection">
-    <div class="practiceTitle">Practice</div>
+        <p class="heroSubtitle muted">
+          Learn how optimization problems are represented using Ising Hamiltonians
+          and QUBO models, and how these formulations connect to quantum annealing.
+        </p>
 
-    <!-- Problem 1 -->
-    <div class="problem">
-      <div class="problemHeader">
-        <div class="problemIndex">Problem 1 · Variables</div>
-        <div class="problemToggle">Show solution</div>
-      </div>
-
-      <div class="problemBody">
-        <div class="problemGrid">
-          <div class="block">
-            <div class="blockTitle">Question</div>
-            A system has an on off switch y and a production level x.
-            If off, x = 0. If on, x ∈ [10, 50].
-          </div>
-
-          <div class="block">
-            <div class="blockTitle">Answer</div>
-            <div class="math">
-              y ∈ {0,1}<br>
-              10y ≤ x ≤ 50y
-            </div>
-
-            <div class="blockTitle" style="margin-top:12px;">Explanation</div>
-            Binary y activates the feasible range of x.
-            When y = 0, x is forced to zero.
-          </div>
+        <div class="videoFrame" style="margin-top:14px;">
+          <iframe
+            src="https://www.youtube.com/embed/VIDEO_ID"
+            allowfullscreen
+            loading="lazy">
+          </iframe>
         </div>
       </div>
-    </div>
 
-    <!-- Problem 2 -->
-    <div class="problem">
-      <div class="problemHeader">
-        <div class="problemIndex">Problem 2 · Constraints</div>
-        <div class="problemToggle">Show solution</div>
-      </div>
+      <!-- Right: Downloads -->
+      <aside class="focusCard softFocus">
+        <div class="focusBadge">Downloads</div>
 
-      <div class="problemBody">
-        <div class="problemGrid">
-          <div class="block">
-            <div class="blockTitle">Question</div>
-            Choose exactly one transportation mode.
-          </div>
-
-          <div class="block">
-            <div class="blockTitle">Answer</div>
-            <div class="math">
-              x₁ + x₂ = 1<br>
-              x₁, x₂ ∈ {0,1}
-            </div>
-
-            <div class="blockTitle" style="margin-top:12px;">Explanation</div>
-            Exactly one choice is modeled by a sum equality.
-          </div>
+        <div class="pillRow" style="margin-top:12px;">
+          <a class="btn btnGhost btnSmall" href="#">
+            ⌘ Keynote
+          </a>
+          <a class="btn btnGhost btnSmall" href="#">
+            PDF
+          </a>
+          <a class="btn btnGhost btnSmall" href="#">
+            ♪ Podcast（中文）
+          </a>
         </div>
-      </div>
+
+        <p class="mutedTiny" style="margin-top:12px;">
+          Slides and audio recap for offline review.
+        </p>
+      </aside>
+
+    </section>
+
+    <!-- ================= Practice ================= -->
+    <section class="sectionHead" style="margin-top:28px;">
+      <h2 class="sectionTitle">Practice</h2>
+      <p class="sectionDesc">
+        Try each problem first. Open the solution only after you have an idea.
+      </p>
+    </section>
+
+    <!-- Practice list -->
+    <section class="grid" style="grid-template-columns:1fr;">
+
+      <!-- Problem 1 -->
+      <article class="card softFocus practiceItem">
+        <div class="practiceHeader">
+          <div class="pill">Problem 1</div>
+          <div class="mutedTiny">Variables</div>
+        </div>
+
+        <p class="courseDesc">
+          A system has a binary switch y and a production level x.
+          If the system is off, production is zero.
+          If it is on, production must be between 10 and 50.
+        </p>
+
+        <div class="btnRow">
+          <button class="btn btnGhost btnSmall toggleBtn">
+            View solution
+          </button>
+        </div>
+
+        <div class="solutionBlock">
+          <div class="pillRow">
+            <span class="pill">Answer</span>
+          </div>
+
+          <pre class="mathBlock">
+y ∈ {0,1}
+10y ≤ x ≤ 50y
+          </pre>
+
+          <p class="muted">
+            The binary variable activates the feasible range of x.
+            When y = 0, x is forced to zero automatically.
+          </p>
+        </div>
+      </article>
+
+      <!-- Problem 2 -->
+      <article class="card softFocus practiceItem">
+        <div class="practiceHeader">
+          <div class="pill">Problem 2</div>
+          <div class="mutedTiny">Constraints</div>
+        </div>
+
+        <p class="courseDesc">
+          A commuter must choose exactly one transportation mode:
+          public transit or driving.
+        </p>
+
+        <div class="btnRow">
+          <button class="btn btnGhost btnSmall toggleBtn">
+            View solution
+          </button>
+        </div>
+
+        <div class="solutionBlock">
+          <pre class="mathBlock">
+x₁ + x₂ = 1
+x₁, x₂ ∈ {0,1}
+          </pre>
+
+          <p class="muted">
+            Exactly one choice is enforced by an equality constraint.
+          </p>
+        </div>
+      </article>
+
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footerInner">
+      <span class="mutedSmall">
+        Quantum Annealing Learning Hub
+      </span>
+      <a class="btn btnGhost" href="./index.html#courses">Back to courses</a>
     </div>
+  </footer>
 
-  </section>
+  <!-- ================= Script ================= -->
+  <script src="assets/js/app.js"></script>
+  <script>
+    window.App.initBackground();
 
-</div>
+    document.querySelectorAll(".practiceItem").forEach(item => {
+      const btn = item.querySelector(".toggleBtn");
+      const sol = item.querySelector(".solutionBlock");
+      sol.style.display = "none";
 
-<script>
-document.querySelectorAll(".problemHeader").forEach(h => {
-  h.addEventListener("click", () => {
-    const p = h.parentElement;
-    p.classList.toggle("open");
-    h.querySelector(".problemToggle").textContent =
-      p.classList.contains("open") ? "Hide solution" : "Show solution";
-  });
-});
-</script>
+      btn.addEventListener("click", () => {
+        const open = sol.style.display === "block";
+        sol.style.display = open ? "none" : "block";
+        btn.textContent = open ? "View solution" : "Collapse";
+      });
+    });
+  </script>
+
 </body>
 </html>
