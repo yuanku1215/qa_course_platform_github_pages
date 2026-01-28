@@ -586,3 +586,56 @@ a { color: inherit; }
   border-radius: 10px;
   overflow-x: auto;
 }
+
+
+/* ===============================
+   Course – Full Screen Video
+   =============================== */
+
+.courseHeroFull {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  background: transparent;
+  padding: 32px 48px 24px;
+}
+
+.courseHeroInner {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(280px, 3fr);
+  gap: 32px;
+  align-items: start;
+}
+
+/* Video */
+.courseVideo iframe {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  border: none;
+}
+
+/* Downloads */
+.courseDownloads {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: sticky;
+  top: 96px;
+}
+
+/* Mobile fallback */
+@media (max-width: 900px) {
+  .courseHeroInner {
+    grid-template-columns: 1fr;
+  }
+
+  .courseHeroFull {
+    padding: 20px;
+  }
+
+  .courseDownloads {
+    position: static;
+  }
+}
+
