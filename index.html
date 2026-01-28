@@ -4,132 +4,29 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Quantum Annealing | Learning Hub</title>
-  <meta name="description" content="Learn Quantum Annealing and QUBO modeling through structured courses and practical examples." />
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
-
-<body id="top">
-  <a class="skipLink" href="#main">Skip to content</a>
-
-  <canvas id="bgCanvas" class="bgCanvas" aria-hidden="true"></canvas>
-  <div class="bgVignette" aria-hidden="true"></div>
+<body>
+  <canvas id="bgCanvas" class="bgCanvas"></canvas>
+  <div class="bgVignette"></div>
 
   <header class="topbar">
     <div class="container topbarInner">
-      <a class="brand" href="./index.html" aria-label="Go to home">
-        <span class="brandMark" aria-hidden="true"></span>
-        <span class="brandText">Quantum Annealing</span>
-      </a>
-
-      <nav class="nav" aria-label="Primary navigation">
-        <a class="navlink" href="#courses">Courses</a>
-        <a class="navlink navlinkStrong" href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
-      </nav>
-    </div>
-
-    <div class="container topbarSub">
-      <div class="searchWrap" role="search">
-        <input
-          id="searchInput"
-          class="searchInput"
-          type="search"
-          placeholder="Search courses, topics, or tags…"
-          autocomplete="off"
-        />
-        <button id="clearBtn" class="iconBtn" type="button" aria-label="Clear search">✕</button>
-      </div>
-      <div class="chipRow" id="tagChips"></div>
+      <span class="brandText">Quantum Annealing</span>
+      <a class="btn btnGhost" href="lessons.html">View lessons</a>
     </div>
   </header>
 
-  <main class="container" id="main">
-
-    <section class="heroGrid">
-      <div class="heroLeft">
-        <div class="focusBadge">GitHub Pages Learning Hub</div>
-
-        <h1 class="heroTitle">Learn Quantum Annealing</h1>
-
-        <p class="heroSubtitle muted">
-          Build intuition, master QUBO modeling, and apply quantum inspired optimization
-          to routing and scheduling problems.
-        </p>
-
-        <div class="heroMeta">
-          <div class="card metaCard">
-            <div class="metaKpi" id="kpiCourses">0</div>
-            <div class="mutedTiny">Courses</div>
-          </div>
-          <div class="card metaCard">
-            <div class="metaKpi" id="kpiLessons">0</div>
-            <div class="mutedTiny">Lessons</div>
-          </div>
-          <div class="card metaCard">
-            <div class="metaKpi" id="kpiMinutes">0</div>
-            <div class="mutedTiny">Minutes</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="heroRight">
-        <article class="focusCard" id="startCard">
-          <div class="focusBadge">Start Here</div>
-          <h2 id="startTitle">Loading…</h2>
-          <p class="muted" id="startDesc">Fetching course recommendations…</p>
-
-          <div class="focusMeta">
-            <span class="badge" id="startMetaA">Lesson</span>
-            <span class="badge" id="startMetaB">Time</span>
-          </div>
-
-          <div class="btnRow">
-            <a id="startBtn" class="btn btnPrimary" href="#">Start Lesson</a>
-            <a id="startCourseBtn" class="btn btnGhost" href="#">Open Course</a>
-          </div>
-        </article>
-      </div>
+  <main class="container">
+    <section class="hero">
+      <h1 class="heroTitle">Learn Quantum Annealing</h1>
+      <p class="heroSubtitle">
+        From Ising and QUBO modeling to routing and scheduling applications.
+      </p>
+      <a class="btn btnPrimary" href="lessons.html">Start learning</a>
     </section>
-
-    <section class="sectionHead" id="courses">
-      <div class="videoTopRow">
-        <h2 class="sectionTitle">Course Catalog</h2>
-
-        <div class="courseControls">
-          <select id="sortSelect" class="selectGhost" aria-label="Sort courses">
-            <option value="recommended">Recommended</option>
-            <option value="title">Title</option>
-            <option value="lessons">Lesson Count</option>
-          </select>
-          <span id="resultCount" class="mutedTiny">0 results</span>
-        </div>
-      </div>
-    </section>
-
-    <section id="courseGrid" class="grid"></section>
-
-    <section class="card softFocus" id="resources">
-      <h2 class="cardHeading">Quick Resources</h2>
-      <div class="grid resourceGrid">
-        <a class="btn btnGhost" href="data/courses.json" target="_blank" rel="noopener">Course Data JSON</a>
-        <a class="btn btnGhost" href="https://github.com/" target="_blank" rel="noopener">Source Code</a>
-      </div>
-    </section>
-
   </main>
 
-  <footer class="footer">
-    <div class="container footerInner">
-      <span class="mutedSmall">Quantum Annealing Learning Hub</span>
-      <a class="btn btnGhost" href="#top">Back to top</a>
-    </div>
-  </footer>
-
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
-
-  <script src="assets/js/app.js"></script>
-  <script>
-    window.App.initBackground();
-    window.App.renderHome();
-  </script>
+  <script src="assets/js/home.js"></script>
 </body>
 </html>
