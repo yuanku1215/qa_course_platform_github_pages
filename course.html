@@ -8,9 +8,11 @@
 </head>
 
 <body id="top">
+  <!-- Background -->
   <canvas id="bgCanvas" class="bgCanvas" aria-hidden="true"></canvas>
   <div class="bgVignette" aria-hidden="true"></div>
 
+  <!-- Header -->
   <header class="topbar">
     <div class="container topbarInner">
       <a href="lessons.html" class="btn btnGhost">← Lessons</a>
@@ -20,30 +22,36 @@
 
   <main class="coursePage">
 
-    <!-- 上半部：影片 + 下載 -->
+    <!-- 上半部：影片 + 右側例題 -->
     <section class="courseHero">
-      <div class="courseVideo">
-        <iframe
-          id="courseVideo"
-          title="Course video"
-          loading="lazy"
-          allowfullscreen>
-        </iframe>
+
+      <!-- 左：影片 + 下載 -->
+      <div class="courseVideoWrap">
+        <div class="courseVideo">
+          <iframe
+            id="courseVideo"
+            title="Course video"
+            loading="lazy"
+            allowfullscreen>
+          </iframe>
+        </div>
+
+        <!-- 下載改到影片下面 -->
+        <div class="courseDownloadsInline">
+          <a class="btn btnGhost" id="dlSlides" target="_blank">Keynote</a>
+          <a class="btn btnGhost" id="dlPDF" target="_blank">PDF</a>
+          <a class="btn btnGhost" id="dlPodcast" target="_blank">
+            Podcast (Chinese)
+          </a>
+        </div>
       </div>
 
-      <aside class="courseDownloads">
-        <h3 class="cardHeading">Downloads</h3>
-        <a class="btn btnGhost btnFull" id="dlSlides" target="_blank">Keynote</a>
-        <a class="btn btnGhost btnFull" id="dlPDF" target="_blank">PDF</a>
-        <a class="btn btnGhost btnFull" id="dlPodcast" target="_blank">
-          Podcast (Chinese)
-        </a>
+      <!-- 右：可捲動例題 -->
+      <aside class="coursePracticePanel">
+        <h3 class="cardHeading">Practice</h3>
+        <div id="practice"></div>
       </aside>
-    </section>
 
-    <!-- 下半部：例題 -->
-    <section class="container practiceSection" id="practice">
-      <h2 class="sectionTitle">Practice & Explanation</h2>
     </section>
 
   </main>
@@ -55,7 +63,7 @@
     </div>
   </footer>
 
-  <!-- Scripts -->
+  <!-- Scripts：背景一定先 -->
   <script src="assets/js/background.js"></script>
   <script src="assets/js/course.js"></script>
 </body>
