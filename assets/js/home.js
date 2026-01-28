@@ -2,82 +2,7 @@
 (function () {
 
   /* ======================================================
-   *  Dynamic background (canvas)
-   *  ====================================================== */
-
-  function initBackground() {
-    const canvas = document.getElementById("bgCanvas");
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-    let width, height, dpr;
-    let particles = [];
-
-    function resize() {
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
-      width = window.innerWidth;
-      height = window.innerHeight;
-
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      canvas.style.width = width + "px";
-      canvas.style.height = height + "px";
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    }
-
-    function createParticles() {
-      const count = Math.floor((width * height) / 18000);
-      particles = [];
-
-      for (let i = 0; i < count; i++) {
-        particles.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          r: 0.6 + Math.random() * 1.4,
-          vx: -0.15 + Math.random() * 0.3,
-          vy: 0.05 + Math.random() * 0.25,
-          a: 0.15 + Math.random() * 0.45
-        });
-      }
-    }
-
-    function draw() {
-      ctx.clearRect(0, 0, width, height);
-
-      for (const p of particles) {
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if (p.y > height + 20) {
-          p.y = -10;
-          p.x = Math.random() * width;
-        }
-        if (p.x > width + 20) p.x = -10;
-        if (p.x < -20) p.x = width + 10;
-
-        ctx.globalAlpha = p.a;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(255,255,255,0.9)";
-        ctx.fill();
-      }
-
-      ctx.globalAlpha = 1;
-      requestAnimationFrame(draw);
-    }
-
-    resize();
-    createParticles();
-    draw();
-
-    window.addEventListener("resize", () => {
-      resize();
-      createParticles();
-    });
-  }
-
-  /* ======================================================
-   *  Home page logic
+   *  Home page only logic
    *  ====================================================== */
 
   const DATA_URL = "data/courses.json";
@@ -87,10 +12,13 @@
     return document.getElementById(id);
   }
 
-  // Init background
-  initBackground();
+  /* ---------- Background ---------- */
+  // Use shared background implementation
+  if (window.Background && typeof window.Background.initBackground === "function") {
+    window.Background.initBackground();
+  }
 
-  // KPI loading
+  /* ---------- KPI loading ---------- */
   fetch(DATA_URL)
     .then(r => r.json())
     .then(data => {
@@ -99,13 +27,13 @@
       let minuteCount = 0;
 
       courses.forEach(c => {
-        lessonCount += c.lessons ? c.lessons.length : 0;
-        minuteCount += c.minutes || 0;
+        lessonCount += Array.isArray(c.lessons) ? c.lessons.length : 0;
+        minuteCount += Number(c.minutes) || 0;
       });
 
-      if ($("kpiCourses")) $("kpiCourses").textContent = courses.length;
-      if ($("kpiLessons")) $("kpiLessons").textContent = lessonCount;
-      if ($("kpiMinutes")) $("kpiMinutes").textContent = minuteCount;
+      if ($("kpiCourses")) $("kpiCourses").textContent = String(courses.length);
+      if ($("kpiLessons")) $("kpiLessons").textContent = String(lessonCount);
+      if ($("kpiMinutes")) $("kpiMinutes").textContent = String(minuteCount);
     })
     .catch(() => {
       if ($("kpiCourses")) $("kpiCourses").textContent = "—";
@@ -113,7 +41,7 @@
       if ($("kpiMinutes")) $("kpiMinutes").textContent = "—";
     });
 
-  // Continue learning
+  /* ---------- Continue learning ---------- */
   try {
     const raw = localStorage.getItem(PROGRESS_KEY);
     if (!raw) return;
@@ -129,19 +57,34 @@
 
     if (!latest) return;
 
-    $("continueSection").style.display = "block";
-    $("continueTitle").textContent =
-      latest.lesson_title || `Course ${latest.course_id}`;
-    $("continueDesc").textContent =
-      `Resume your progress in course ${latest.course_id}.`;
-    $("continueBtn").href = latest.resume_url || "lessons.html";
+    const section = $("continueSection");
+    if (!section) return;
 
-    $("clearProgressBtn").onclick = () => {
-      localStorage.removeItem(PROGRESS_KEY);
-      $("continueSection").style.display = "none";
-    };
+    section.style.display = "";
+
+    if ($("continueTitle")) {
+      $("continueTitle").textContent =
+        latest.lesson_title || `Course ${latest.course_id}`;
+    }
+
+    if ($("continueDesc")) {
+      $("continueDesc").textContent =
+        `Resume your progress in course ${latest.course_id}.`;
+    }
+
+    if ($("continueBtn")) {
+      $("continueBtn").href = latest.resume_url || "lessons.html";
+    }
+
+    if ($("clearProgressBtn")) {
+      $("clearProgressBtn").onclick = () => {
+        localStorage.removeItem(PROGRESS_KEY);
+        section.style.display = "none";
+      };
+    }
+
   } catch {
-    // silent
+    // silent fail, homepage should never break
   }
 
 })();
