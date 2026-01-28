@@ -98,7 +98,6 @@
     const v2 = readJSON(STORAGE_PROGRESS);
     if (v2) return v2;
 
-    // Migrate legacy last visited only
     const legacy = readJSON('qa_course_progress');
     if (legacy && legacy.courseId && legacy.lessonId) {
       const migrated = {
@@ -210,7 +209,6 @@
     if (State.sort === 'lessons') return (b.lessons || []).length - (a.lessons || []).length;
     if (State.sort === 'minutes') return courseMinutes(b) - courseMinutes(a);
 
-    // Recommended: prefer courses with incomplete progress, then title
     const aDone = courseCompletedCount(a);
     const bDone = courseCompletedCount(b);
     const aTotal = (a.lessons || []).length || 1;
@@ -218,7 +216,6 @@
     const aRatio = aDone / aTotal;
     const bRatio = bDone / bTotal;
 
-    // Lower completion ratio first, so users see unfinished courses earlier
     if (aRatio !== bRatio) return aRatio - bRatio;
     return String(a.title || '').localeCompare(String(b.title || ''));
   }
@@ -266,25 +263,33 @@
     `).join('');
   }
 
+  function renderEmptyState() {
+    const grid = document.getElementById('courseGrid');
+    if (!grid) return;
+    grid.innerHTML = `
+      <div class="card">
+        <div class="cardHeadRow">
+          <h2 class="cardHeading">No results</h2>
+        </div>
+        <p class="heroLead">Try clearing the search or switching tag filters.</p>
+        <div class="heroActions" style="margin-top:12px">
+          <a class="btn btnGhost" href="./index.html#courses">Reset</a>
+        </div>
+      </div>
+    `;
+  }
+
   function renderHomeCards(courses) {
     const grid = document.getElementById('courseGrid');
     if (!grid) return;
 
     if (!courses.length) {
-      grid.innerHTML = `
-        <div class="card">
-          <h2 class="cardtitle">No results</h2>
-          <p class="muted">Try clearing the search or switching tag filters.</p>
-          <div class="actions">
-            <a class="btn btnGhost" href="./index.html#courses">Reset</a>
-          </div>
-        </div>
-      `;
+      renderEmptyState();
       return;
     }
 
     grid.innerHTML = courses.map(c => {
-      const tags = (c.tags || []).map(t => `<span class="tag">${esc(t)}</span>`).join('');
+      const tagsHtml = (c.tags || []).map(t => `<span class="tag">${esc(t)}</span>`).join('');
       const lessons = (c.lessons || []).length;
       const totalMin = courseMinutes(c);
 
@@ -306,17 +311,32 @@
         return 'Start';
       })();
 
-      return `
-        <article class="card">
-          <h2 class="cardtitle">${esc(c.title)}</h2>
-          <p class="muted">${esc(c.description)}</p>
+      const openHref = courseUrl(c.id);
 
-          ${tags ? `<div class="tags">${tags}</div>` : ''}
+      return `
+        <article class="courseCard" aria-label="Course">
+          <div class="courseTopRow">
+            <div class="courseCode">
+              <span class="courseDot" aria-hidden="true"></span>
+              <span class="mutedSmall">${esc(c.id || '')}</span>
+            </div>
+            <div class="courseMetaRow" aria-label="Course meta">
+              <span class="courseMetaPill">${lessons} lessons</span>
+              <span class="courseMetaPill">${totalMin || 0} min</span>
+              ${done ? `<span class="courseMetaPill">${done} done</span>` : ''}
+            </div>
+          </div>
+
+          <h2 class="courseTitle">${esc(c.title)}</h2>
+          <p class="courseDesc">${esc(c.description)}</p>
+
+          ${tagsHtml ? `<div class="tags" aria-label="Tags">${tagsHtml}</div>` : ''}
 
           ${showProgress ? `
             <div class="progressWrap" aria-label="Course progress">
               <div class="progressTop">
                 <div class="mutedSmall">Progress: ${done}/${lessons} (${pct}%)</div>
+                <div class="mutedTiny">Saved locally</div>
               </div>
               <div class="progressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pct}">
                 <div class="progressFill" style="width:${pct}%"></div>
@@ -324,17 +344,9 @@
             </div>
           ` : ''}
 
-          <div class="actions">
-            <div class="tags">
-              <span class="badge">${lessons} lessons</span>
-              <span class="badge">${totalMin || 0} min</span>
-              ${done ? `<span class="badge">${done} done</span>` : ''}
-            </div>
-            <a class="btn btnPrimary" href="${primaryHref}">${primaryLabel}</a>
-          </div>
-
-          <div class="actions" style="justify-content:flex-start">
-            <a class="btn btnGhost" href="${courseUrl(c.id)}">Open course</a>
+          <div class="courseActions" aria-label="Actions">
+            <a class="courseLink courseLinkPrimary" href="${primaryHref}">${primaryLabel}</a>
+            <a class="courseLink" href="${openHref}">Open course</a>
           </div>
         </article>
       `;
@@ -426,7 +438,14 @@
       State.loadedOnce = true;
 
     } catch (e) {
-      grid.innerHTML = `<div class="card"><h2 class="cardtitle">Error</h2><p class="muted">${esc(e.message)}</p></div>`;
+      grid.innerHTML = `
+        <div class="card">
+          <div class="cardHeadRow">
+            <h2 class="cardHeading">Error</h2>
+          </div>
+          <p class="heroLead">${esc(e.message)}</p>
+        </div>
+      `;
     }
   }
 
@@ -446,14 +465,6 @@
       if (lEl) lEl.textContent = String(totalLessons);
       if (mEl) mEl.textContent = String(totalMin);
     } catch (_) {}
-  }
-
-  function findNextUncompleted(course) {
-    const lessons = course.lessons || [];
-    for (const l of lessons) {
-      if (!isLessonCompleted(course.id, l.id)) return l;
-    }
-    return lessons[0] || null;
   }
 
   async function renderHomeStartCards() {
@@ -540,7 +551,7 @@
     const resumeBtn = document.getElementById('resumeBtn');
 
     if (!courseId) {
-      if (hero) hero.innerHTML = '<h1 class="heroTitle">Course not specified</h1><p class="heroDesc">Missing query parameter: course</p>';
+      if (hero) hero.innerHTML = '<h1 class="heroTitle">Course not specified</h1><p class="heroLead">Missing query parameter: course</p>';
       return;
     }
 
@@ -549,20 +560,21 @@
       const course = State.courses.find(c => c.id === courseId);
 
       if (!course) {
-        if (hero) hero.innerHTML = '<h1 class="heroTitle">Course not found</h1><p class="heroDesc">Check data/courses.json</p>';
+        if (hero) hero.innerHTML = '<h1 class="heroTitle">Course not found</h1><p class="heroLead">Check data/courses.json</p>';
         return;
       }
 
       document.title = course.title || 'Course';
 
       if (crumbs) {
+        crumbs.classList.add('breadcrumbs');
         crumbs.innerHTML = `<a href="./index.html">Home</a> <span class="mutedSmall">/</span> <span>${esc(course.title)}</span>`;
       }
 
       if (hero) {
         hero.innerHTML = `
           <h1 class="heroTitle">${esc(course.title)}</h1>
-          <p class="heroDesc">${esc(course.description)}</p>
+          <p class="heroLead">${esc(course.description)}</p>
         `;
       }
 
@@ -597,23 +609,25 @@
           const completed = isLessonCompleted(course.id, l.id);
           const isLast = last && last.courseId === course.id && last.lessonId === l.id;
           const badge = completed
-            ? '<span class="checkBadge checkBadgeOn">✓ Completed</span>'
+            ? '<span class="badge">✓ Completed</span>'
             : isLast
-              ? '<span class="checkBadge">● Last visited</span>'
+              ? '<span class="badge">● Last visited</span>'
               : '';
 
           return `
-            <li class="lessonitem">
-              <div class="lessonmeta">
-                <div class="lessontitle">${esc(l.title)}</div>
-                <div class="tags">
+            <li class="card softCard" style="margin-bottom:12px">
+              <div class="cardHeadRow">
+                <div>
+                  <div class="cardHeading">${esc(l.title)}</div>
+                  ${l.summary ? `<div class="mutedTiny" style="margin-top:6px">${esc(l.summary)}</div>` : ''}
+                </div>
+                <div class="heroMeta">
                   <span class="badge">Lesson ${idx + 1}/${lessons.length}</span>
                   ${l.duration_min ? `<span class="badge">${esc(l.duration_min)} min</span>` : ''}
                   ${badge}
                 </div>
               </div>
-              ${l.summary ? `<div class="muted">${esc(l.summary)}</div>` : ''}
-              <div class="actions">
+              <div class="heroActions" style="margin-top:10px">
                 <a class="btn btnPrimary" href="${lessonUrl(course.id, l.id)}">Watch</a>
                 <a class="btn btnGhost" href="${lessonUrl(course.id, l.id)}#resources">Resources</a>
               </div>
@@ -623,7 +637,7 @@
       }
 
     } catch (e) {
-      if (hero) hero.innerHTML = `<h1 class="heroTitle">Error</h1><p class="heroDesc">${esc(e.message)}</p>`;
+      if (hero) hero.innerHTML = `<h1 class="heroTitle">Error</h1><p class="heroLead">${esc(e.message)}</p>`;
     }
   }
 
@@ -638,7 +652,6 @@
 
   function safeYouTubeEmbedId(raw) {
     const id = String(raw || '').trim();
-    // Basic allowlist: YouTube IDs are usually 11 chars, but keep a relaxed check
     if (!id) return '';
     if (!/^[a-zA-Z0-9_-]{6,32}$/.test(id)) return '';
     return id;
@@ -646,10 +659,10 @@
 
   function buildVideoMetaPills({ courseTitle, idx, total, durationMin, completed }) {
     const pills = [];
-    if (courseTitle) pills.push(`<span class="videoPill">Course: ${esc(courseTitle)}</span>`);
-    if (total) pills.push(`<span class="videoPill">Lesson ${idx + 1}/${total}</span>`);
-    if (durationMin) pills.push(`<span class="videoPill">${esc(durationMin)} min</span>`);
-    if (completed) pills.push(`<span class="videoPill">✓ Completed</span>`);
+    if (courseTitle) pills.push(`<span class="badge">Course: ${esc(courseTitle)}</span>`);
+    if (total) pills.push(`<span class="badge">Lesson ${idx + 1}/${total}</span>`);
+    if (durationMin) pills.push(`<span class="badge">${esc(durationMin)} min</span>`);
+    if (completed) pills.push(`<span class="badge">✓ Completed</span>`);
     return pills.join('');
   }
 
@@ -660,15 +673,9 @@
       if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
       if (e.metaKey || e.ctrlKey || e.altKey) return;
 
-      if (e.key === 'n' && nextHref) {
-        window.location.href = nextHref;
-      }
-      if (e.key === 'p' && prevHref) {
-        window.location.href = prevHref;
-      }
-      if (e.key === 'm' && typeof toggleComplete === 'function') {
-        toggleComplete();
-      }
+      if (e.key === 'n' && nextHref) window.location.href = nextHref;
+      if (e.key === 'p' && prevHref) window.location.href = prevHref;
+      if (e.key === 'm' && typeof toggleComplete === 'function') toggleComplete();
     }, { passive: true });
   }
 
@@ -688,7 +695,7 @@
     const navRow = document.getElementById('videoNav');
 
     if (!courseId || !lessonId) {
-      if (hero) hero.innerHTML = '<h1 class="heroTitle">Lesson not specified</h1><p class="heroDesc">Missing query parameters: course and lesson</p>';
+      if (hero) hero.innerHTML = '<h1 class="heroTitle">Lesson not specified</h1><p class="heroLead">Missing query parameters: course and lesson</p>';
       if (backLink) backLink.href = './index.html';
       return;
     }
@@ -699,7 +706,7 @@
       await loadData();
       const course = State.courses.find(c => c.id === courseId);
       if (!course) {
-        if (hero) hero.innerHTML = '<h1 class="heroTitle">Course not found</h1><p class="heroDesc">Check data/courses.json</p>';
+        if (hero) hero.innerHTML = '<h1 class="heroTitle">Course not found</h1><p class="heroLead">Check data/courses.json</p>';
         return;
       }
 
@@ -708,13 +715,14 @@
       const lesson = idx >= 0 ? lessons[idx] : null;
 
       if (!lesson) {
-        if (hero) hero.innerHTML = '<h1 class="heroTitle">Lesson not found</h1><p class="heroDesc">Check data/courses.json</p>';
+        if (hero) hero.innerHTML = '<h1 class="heroTitle">Lesson not found</h1><p class="heroLead">Check data/courses.json</p>';
         return;
       }
 
       document.title = lesson.title || 'Lesson';
 
       if (crumbs) {
+        crumbs.classList.add('breadcrumbs');
         crumbs.innerHTML = `
           <a href="./index.html">Home</a> <span class="mutedSmall">/</span>
           <a href="${courseUrl(courseId)}">${esc(course.title)}</a> <span class="mutedSmall">/</span>
@@ -725,7 +733,7 @@
       if (hero) {
         hero.innerHTML = `
           <h1 class="heroTitle">${esc(lesson.title)}</h1>
-          ${lesson.summary ? `<p class="heroDesc">${esc(lesson.summary)}</p>` : `<p class="heroDesc">${esc(course.title)}</p>`}
+          ${lesson.summary ? `<p class="heroLead">${esc(lesson.summary)}</p>` : `<p class="heroLead">${esc(course.title)}</p>`}
         `;
       }
 
@@ -751,12 +759,9 @@
           completed
         });
 
-        if (!yt) {
-          metaRow.innerHTML += `<span class="videoPill">Video id missing</span>`;
-        }
+        if (!yt) metaRow.innerHTML += `<span class="badge">Video id missing</span>`;
       }
 
-      // Navigation buttons
       const prev = idx > 0 ? lessons[idx - 1] : null;
       const next = idx >= 0 && idx < lessons.length - 1 ? lessons[idx + 1] : null;
       const prevHref = prev ? lessonUrl(courseId, prev.id) : '';
@@ -768,7 +773,6 @@
         const now = !isLessonCompleted(courseId, lessonId);
         setLessonCompleted(courseId, lessonId, now);
         toast(now ? 'Marked as completed' : 'Marked as not completed');
-        // Refresh meta pills
         if (metaRow) {
           metaRow.innerHTML = buildVideoMetaPills({
             courseTitle: course.title,
@@ -777,11 +781,12 @@
             durationMin: lesson.duration_min,
             completed: now
           });
-          if (!yt) metaRow.innerHTML += `<span class="videoPill">Video id missing</span>`;
+          if (!yt) metaRow.innerHTML += `<span class="badge">Video id missing</span>`;
         }
       }
 
       if (navRow) {
+        navRow.classList.add('videoNav');
         navRow.innerHTML = `
           ${prev ? `<a class="btn btnGhost" href="${prevHref}">Prev</a>` : ''}
           ${next ? `<a class="btn btnPrimary" href="${nextHref}">Next</a>` : ''}
@@ -816,25 +821,37 @@
       const resources = Array.isArray(lesson.resources) ? lesson.resources : [];
       if (resources.length && resourcesCard && resGrid) {
         resourcesCard.style.display = '';
+
+        // Keep the real card id, add anchor id="resources" for #resources navigation.
         resourcesCard.id = 'resourcesCard';
+        resourcesCard.setAttribute('data-anchor', 'resources');
+
         resGrid.innerHTML = resources.map(r => {
           const type = r.type ? String(r.type) : 'link';
           const url = r.url || '#';
           const title = r.title || url;
 
           return `
-            <a class="resItem" href="${esc(url)}" target="_blank" rel="noopener">
-              <div class="resIcon">${esc(resIcon(type))}</div>
-              <div>
-                <div class="resMetaTitle">${esc(title)}</div>
-                <div class="resMetaType">${esc(type)}</div>
+            <a class="downloadItem" href="${esc(url)}" target="_blank" rel="noopener">
+              <div class="downloadIcon">${esc(resIcon(type))}</div>
+              <div class="downloadText">
+                <div class="downloadTitle">${esc(title)}</div>
+                <div class="downloadMeta">${esc(type)}</div>
               </div>
+              <div class="downloadCta">Open</div>
             </a>
           `;
         }).join('');
 
-        // Anchor convenience
-        resourcesCard.setAttribute('id', 'resources');
+        // Create a hidden anchor so lesson.html#resources always works
+        if (!document.getElementById('resources')) {
+          const a = document.createElement('div');
+          a.id = 'resources';
+          a.style.position = 'relative';
+          a.style.top = '-88px';
+          a.style.height = '1px';
+          resourcesCard.parentNode.insertBefore(a, resourcesCard);
+        }
 
       } else if (resourcesCard) {
         resourcesCard.style.display = 'none';
@@ -849,7 +866,7 @@
       });
 
     } catch (e) {
-      if (hero) hero.innerHTML = `<h1 class="heroTitle">Error</h1><p class="heroDesc">${esc(e.message)}</p>`;
+      if (hero) hero.innerHTML = `<h1 class="heroTitle">Error</h1><p class="heroLead">${esc(e.message)}</p>`;
     }
   }
 
@@ -1013,7 +1030,6 @@
     ctx.restore();
   }
 
-  // Initialize UI state on home page
   (function bootstrapUiState() {
     if (!document.getElementById('courseGrid')) return;
     const s = getUiState();
