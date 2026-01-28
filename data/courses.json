@@ -2,19 +2,59 @@
   "courses": [
     {
       "id": "101",
-      "title": "Quantum Annealing 101",
-      "description": "Ising model and QUBO formulation.",
+      "title": "Problem Definition",
+      "description": "How to define optimization problems through variables, constraints, objectives, time, uncertainty, and interactions.",
       "video": "https://www.youtube.com/embed/VIDEO_ID",
       "downloads": {
-        "slides": "#",
-        "pdf": "#",
-        "podcast": "#"
+        "slides": "assets/downloads/101.key",
+        "pdf": "assets/downloads/101.pdf",
+        "podcast": "assets/downloads/101_podcast_zh.mp3"
       },
       "practice": [
         {
-          "question": "Model an on/off system with production level.",
-          "answer": "10y ≤ x ≤ 50y",
-          "explain": "Binary variable activates bounds."
+          "question": "A system can be turned on or off. When it is on, its production level must be between 10 and 50. When it is off, production must be zero. Define appropriate decision variables and constraints.",
+          "answer": "Let y ∈ {0,1} indicate on/off status and x ≥ 0 be production. Constraints: 10y ≤ x ≤ 50y.",
+          "explain": "The binary variable y activates or deactivates the feasible range of x. This is a standard on–off modeling pattern."
+        },
+        {
+          "question": "A city decides whether to open emergency shelters. Opening a shelter is a yes/no decision, while the number of people assigned to an open shelter is continuous. What type of optimization model is this?",
+          "answer": "Mixed-integer optimization model.",
+          "explain": "The model contains both discrete (open or not) and continuous (number of people) decision variables."
+        },
+        {
+          "question": "True or False: If an optimization problem has no constraints, the solution is still meaningful as long as the objective function is well defined.",
+          "answer": "False.",
+          "explain": "Without constraints, the solution may be trivial or unrealistic and does not reflect the real-world problem structure."
+        },
+        {
+          "question": "Which of the following best describes the role of constraints in an optimization model?\n(A) They improve solver speed\n(B) They define the feasible solution space\n(C) They determine optimality\n(D) They replace the objective function",
+          "answer": "B",
+          "explain": "Constraints specify which solutions are allowed. The objective selects the best solution within that feasible region."
+        },
+        {
+          "question": "True or False: A quadratic objective function always implies a convex optimization problem.",
+          "answer": "False.",
+          "explain": "Convexity depends on the sign and structure of the quadratic terms. Quadratic functions can be convex or non-convex."
+        },
+        {
+          "question": "Which situation represents a truly dynamic optimization problem?\n(A) Recomputing a static problem every hour\n(B) Using different cost parameters at different times\n(C) Decisions today affect future system states\n(D) Solving the same model with updated data",
+          "answer": "C",
+          "explain": "A problem is dynamic when decisions influence future states, not merely when parameters change over time."
+        },
+        {
+          "question": "Match each uncertainty description with the correct modeling approach:\n1. All parameters are known exactly\n2. Parameters follow probability distributions\n3. Parameters are unknown but bounded\nOptions: (A) Robust (B) Deterministic (C) Stochastic",
+          "answer": "1 → B, 2 → C, 3 → A",
+          "explain": "These correspond to the three main ways uncertainty is handled in optimization models."
+        },
+        {
+          "question": "True or False: If two decisions interact, their effects cannot be represented by simply summing independent costs.",
+          "answer": "True.",
+          "explain": "Interactions imply non-additive effects and usually require cross or product terms in the model."
+        },
+        {
+          "question": "What is the main difficulty of multi-objective optimization problems?\n(A) No feasible solutions exist\n(B) Objectives cannot be quantified\n(C) There is no single unique optimal solution\n(D) Constraints are too complex",
+          "answer": "C",
+          "explain": "Multi-objective problems typically result in a set of Pareto-optimal solutions rather than a single optimum."
         }
       ]
     }
