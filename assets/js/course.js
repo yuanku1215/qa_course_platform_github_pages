@@ -23,38 +23,39 @@
       bindLink("dlPDF", course.downloads?.pdf);
       bindLink("dlPodcast", course.downloads?.podcast);
 
-      /* ===== Practice ===== */
-      const practice = document.getElementById("practice");
-      if (!Array.isArray(course.practice)) return;
+      /* ===== Practice panel ===== */
+      const panel = document.getElementById("practice");
+      panel.innerHTML = "";
+
+      if (!Array.isArray(course.practice) || course.practice.length === 0) {
+        panel.innerHTML = `<p class="muted">No practice problems.</p>`;
+        return;
+      }
 
       course.practice.forEach((p, i) => {
-        const item = document.createElement("article");
-        item.className = "practiceItem card softCard";
+        const item = document.createElement("details");
+        item.className = "practiceItem";
 
         item.innerHTML = `
-          <h3 class="practiceTitle">Problem ${i + 1}</h3>
-          <p class="practiceQuestion">${p.question}</p>
+          <summary class="practiceSummary">
+            Problem ${i + 1}
+          </summary>
 
-          <button class="btn btnGhost btnSmall">
-            View solution
-          </button>
+          <div class="practiceDetail">
+            <p class="practiceQuestion">${p.question}</p>
 
-          <div class="practiceSolution" hidden>
-            <pre class="solutionCode">${p.answer}</pre>
-            <p class="muted">${p.explain}</p>
+            <div class="practiceAnswer">
+              <strong>Answer</strong>
+              <pre>${p.answer}</pre>
+            </div>
+
+            <div class="practiceExplain muted">
+              ${p.explain}
+            </div>
           </div>
         `;
 
-        const btn = item.querySelector("button");
-        const sol = item.querySelector(".practiceSolution");
-
-        btn.onclick = () => {
-          const open = !sol.hasAttribute("hidden");
-          sol.toggleAttribute("hidden");
-          btn.textContent = open ? "View solution" : "Hide solution";
-        };
-
-        practice.appendChild(item);
+        panel.appendChild(item);
       });
     });
 
