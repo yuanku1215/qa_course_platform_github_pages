@@ -4,29 +4,56 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Quantum Annealing | Learning Hub</title>
+  <meta name="description" content="Learn quantum annealing, Ising and QUBO modeling, and optimization applications." />
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
-<body>
-  <canvas id="bgCanvas" class="bgCanvas"></canvas>
-  <div class="bgVignette"></div>
 
+<body>
+  <!-- Background -->
+  <canvas id="bgCanvas" class="bgCanvas" aria-hidden="true"></canvas>
+  <div class="bgVignette" aria-hidden="true"></div>
+
+  <!-- Header -->
   <header class="topbar">
     <div class="container topbarInner">
       <span class="brandText">Quantum Annealing</span>
-      <a class="btn btnGhost" href="lessons.html">View lessons</a>
+
+      <nav>
+        <a class="btn btnGhost" href="lessons.html">
+          View lessons →
+        </a>
+      </nav>
     </div>
   </header>
 
-  <main class="container">
-    <section class="hero">
-      <h1 class="heroTitle">Learn Quantum Annealing</h1>
-      <p class="heroSubtitle">
-        From Ising and QUBO modeling to routing and scheduling applications.
-      </p>
-      <a class="btn btnPrimary" href="lessons.html">Start learning</a>
+  <!-- Main -->
+  <main>
+
+    <!-- Hero (near full screen) -->
+    <section class="hero heroFull">
+      <div class="container heroInner">
+        <h1 class="heroTitle">
+          Learn Quantum Annealing
+        </h1>
+
+        <p class="heroSubtitle">
+          From Ising and QUBO modeling to routing and scheduling applications.
+        </p>
+
+        <div class="heroActions">
+          <a class="btn btnPrimary btnLarge" href="lessons.html">
+            Start learning
+          </a>
+          <a class="btn btnGhost btnLarge" href="lessons.html">
+            View all courses
+          </a>
+        </div>
+      </div>
     </section>
+
   </main>
 
+  <!-- Script -->
   <script src="assets/js/home.js"></script>
 </body>
 </html>
