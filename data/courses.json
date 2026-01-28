@@ -1,42 +1,20 @@
 {
   "courses": [
     {
-      "id": "qa101",
+      "id": "101",
       "title": "Quantum Annealing 101",
-      "description": "Quantum annealing basics, Ising and QUBO modeling, and routing applications.",
-      "tags": [
-        "Quantum Annealing",
-        "Ising",
-        "QUBO",
-        "Optimization"
-      ],
-      "lessons": [
+      "description": "Ising model and QUBO formulation.",
+      "video": "https://www.youtube.com/embed/VIDEO_ID",
+      "downloads": {
+        "slides": "#",
+        "pdf": "#",
+        "podcast": "#"
+      },
+      "practice": [
         {
-          "id": "l01",
-          "title": "What is Quantum Annealing",
-          "youtube_id": "dQw4w9WgXcQ",
-          "duration_min": 20,
-          "summary": "High level overview of quantum annealing and the optimization landscape.",
-          "resources": [
-            {
-              "type": "slides",
-              "title": "Slides (placeholder)",
-              "url": "docs/qa101_l01_slides.pdf"
-            },
-            {
-              "type": "code",
-              "title": "Example code (placeholder)",
-              "url": "https://github.com/yourname/yourrepo"
-            }
-          ]
-        },
-        {
-          "id": "l02",
-          "title": "Ising Model and QUBO Formulation",
-          "youtube_id": "dQw4w9WgXcQ",
-          "duration_min": 20,
-          "summary": "How to map problems into Ising and QUBO, with common constraint patterns.",
-          "resources": []
+          "question": "Model an on/off system with production level.",
+          "answer": "10y ≤ x ≤ 50y",
+          "explain": "Binary variable activates bounds."
         }
       ]
     }
