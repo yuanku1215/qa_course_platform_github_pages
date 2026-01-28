@@ -1,5 +1,5 @@
 /* =====================================================
-   Design tokens
+   Design Tokens
    ===================================================== */
 
 :root {
@@ -38,11 +38,10 @@ body {
 }
 
 a { color: inherit; text-decoration: none; }
-
 .muted { color: var(--muted); }
 
 /* =====================================================
-   Animated background (GLOBAL)
+   Animated Background (GLOBAL)
    ===================================================== */
 
 .bgCanvas {
@@ -67,7 +66,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* =====================================================
-   Layout helpers
+   Layout Helpers
    ===================================================== */
 
 .container {
@@ -132,19 +131,13 @@ a { color: inherit; text-decoration: none; }
   color: var(--text);
 }
 
-.btnGhost:hover { background: rgba(255,255,255,0.1); }
+.btnGhost:hover { background: rgba(255,255,255,0.10); }
 
-.btnFull {
-  width: 100%;
-}
-
-.btnDisabled {
-  opacity: 0.45;
-  pointer-events: none;
-}
+.btnFull { width: 100%; }
+.btnDisabled { opacity: 0.45; pointer-events: none; }
 
 /* =====================================================
-   HERO (home)
+   HERO (Home)
    ===================================================== */
 
 .hero {
@@ -191,17 +184,17 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* =====================================================
-   COURSE PAGE (核心重點)
+   COURSE PAGE (核心設計)
    ===================================================== */
 
 .coursePage {
   margin-top: 24px;
 }
 
-/* --- 85% 寬主區 --- */
+/* 主區塊：90% 寬 */
 .courseHero {
-  width: 90vw;          /* ← 改這行 */
-  max-width: 1700px;    /* ← 可選：稍微放大上限，影片更爽 */
+  width: 90vw;
+  max-width: 1700px;
   margin: 32px auto 0;
   display: grid;
   grid-template-columns: minmax(0, 3fr) minmax(280px, 1.2fr);
@@ -209,7 +202,7 @@ a { color: inherit; text-decoration: none; }
   align-items: start;
 }
 
-/* 左：影片 */
+/* 左側影片 */
 .courseVideo iframe {
   width: 100%;
   aspect-ratio: 16 / 9;
@@ -217,7 +210,7 @@ a { color: inherit; text-decoration: none; }
   border: none;
 }
 
-/* 影片下下載 */
+/* 影片下方下載 */
 .courseDownloadsInline {
   margin-top: 16px;
   display: flex;
@@ -225,17 +218,25 @@ a { color: inherit; text-decoration: none; }
   flex-wrap: wrap;
 }
 
-/* 右：可捲動例題 */
+/* 右側例題面板 */
 .coursePracticePanel {
   height: calc(100vh - 140px);
+  max-height: 820px;
   overflow-y: auto;
+  padding-left: 18px;
   padding-right: 8px;
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.03),
+    rgba(255,255,255,0.01)
+  );
+  border-left: 1px solid rgba(255,255,255,0.06);
 }
 
+/* scrollbar */
 .coursePracticePanel::-webkit-scrollbar {
   width: 6px;
 }
-
 .coursePracticePanel::-webkit-scrollbar-thumb {
   background: rgba(255,255,255,0.25);
   border-radius: 6px;
@@ -252,10 +253,35 @@ a { color: inherit; text-decoration: none; }
   cursor: pointer;
   padding: 10px 14px;
   font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.practiceSummary::before {
+  content: "▸";
+  opacity: 0.6;
+}
+
+details[open] .practiceSummary::before {
+  content: "▾";
 }
 
 .practiceDetail {
   padding: 10px 14px 14px;
+}
+
+.practiceQuestion {
+  font-size: 14.5px;
+  line-height: 1.65;
+  margin-bottom: 10px;
+}
+
+.practiceAnswer strong {
+  display: block;
+  margin-top: 12px;
+  font-size: 13px;
+  opacity: 0.85;
 }
 
 .practiceAnswer pre {
@@ -300,7 +326,10 @@ a { color: inherit; text-decoration: none; }
 
   .coursePracticePanel {
     height: auto;
+    max-height: none;
     margin-top: 24px;
+    border-left: none;
+    padding-left: 0;
   }
 
   .heroTitle {
