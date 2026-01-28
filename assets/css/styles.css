@@ -4,13 +4,21 @@
 
 :root {
   --bg: #070a12;
+
   --panel: rgba(255,255,255,0.06);
-  --panel2: rgba(255,255,255,0.04);
+  --panel-soft: rgba(255,255,255,0.04);
+  --panel-hover: rgba(255,255,255,0.08);
+
   --text: #eef2ff;
-  --muted: rgba(238,242,255,0.7);
+  --muted: rgba(238,242,255,0.68);
+
   --border: rgba(255,255,255,0.10);
-  --shadow: 0 18px 45px rgba(0,0,0,0.35);
-  --radius: 22px;
+  --shadow-lg: 0 24px 60px rgba(0,0,0,0.45);
+  --shadow-md: 0 16px 40px rgba(0,0,0,0.35);
+
+  --radius-lg: 22px;
+  --radius-md: 16px;
+  --radius-sm: 12px;
 
   --accent: #ff8a1f;
   --accent2: #ff4d6d;
@@ -33,11 +41,10 @@ body {
     radial-gradient(900px 520px at 18% 10%, rgba(255,138,31,0.18), transparent),
     radial-gradient(820px 520px at 78% 12%, rgba(255,77,109,0.16), transparent),
     var(--bg);
-  position: relative;
-  z-index: 0;
 }
 
 a { color: inherit; text-decoration: none; }
+
 .muted { color: var(--muted); }
 
 /* =====================================================
@@ -47,8 +54,6 @@ a { color: inherit; text-decoration: none; }
 .bgCanvas {
   position: fixed;
   inset: 0;
-  width: 100vw;
-  height: 100vh;
   z-index: -2;
   pointer-events: none;
 }
@@ -66,7 +71,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* =====================================================
-   Layout Helpers
+   Layout
    ===================================================== */
 
 .container {
@@ -83,7 +88,7 @@ a { color: inherit; text-decoration: none; }
   top: 0;
   z-index: 10;
   backdrop-filter: blur(14px);
-  background: rgba(7,10,18,0.62);
+  background: rgba(7,10,18,0.65);
   border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
@@ -91,12 +96,12 @@ a { color: inherit; text-decoration: none; }
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 0;
+  padding: 18px 0;
 }
 
 .brandText {
   font-weight: 700;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.4px;
 }
 
 .nav {
@@ -113,11 +118,12 @@ a { color: inherit; text-decoration: none; }
   align-items: center;
   justify-content: center;
   padding: 10px 14px;
-  border-radius: 14px;
+  border-radius: var(--radius-md);
   font-weight: 600;
   font-size: 14px;
   cursor: pointer;
-  border: 1px solid rgba(255,255,255,0.12);
+  border: 1px solid var(--border);
+  background: transparent;
 }
 
 .btnPrimary {
@@ -128,54 +134,66 @@ a { color: inherit; text-decoration: none; }
 
 .btnGhost {
   background: rgba(255,255,255,0.06);
-  color: var(--text);
 }
 
-.btnGhost:hover { background: rgba(255,255,255,0.10); }
+.btnGhost:hover {
+  background: rgba(255,255,255,0.10);
+}
 
-.btnFull { width: 100%; }
-.btnDisabled { opacity: 0.45; pointer-events: none; }
+.btnTiny {
+  padding: 7px 10px;
+  font-size: 12px;
+  border-radius: var(--radius-sm);
+}
+
+.btnDisabled {
+  opacity: 0.45;
+  pointer-events: none;
+}
 
 /* =====================================================
    HERO (Home)
    ===================================================== */
 
 .hero {
-  padding: 88px 0 64px;
+  padding: 110px 0 80px;
   text-align: center;
 }
 
 .heroTitle {
-  font-size: 44px;
-  margin-bottom: 12px;
+  font-size: 46px;
+  letter-spacing: -0.6px;
+  margin-bottom: 14px;
 }
 
 .heroSubtitle {
-  max-width: 720px;
-  margin: 0 auto 24px;
-  line-height: 1.6;
+  max-width: 760px;
+  margin: 0 auto 28px;
+  line-height: 1.65;
+  font-size: 15.5px;
 }
 
 .heroActions {
   display: flex;
-  gap: 14px;
   justify-content: center;
-  margin-bottom: 32px;
+  gap: 14px;
+  margin-bottom: 36px;
 }
 
 .heroMeta {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 16px;
   max-width: 520px;
   margin: 0 auto;
 }
 
 .metaCard {
   background: var(--panel);
+  border-radius: var(--radius-lg);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 14px;
+  padding: 16px;
+  box-shadow: var(--shadow-md);
 }
 
 .metaKpi {
@@ -184,82 +202,131 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* =====================================================
-   COURSE PAGE (核心設計)
+   HOME – Courses Section
+   ===================================================== */
+
+.courseOverview {
+  margin-top: 96px;
+  margin-bottom: 120px;
+}
+
+.courseOverview h2 {
+  font-size: 1.6rem;
+  margin-bottom: 28px;
+}
+
+.courseList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.courseRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+
+  padding: 20px 22px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.07),
+    rgba(255,255,255,0.03)
+  );
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
+
+  transition: transform 0.18s ease, background 0.18s ease;
+}
+
+.courseRow:hover {
+  transform: translateY(-2px);
+  background: rgba(255,255,255,0.10);
+}
+
+.courseInfo {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+}
+
+.courseCode {
+  font-size: 0.85rem;
+  font-weight: 700;
+  opacity: 0.6;
+  letter-spacing: 0.8px;
+}
+
+.courseName {
+  font-size: 1.05rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+.courseActions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* =====================================================
+   COURSE PAGE
    ===================================================== */
 
 .coursePage {
   margin-top: 24px;
 }
 
-/* 主區塊：90% 寬 */
 .courseHero {
   width: 90vw;
   max-width: 1700px;
-  margin: 32px auto 0;
+  margin: 36px auto 0;
   display: grid;
-  grid-template-columns: minmax(0, 3fr) minmax(280px, 1.2fr);
-  gap: 32px;
-  align-items: start;
+  grid-template-columns: minmax(0, 3fr) minmax(300px, 1.2fr);
+  gap: 36px;
 }
 
-/* 左側影片 */
 .courseVideo iframe {
   width: 100%;
   aspect-ratio: 16 / 9;
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   border: none;
+  box-shadow: var(--shadow-lg);
 }
 
-/* 影片下方下載 */
 .courseDownloadsInline {
-  margin-top: 16px;
+  margin-top: 18px;
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
 }
 
-/* 右側例題面板 */
 .coursePracticePanel {
   height: calc(100vh - 140px);
   max-height: 820px;
   overflow-y: auto;
-  padding-left: 18px;
-  padding-right: 8px;
-  background: linear-gradient(
-    180deg,
-    rgba(255,255,255,0.03),
-    rgba(255,255,255,0.01)
-  );
-  border-left: 1px solid rgba(255,255,255,0.06);
+  padding-left: 20px;
+  padding-right: 10px;
+  border-left: 1px solid rgba(255,255,255,0.08);
 }
 
-/* scrollbar */
-.coursePracticePanel::-webkit-scrollbar {
-  width: 6px;
-}
-.coursePracticePanel::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.25);
-  border-radius: 6px;
-}
-
-/* 例題 */
+/* Practice */
 .practiceItem {
-  background: var(--panel2);
-  border-radius: 12px;
-  margin-bottom: 10px;
+  background: var(--panel-soft);
+  border-radius: var(--radius-md);
+  margin-bottom: 12px;
 }
 
 .practiceSummary {
+  padding: 12px 14px;
   cursor: pointer;
-  padding: 10px 14px;
   font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 8px;
 }
 
 .practiceSummary::before {
   content: "▸";
+  margin-right: 6px;
   opacity: 0.6;
 }
 
@@ -268,28 +335,15 @@ details[open] .practiceSummary::before {
 }
 
 .practiceDetail {
-  padding: 10px 14px 14px;
-}
-
-.practiceQuestion {
-  font-size: 14.5px;
-  line-height: 1.65;
-  margin-bottom: 10px;
-}
-
-.practiceAnswer strong {
-  display: block;
-  margin-top: 12px;
-  font-size: 13px;
-  opacity: 0.85;
+  padding: 12px 16px 16px;
 }
 
 .practiceAnswer pre {
   background: rgba(0,0,0,0.35);
-  padding: 10px;
-  border-radius: 8px;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  margin-top: 8px;
   overflow-x: auto;
-  margin-top: 6px;
 }
 
 /* =====================================================
@@ -297,8 +351,8 @@ details[open] .practiceSummary::before {
    ===================================================== */
 
 .footer {
-  margin-top: 64px;
-  padding: 32px 0;
+  margin-top: 96px;
+  padding: 36px 0;
   border-top: 1px solid rgba(255,255,255,0.08);
 }
 
@@ -318,6 +372,8 @@ details[open] .practiceSummary::before {
    ===================================================== */
 
 @media (max-width: 900px) {
+  .heroTitle { font-size: 36px; }
+
   .courseHero {
     width: 100%;
     grid-template-columns: 1fr;
@@ -326,82 +382,11 @@ details[open] .practiceSummary::before {
 
   .coursePracticePanel {
     height: auto;
-    max-height: none;
-    margin-top: 24px;
     border-left: none;
     padding-left: 0;
+    margin-top: 28px;
   }
 
-  .heroTitle {
-    font-size: 34px;
-  }
-}
-
-/* ===============================
-   Course list UI (Home)
-   =============================== */
-
-.courseOverview {
-  margin-top: 72px;
-  margin-bottom: 96px;
-}
-
-.courseList {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.courseRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-  padding: 16px 20px;
-  border-radius: 16px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  transition: background 0.2s ease, transform 0.15s ease;
-}
-
-.courseRow:hover {
-  background: rgba(255,255,255,0.07);
-  transform: translateY(-1px);
-}
-
-.courseInfo {
-  display: flex;
-  align-items: baseline;
-  gap: 14px;
-}
-
-.courseCode {
-  font-size: 14px;
-  font-weight: 700;
-  opacity: 0.7;
-  letter-spacing: 0.6px;
-}
-
-.courseName {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 600;
-}
-
-.courseActions {
-  display: flex;
-  gap: 8px;
-  flex-shrink: 0;
-}
-
-.btnTiny {
-  padding: 7px 10px;
-  font-size: 12px;
-  border-radius: 12px;
-}
-
-/* Mobile */
-@media (max-width: 720px) {
   .courseRow {
     flex-direction: column;
     align-items: flex-start;
@@ -411,4 +396,3 @@ details[open] .practiceSummary::before {
     margin-top: 10px;
   }
 }
-
