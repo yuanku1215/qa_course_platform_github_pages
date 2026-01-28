@@ -544,3 +544,45 @@ a { color: inherit; }
   font-size: 12px;
 }
 
+.courseHero {
+  display: grid;
+  grid-template-columns: 7fr 3fr;
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.courseVideo iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 14px;
+  border: none;
+}
+
+.courseDownloads {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.practiceSection {
+  margin-top: 48px;
+}
+
+.practiceItem {
+  margin-bottom: 18px;
+}
+
+.practiceTitle {
+  margin-bottom: 6px;
+}
+
+.practiceSolution {
+  margin-top: 12px;
+}
+
+.solutionCode {
+  background: rgba(255,255,255,0.06);
+  padding: 12px;
+  border-radius: 10px;
+  overflow-x: auto;
+}
