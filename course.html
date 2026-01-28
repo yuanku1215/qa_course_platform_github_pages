@@ -3,12 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Course</title>
-  <meta name="description" content="Course detail page" />
+  <title>Course 101 | Quantum Annealing Courses</title>
+  <meta name="description" content="Course 101: Problem Definition and Modeling Axes. Video lessons, slides, practice problems, and solutions." />
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
+
 <body>
   <a class="skipLink" href="#main">Skip to content</a>
+
   <canvas id="bgCanvas" class="bgCanvas" aria-hidden="true"></canvas>
   <div class="bgVignette" aria-hidden="true"></div>
 
@@ -26,28 +28,298 @@
     </div>
   </header>
 
-  <main class="container" id="main">
-    <div class="breadcrumbs" id="breadcrumbs"></div>
+  <main class="container courseLayout" id="main">
+    <!-- Breadcrumbs -->
+    <div class="breadcrumbs" id="breadcrumbs" aria-label="Breadcrumb"></div>
 
-    <section class="hero compactHero" id="courseHero"></section>
+    <!-- PAGE GRID -->
+    <div class="courseGrid">
+      <!-- LEFT: Main content -->
+      <article class="courseMain" aria-label="Course content">
+        <!-- HERO -->
+        <section class="hero courseHero" id="courseHero" aria-label="Course overview">
+          <div class="heroTop">
+            <div class="heroMeta">
+              <span class="pill">Course 101</span>
+              <span class="pill pillSoft">20 min</span>
+              <span class="pill pillSoft">7 Axes</span>
+              <span class="pill pillSoft">Modeling</span>
+            </div>
 
-    <section class="progressWrap" id="courseProgress" style="display:none" aria-label="Course progress">
-      <div class="progressTop">
-        <div class="mutedSmall" id="courseProgressText">Progress</div>
-        <a class="btn btnGhost" id="resumeBtn" href="#" style="display:none">Resume</a>
-      </div>
-      <div class="progressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-        <div class="progressFill" id="courseProgressFill" style="width:0%"></div>
-      </div>
-    </section>
+            <h1 class="heroTitle">Course 101: Problem Definition and the 7 Axes</h1>
 
-    <section class="card">
-      <div class="cardHeadRow">
-        <h2 class="cardHeading">Lessons</h2>
-        <div class="mutedSmall" id="courseStats"></div>
-      </div>
-      <ol class="lessonlist" id="lessonList"></ol>
-    </section>
+            <p class="heroLead">
+              A compact map of optimization problems. We classify a problem by variables, constraints, geometry, time,
+              uncertainty, interaction, and objectives. This helps you pick the right modeling choices and solvers later.
+            </p>
+
+            <div class="heroActions">
+              <a class="btn" href="#watch">Watch</a>
+              <a class="btn btnGhost" href="#practice">Practice</a>
+              <a class="btn btnGhost" href="#downloads">Downloads</a>
+            </div>
+          </div>
+
+          <!-- Quick learning outcomes -->
+          <div class="heroCards" role="list">
+            <div class="miniCard" role="listitem">
+              <div class="miniCardTitle">You will learn</div>
+              <ul class="miniList">
+                <li>How to locate your problem in a modeling coordinate system</li>
+                <li>Why geometry and interaction shape solver behavior</li>
+                <li>How time and uncertainty change what the model means</li>
+              </ul>
+            </div>
+
+            <div class="miniCard" role="listitem">
+              <div class="miniCardTitle">Recommended pace</div>
+              <ul class="miniList">
+                <li>Video: 12 to 15 minutes</li>
+                <li>Practice: 5 to 8 minutes</li>
+                <li>Download slides for review</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- PROGRESS -->
+        <section class="progressWrap" id="courseProgress" style="display:none" aria-label="Course progress">
+          <div class="progressTop">
+            <div class="mutedSmall" id="courseProgressText">Progress</div>
+            <a class="btn btnGhost" id="resumeBtn" href="#" style="display:none">Resume</a>
+          </div>
+          <div class="progressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div class="progressFill" id="courseProgressFill" style="width:0%"></div>
+          </div>
+        </section>
+
+        <!-- WATCH -->
+        <section class="card" id="watch" aria-label="Watch the lesson">
+          <div class="cardHeadRow">
+            <h2 class="cardHeading">Watch</h2>
+            <div class="mutedSmall">Lecture videos hosted on YouTube</div>
+          </div>
+
+          <!-- Video block -->
+          <div class="videoGrid">
+            <div class="videoEmbed" aria-label="YouTube video player">
+              <!-- Replace the src with your YouTube embed link or playlist -->
+              <iframe
+                title="Course 101 Video"
+                src="https://www.youtube.com/embed/VIDEO_ID"
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen>
+              </iframe>
+            </div>
+
+            <aside class="videoSide" aria-label="Video notes">
+              <div class="videoSideTitle">Quick notes</div>
+              <ul class="miniList">
+                <li>Axes describe problem structure, not algorithm runtime</li>
+                <li>Constraints define feasibility, not the goal itself</li>
+                <li>Interaction captures how decisions affect each other</li>
+              </ul>
+
+              <div class="videoSideDivider"></div>
+
+              <button class="btn btnGhost btnFull" id="markWatchedBtn" type="button">
+                Mark this lesson watched
+              </button>
+
+              <div class="mutedTiny" id="watchHint">
+                This button can store progress locally in your browser.
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <!-- DOWNLOADS -->
+        <section class="card" id="downloads" aria-label="Downloads">
+          <div class="cardHeadRow">
+            <h2 class="cardHeading">Downloads</h2>
+            <div class="mutedSmall">Slides, PDF, and audio notes</div>
+          </div>
+
+          <div class="downloadGrid">
+            <a class="downloadItem" href="assets/downloads/course101.key" download>
+              <div class="downloadIcon" aria-hidden="true">⌘</div>
+              <div class="downloadText">
+                <div class="downloadTitle">Keynote Slides</div>
+                <div class="downloadMeta">course101.key</div>
+              </div>
+              <div class="downloadCta" aria-hidden="true">Download</div>
+            </a>
+
+            <a class="downloadItem" href="assets/downloads/course101.pdf" download>
+              <div class="downloadIcon" aria-hidden="true">PDF</div>
+              <div class="downloadText">
+                <div class="downloadTitle">PDF Export</div>
+                <div class="downloadMeta">course101.pdf</div>
+              </div>
+              <div class="downloadCta" aria-hidden="true">Download</div>
+            </a>
+
+            <a class="downloadItem" href="assets/downloads/course101_podcast.mp3" download>
+              <div class="downloadIcon" aria-hidden="true">♪</div>
+              <div class="downloadText">
+                <div class="downloadTitle">Audio Summary</div>
+                <div class="downloadMeta">course101_podcast.mp3</div>
+              </div>
+              <div class="downloadCta" aria-hidden="true">Download</div>
+            </a>
+          </div>
+
+          <div class="mutedTiny">
+            Tip: keep filenames stable so you can update content without breaking links.
+          </div>
+        </section>
+
+        <!-- LESSONS LIST (keeps your existing structure) -->
+        <section class="card" aria-label="Lessons list">
+          <div class="cardHeadRow">
+            <h2 class="cardHeading">Lessons</h2>
+            <div class="mutedSmall" id="courseStats"></div>
+          </div>
+
+          <ol class="lessonlist" id="lessonList"></ol>
+        </section>
+
+        <!-- PRACTICE -->
+        <section class="card" id="practice" aria-label="Practice problems">
+          <div class="cardHeadRow">
+            <h2 class="cardHeading">Practice</h2>
+            <div class="mutedSmall">7 short problems with solutions</div>
+          </div>
+
+          <div class="practiceIntro">
+            <p class="mutedSmall">
+              Each problem is designed to reinforce one axis. Try it first, then open hints and solutions.
+            </p>
+          </div>
+
+          <div class="practiceList" id="practiceList">
+            <!-- Problem template: duplicate up to 7 -->
+            <details class="practiceItem" open>
+              <summary class="practiceSummary">
+                <span class="practiceIdx">1</span>
+                <span class="practiceTitle">Variables: Mixed decision types</span>
+                <span class="practiceTag">Axis 1</span>
+              </summary>
+
+              <div class="practiceBody">
+                <div class="practiceBlock">
+                  <div class="practiceLabel">Question</div>
+                  <p>
+                    A system has an on or off switch y and a production level x. If the system is off, production is 0.
+                    If it is on, production must be between 10 and 50. Write constraints linking x and y.
+                  </p>
+                </div>
+
+                <div class="practiceCols">
+                  <div class="practiceBlock">
+                    <div class="practiceLabel">Hint</div>
+                    <p>Use y to activate the lower and upper bounds of x.</p>
+                  </div>
+
+                  <div class="practiceBlock">
+                    <div class="practiceLabel">Answer</div>
+                    <p class="mathLine">
+                      y ∈ {0,1},&nbsp;&nbsp; 10y ≤ x ≤ 50y
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </details>
+
+            <details class="practiceItem">
+              <summary class="practiceSummary">
+                <span class="practiceIdx">2</span>
+                <span class="practiceTitle">Constraints: Exactly one choice</span>
+                <span class="practiceTag">Axis 2</span>
+              </summary>
+
+              <div class="practiceBody">
+                <div class="practiceBlock">
+                  <div class="practiceLabel">Question</div>
+                  <p>
+                    A commuter must choose exactly one mode: public transit or driving.
+                    Let x1, x2 be binary. Write the objective and constraint.
+                  </p>
+                </div>
+
+                <div class="practiceCols">
+                  <div class="practiceBlock">
+                    <div class="practiceLabel">Hint</div>
+                    <p>Exactly one means the sum of binary choices equals 1.</p>
+                  </div>
+
+                  <div class="practiceBlock">
+                    <div class="practiceLabel">Answer</div>
+                    <p class="mathLine">min 3x1 + 7x2</p>
+                    <p class="mathLine">s.t. x1 + x2 = 1,  x1, x2 ∈ {0,1}</p>
+                  </div>
+                </div>
+              </div>
+            </details>
+
+            <!-- Add problems 3 to 7 similarly -->
+          </div>
+        </section>
+
+        <!-- NEXT -->
+        <section class="card" aria-label="Next steps">
+          <div class="cardHeadRow">
+            <h2 class="cardHeading">Next</h2>
+            <div class="mutedSmall">Continue your learning path</div>
+          </div>
+
+          <div class="nextGrid">
+            <a class="nextItem" href="./course.html?course=102">
+              <div class="nextTitle">Course 102</div>
+              <div class="mutedSmall">From constraints to penalty modeling</div>
+            </a>
+
+            <a class="nextItem" href="./index.html#courses">
+              <div class="nextTitle">Back to Courses</div>
+              <div class="mutedSmall">Browse all modules</div>
+            </a>
+          </div>
+        </section>
+      </article>
+
+      <!-- RIGHT: Sticky sidebar -->
+      <aside class="courseSide" aria-label="Course sidebar">
+        <section class="sideCard">
+          <div class="sideTitle">On this page</div>
+          <nav class="sideNav" aria-label="Page sections">
+            <a class="sideLink" href="#watch">Watch</a>
+            <a class="sideLink" href="#downloads">Downloads</a>
+            <a class="sideLink" href="#practice">Practice</a>
+          </nav>
+        </section>
+
+        <section class="sideCard">
+          <div class="sideTitle">Course files</div>
+          <div class="sideButtons">
+            <a class="btn btnGhost btnFull" href="assets/downloads/course101.pdf" download>Download PDF</a>
+            <a class="btn btnGhost btnFull" href="assets/downloads/course101.key" download>Download Keynote</a>
+            <a class="btn btnGhost btnFull" href="assets/downloads/course101_podcast.mp3" download>Download Audio</a>
+          </div>
+        </section>
+
+        <section class="sideCard">
+          <div class="sideTitle">Progress</div>
+          <div class="mutedSmall" id="sideProgressText">Not started</div>
+          <div class="sideProgressBar" aria-hidden="true">
+            <div class="sideProgressFill" id="sideProgressFill" style="width:0%"></div>
+          </div>
+          <div class="sideTiny">
+            Stored locally in your browser.
+          </div>
+        </section>
+      </aside>
+    </div>
   </main>
 
   <footer class="footer">
@@ -62,7 +334,40 @@
   <script src="assets/js/app.js"></script>
   <script>
     window.App.initBackground();
-    window.App.renderCourse();
+
+    // Keep your existing renderer if you already have it.
+    // It can fill: #breadcrumbs, #courseHero, #courseStats, #lessonList, etc.
+    if (window.App && typeof window.App.renderCourse === "function") {
+      window.App.renderCourse();
+    }
+
+    // Optional: simple local progress hook for the "Mark watched" button.
+    // You can replace this with your own progress logic in app.js.
+    (function () {
+      const key = "qa_course101_progress";
+      const markBtn = document.getElementById("markWatchedBtn");
+      const sideText = document.getElementById("sideProgressText");
+      const sideFill = document.getElementById("sideProgressFill");
+
+      function setProgress(pct) {
+        const v = Math.max(0, Math.min(100, pct));
+        localStorage.setItem(key, String(v));
+        if (sideText) sideText.textContent = v >= 100 ? "Completed" : `Progress: ${v}%`;
+        if (sideFill) sideFill.style.width = `${v}%`;
+      }
+
+      const saved = Number(localStorage.getItem(key) || "0");
+      if (!Number.isNaN(saved)) setProgress(saved);
+
+      if (markBtn) {
+        markBtn.addEventListener("click", function () {
+          setProgress(100);
+          if (window.App && typeof window.App.toast === "function") {
+            window.App.toast("Marked as watched");
+          }
+        });
+      }
+    })();
   </script>
 </body>
 </html>
