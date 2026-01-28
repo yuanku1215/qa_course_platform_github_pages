@@ -3,15 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Quantum Annealing | Home</title>
-  <meta name="description" content="Quantum Annealing and QUBO modeling course hub." />
+  <title>Quantum Annealing | Learning Hub</title>
+  <meta name="description" content="Learn Quantum Annealing and QUBO modeling through structured courses and practical examples." />
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
+
 <body>
   <a class="skipLink" href="#main">Skip to content</a>
+
+  <!-- Background -->
   <canvas id="bgCanvas" class="bgCanvas" aria-hidden="true"></canvas>
   <div class="bgVignette" aria-hidden="true"></div>
 
+  <!-- ================= Header ================= -->
   <header class="topbar">
     <div class="container topbarInner">
       <a class="brand" href="./index.html" aria-label="Go to home">
@@ -20,114 +24,146 @@
       </a>
 
       <nav class="nav" aria-label="Primary navigation">
-        <a class="navlink" href="#path">Path</a>
+        <a class="navlink" href="#path">Learning Path</a>
         <a class="navlink" href="#courses">Courses</a>
-        <a class="navlink navlinkStrong" href="https://github.com/" target="_blank">GitHub</a>
+        <a class="navlink navlinkStrong" href="https://github.com/" target="_blank" rel="noopener">
+          GitHub
+        </a>
       </nav>
     </div>
 
+    <!-- Search + Tags -->
     <div class="container topbarSub">
       <div class="searchWrap" role="search">
-        <input id="searchInput" class="searchInput" type="search" placeholder="Search courses or tags..." autocomplete="off" />
-        <button id="clearBtn" class="iconBtn" type="button" aria-label="Clear">✕</button>
+        <input
+          id="searchInput"
+          class="searchInput"
+          type="search"
+          placeholder="Search courses, topics, or tags…"
+          autocomplete="off"
+        />
+        <button id="clearBtn" class="iconBtn" type="button" aria-label="Clear search">✕</button>
       </div>
       <div class="chipRow" id="tagChips"></div>
     </div>
   </header>
 
+  <!-- ================= Main ================= -->
   <main class="container" id="main">
-    
+
+    <!-- ================= Hero ================= -->
     <section class="heroGrid">
       <div class="heroLeft">
         <div class="focusBadge">GitHub Pages Learning Hub</div>
-        <h1 style="font-size: 3.5rem; margin: 10px 0; line-height: 1.1;">Learn Quantum Annealing</h1>
-        <p class="muted" style="font-size: 1.1rem; max-width: 580px;">
-          From intuition to QUBO modeling. A lightweight platform for students and engineers to master optimization.
+
+        <h1 class="heroTitle">
+          Learn Quantum Annealing
+        </h1>
+
+        <p class="heroSubtitle muted">
+          Build intuition, master QUBO modeling, and apply quantum-inspired optimization
+          to real-world routing and scheduling problems.
         </p>
 
-        <div class="heroMeta" style="display: flex; gap: 15px; margin-top: 30px;">
-          <div class="card" style="padding: 15px 25px; text-align: center; min-width: 100px;">
-            <div class="metaKpi" id="kpiCourses" style="font-size: 1.8rem; font-weight: 950; color: var(--accent3);">0</div>
+        <!-- KPI -->
+        <div class="heroMeta">
+          <div class="card metaCard">
+            <div class="metaKpi" id="kpiCourses">0</div>
             <div class="mutedTiny">Courses</div>
           </div>
-          <div class="card" style="padding: 15px 25px; text-align: center; min-width: 100px;">
-            <div class="metaKpi" id="kpiLessons" style="font-size: 1.8rem; font-weight: 950; color: var(--accent3);">0</div>
+          <div class="card metaCard">
+            <div class="metaKpi" id="kpiLessons">0</div>
             <div class="mutedTiny">Lessons</div>
           </div>
-          <div class="card" style="padding: 15px 25px; text-align: center; min-width: 100px;">
-            <div class="metaKpi" id="kpiMinutes" style="font-size: 1.8rem; font-weight: 950; color: var(--accent3);">0</div>
-            <div class="mutedTiny">Mins</div>
+          <div class="card metaCard">
+            <div class="metaKpi" id="kpiMinutes">0</div>
+            <div class="mutedTiny">Minutes</div>
           </div>
         </div>
       </div>
 
+      <!-- Start / Resume -->
       <div class="heroRight">
         <article class="focusCard" id="startCard">
           <div class="focusBadge">Start Here</div>
-          <h2 id="startTitle" style="margin: 0 0 8px 0;">Loading...</h2>
-          <p class="muted" id="startDesc" style="font-size: 0.9rem; margin-bottom: 20px;">Fetching course data...</p>
-          <div class="focusMeta" style="margin-bottom: 20px; display: flex; gap: 8px;">
+          <h2 id="startTitle">Loading…</h2>
+          <p class="muted" id="startDesc">Fetching course recommendations…</p>
+
+          <div class="focusMeta">
             <span class="badge" id="startMetaA">Lesson</span>
             <span class="badge" id="startMetaB">Time</span>
           </div>
-          <div style="display: flex; gap: 10px;">
+
+          <div class="btnRow">
             <a id="startBtn" class="btn btnPrimary" href="#">Start Lesson</a>
-            <a id="startCourseBtn" class="btn btnGhost" href="#">Details</a>
+            <a id="startCourseBtn" class="btn btnGhost" href="#">View Course</a>
           </div>
         </article>
 
-        <article class="focusCard softFocus" id="continueCard" style="display:none; margin-top: 20px;">
-          <div class="focusBadge" style="background: var(--accent2);">Resume Progress</div>
-          <h2 id="continueTitle" style="margin: 0 0 8px 0;">Last Lesson</h2>
-          <p class="muted" id="continueDesc" style="font-size: 0.9rem; margin-bottom: 20px;">Pick up where you left off.</p>
-          <div style="display: flex; gap: 10px;">
-            <a id="continueBtn" class="btn btnPrimary" href="#">Jump In</a>
+        <article class="focusCard softFocus" id="continueCard" style="display:none;">
+          <div class="focusBadge" style="background: var(--accent2);">
+            Resume Progress
+          </div>
+          <h2 id="continueTitle">Last Lesson</h2>
+          <p class="muted" id="continueDesc">
+            Continue where you left off.
+          </p>
+
+          <div class="btnRow">
+            <a id="continueBtn" class="btn btnPrimary" href="#">Resume</a>
             <button id="clearProgressBtn" class="btn btnGhost">Clear</button>
           </div>
         </article>
       </div>
     </section>
 
+    <!-- ================= Learning Path ================= -->
     <section class="sectionHead" id="path">
       <h2 class="sectionTitle">Learning Path</h2>
-      <p class="sectionDesc">Step-by-step guidance from foundations to applications.</p>
+      <p class="sectionDesc">
+        A structured journey from fundamentals to real applications.
+      </p>
     </section>
 
     <section class="pathGrid">
       <div class="pathCard">
-        <div class="focusBadge" style="background: rgba(255,255,255,0.15);">Phase 1</div>
+        <div class="focusBadge">Phase 1</div>
         <h3>Foundations</h3>
-        <ul class="muted" style="padding-left: 18px; line-height: 1.8;">
-          <li>Optimization landscape</li>
-          <li>What is Quantum Annealing</li>
-          <li>Ising vs QUBO variables</li>
+        <ul class="muted">
+          <li>Optimization landscape intuition</li>
+          <li>What quantum annealing really does</li>
+          <li>Ising model vs QUBO formulation</li>
         </ul>
       </div>
+
       <div class="pathCard">
-        <div class="focusBadge" style="background: rgba(255,255,255,0.15);">Phase 2</div>
+        <div class="focusBadge">Phase 2</div>
         <h3>QUBO Modeling</h3>
-        <ul class="muted" style="padding-left: 18px; line-height: 1.8;">
-          <li>Constraint penalty design</li>
-          <li>Mathematical patterns</li>
-          <li>Debugging techniques</li>
+        <ul class="muted">
+          <li>Constraint encoding and penalties</li>
+          <li>Common modeling patterns</li>
+          <li>Debugging infeasible solutions</li>
         </ul>
       </div>
+
       <div class="pathCard">
-        <div class="focusBadge" style="background: rgba(255,255,255,0.15);">Phase 3</div>
+        <div class="focusBadge">Phase 3</div>
         <h3>Applications</h3>
-        <ul class="muted" style="padding-left: 18px; line-height: 1.8;">
+        <ul class="muted">
           <li>TSP and VRP routing</li>
-          <li>Scheduling problems</li>
-          <li>Solver integration</li>
+          <li>Scheduling and assignment</li>
+          <li>Solver and hardware integration</li>
         </ul>
       </div>
     </section>
 
+    <!-- ================= Courses ================= -->
     <section class="sectionHead" id="courses">
-      <div class="videoTopRow" style="margin-bottom: 0;">
+      <div class="videoTopRow">
         <h2 class="sectionTitle">Course Catalog</h2>
-        <div style="display: flex; gap: 10px; align-items: center;">
-          <select id="sortSelect" class="btn btnGhost" style="padding: 5px 15px; font-size: 0.85rem;">
+
+        <div class="courseControls">
+          <select id="sortSelect" class="btn btnGhost">
             <option value="recommended">Recommended</option>
             <option value="title">Title</option>
             <option value="lessons">Lesson Count</option>
@@ -137,12 +173,13 @@
       </div>
     </section>
 
-    <section id="courseGrid" class="grid" style="padding-bottom: 80px;"></section>
+    <section id="courseGrid" class="grid"></section>
 
-    <section class="card softFocus" id="resources" style="margin-bottom: 60px;">
+    <!-- ================= Resources ================= -->
+    <section class="card softFocus" id="resources">
       <h2 class="cardHeading">Quick Resources</h2>
-      <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-        <a class="btn btnGhost" href="data/courses.json" target="_blank">View JSON Data</a>
+      <div class="grid resourceGrid">
+        <a class="btn btnGhost" href="data/courses.json" target="_blank">Course Data (JSON)</a>
         <a class="btn btnGhost" href="https://github.com/" target="_blank">Source Code</a>
         <a class="btn btnGhost" href="#about">Reading List</a>
       </div>
@@ -150,18 +187,22 @@
 
   </main>
 
+  <!-- ================= Footer ================= -->
   <footer class="footer">
     <div class="container footerInner">
-      <span class="mutedSmall">Sunset theme starter for GitHub Pages.</span>
-      <a class="btn btnGhost" href="#" style="font-size: 0.75rem;">↑ Back to top</a>
+      <span class="mutedSmall">
+        Quantum Annealing Learning Hub • Built with GitHub Pages
+      </span>
+      <a class="btn btnGhost" href="#top">↑ Back to top</a>
     </div>
   </footer>
 
+  <!-- Toast -->
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
+  <!-- Scripts -->
   <script src="assets/js/app.js"></script>
   <script>
-    // 初始化應用程式
     window.App.initBackground();
     window.App.renderHome();
     window.App.renderKpis();
