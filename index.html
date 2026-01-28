@@ -31,14 +31,12 @@
   <main>
 
     <!-- HERO -->
-    <section class="hero heroFull" aria-label="Hero">
+    <section class="hero heroFull">
       <div class="container heroInner">
 
         <div class="focusBadge">GitHub Pages Learning Hub</div>
 
-        <h1 class="heroTitle">
-          Learn Quantum Annealing
-        </h1>
+        <h1 class="heroTitle">Learn Quantum Annealing</h1>
 
         <p class="heroSubtitle">
           Build intuition, master QUBO modeling, and apply quantum inspired optimization
@@ -46,15 +44,12 @@
         </p>
 
         <div class="heroActions">
-          <a class="btn btnPrimary btnLarge" id="startBtn" href="lessons.html">
-            Start learning
-          </a>
-          <a class="btn btnGhost btnLarge" href="lessons.html">
-            View lessons
-          </a>
+          <a class="btn btnPrimary btnLarge" href="lessons.html">Start learning</a>
+          <a class="btn btnGhost btnLarge" href="lessons.html">View lessons</a>
         </div>
 
-        <div class="heroMeta" aria-label="Key metrics">
+        <!-- KPI -->
+        <div class="heroMeta">
           <div class="card metaCard">
             <div class="metaKpi" id="kpiCourses">—</div>
             <div class="mutedTiny">Courses</div>
@@ -73,76 +68,116 @@
     </section>
 
     <!-- COURSES OVERVIEW -->
-    <section class="container courseOverview" aria-label="Courses overview">
+    <section class="container courseOverview">
       <h2 class="sectionTitle">Courses</h2>
 
       <div class="courseIndexList">
-        <a class="courseIndexItem" href="course.html?course=101">
-          <span class="courseIndexCode">101</span>
-          <span class="courseIndexTitle">Problem Definition</span>
-        </a>
 
-        <a class="courseIndexItem" href="course.html?course=102">
-          <span class="courseIndexCode">102</span>
-          <span class="courseIndexTitle">
-            NP-hard &amp; Introduction to Simulated Annealing
-          </span>
-        </a>
+        <!-- 101 -->
+        <div class="courseIndexItem">
+          <a class="courseIndexMain" href="course.html?course=101">
+            <span class="courseIndexCode">101</span>
+            <span class="courseIndexTitle">Problem Definition</span>
+          </a>
+          <div class="courseIndexActions">
+            <a class="btn btnGhost btnTiny" href="#">Keynote</a>
+            <a class="btn btnGhost btnTiny" href="#">PDF</a>
+            <a class="btn btnGhost btnTiny" href="#">Podcast (ZH)</a>
+          </div>
+        </div>
 
-        <a class="courseIndexItem" href="course.html?course=201">
-          <span class="courseIndexCode">201</span>
-          <span class="courseIndexTitle">
-            Quantum Concepts &amp; QUBO Modeling
-          </span>
-        </a>
+        <!-- 102 -->
+        <div class="courseIndexItem">
+          <a class="courseIndexMain" href="course.html?course=102">
+            <span class="courseIndexCode">102</span>
+            <span class="courseIndexTitle">NP-hard & Introduction to Simulated Annealing</span>
+          </a>
+          <div class="courseIndexActions">
+            <a class="btn btnGhost btnTiny" href="#">Keynote</a>
+            <a class="btn btnGhost btnTiny" href="#">PDF</a>
+            <a class="btn btnGhost btnTiny" href="#">Podcast (ZH)</a>
+          </div>
+        </div>
 
-        <a class="courseIndexItem" href="course.html?course=202">
-          <span class="courseIndexCode">202</span>
-          <span class="courseIndexTitle">
-            Simulated Quantum Annealing
-          </span>
-        </a>
+        <!-- 201 -->
+        <div class="courseIndexItem">
+          <a class="courseIndexMain" href="course.html?course=201">
+            <span class="courseIndexCode">201</span>
+            <span class="courseIndexTitle">Quantum Concepts & QUBO Modeling</span>
+          </a>
+          <div class="courseIndexActions">
+            <a class="btn btnGhost btnTiny" href="#">Keynote</a>
+            <a class="btn btnGhost btnTiny" href="#">PDF</a>
+            <a class="btn btnGhost btnTiny" href="#">Podcast (ZH)</a>
+          </div>
+        </div>
 
-        <a class="courseIndexItem" href="course.html?course=301">
-          <span class="courseIndexCode">301</span>
-          <span class="courseIndexTitle">
-            D-Wave DEMO
-          </span>
-        </a>
+        <!-- 202 -->
+        <div class="courseIndexItem">
+          <a class="courseIndexMain" href="course.html?course=202">
+            <span class="courseIndexCode">202</span>
+            <span class="courseIndexTitle">Simulated Quantum Annealing</span>
+          </a>
+          <div class="courseIndexActions">
+            <a class="btn btnGhost btnTiny" href="#">Keynote</a>
+            <a class="btn btnGhost btnTiny" href="#">PDF</a>
+            <a class="btn btnGhost btnTiny" href="#">Podcast (ZH)</a>
+          </div>
+        </div>
 
-        <a class="courseIndexItem" href="course.html?course=302">
-          <span class="courseIndexCode">302</span>
-          <span class="courseIndexTitle">
-            Custom QUBO Application DEMO (VRP)
-          </span>
-        </a>
+        <!-- 301 -->
+        <div class="courseIndexItem">
+          <a class="courseIndexMain" href="course.html?course=301">
+            <span class="courseIndexCode">301</span>
+            <span class="courseIndexTitle">D-Wave DEMO</span>
+          </a>
+          <div class="courseIndexActions">
+            <a class="btn btnGhost btnTiny" href="#">Keynote</a>
+            <a class="btn btnGhost btnTiny" href="#">PDF</a>
+            <a class="btn btnGhost btnTiny" href="#">Podcast (ZH)</a>
+          </div>
+        </div>
 
-        <a class="courseIndexItem" href="course.html?course=303">
-          <span class="courseIndexCode">303</span>
-          <span class="courseIndexTitle">
-            Custom QUBO Application DEMO (Dynamic Routing Problem)
-          </span>
-        </a>
+        <!-- 302 -->
+        <div class="courseIndexItem">
+          <a class="courseIndexMain" href="course.html?course=302">
+            <span class="courseIndexCode">302</span>
+            <span class="courseIndexTitle">Custom QUBO Application DEMO (VRP)</span>
+          </a>
+          <div class="courseIndexActions">
+            <a class="btn btnGhost btnTiny" href="#">Keynote</a>
+            <a class="btn btnGhost btnTiny" href="#">PDF</a>
+            <a class="btn btnGhost btnTiny" href="#">Podcast (ZH)</a>
+          </div>
+        </div>
+
+        <!-- 303 -->
+        <div class="courseIndexItem">
+          <a class="courseIndexMain" href="course.html?course=303">
+            <span class="courseIndexCode">303</span>
+            <span class="courseIndexTitle">
+              Custom QUBO Application DEMO (Dynamic Routing Problem)
+            </span>
+          </a>
+          <div class="courseIndexActions">
+            <a class="btn btnGhost btnTiny" href="#">Keynote</a>
+            <a class="btn btnGhost btnTiny" href="#">PDF</a>
+            <a class="btn btnGhost btnTiny" href="#">Podcast (ZH)</a>
+          </div>
+        </div>
+
       </div>
     </section>
 
-    <!-- CONTINUE (optional, auto hide) -->
-    <section class="container" id="continueSection" style="display:none;" aria-label="Continue learning">
+    <!-- CONTINUE -->
+    <section class="container" id="continueSection" style="display:none;">
       <article class="focusCard softFocus">
-        <div class="focusBadge" style="background: var(--accent2);">
-          Continue learning
-        </div>
-
+        <div class="focusBadge" style="background: var(--accent2);">Continue learning</div>
         <h2 id="continueTitle">Last lesson</h2>
-        <p class="muted" id="continueDesc">
-          Resume where you left off.
-        </p>
-
+        <p class="muted" id="continueDesc">Resume where you left off.</p>
         <div class="btnRow">
           <a class="btn btnPrimary" id="continueBtn" href="#">Resume</a>
-          <button class="btn btnGhost" id="clearProgressBtn" type="button">
-            Clear
-          </button>
+          <button class="btn btnGhost" id="clearProgressBtn" type="button">Clear</button>
         </div>
       </article>
     </section>
@@ -152,15 +187,12 @@
   <!-- Footer -->
   <footer class="footer">
     <div class="container footerInner">
-      <span class="mutedSmall">
-        Quantum Annealing Learning Hub
-      </span>
+      <span class="mutedSmall">Quantum Annealing Learning Hub</span>
       <a class="btn btnGhost" href="#top">Back to top</a>
     </div>
   </footer>
 
   <!-- Scripts -->
-  <!-- ⚠️ 順序很重要：background 先、home 後 -->
   <script src="assets/js/background.js"></script>
   <script src="assets/js/home.js"></script>
 </body>
