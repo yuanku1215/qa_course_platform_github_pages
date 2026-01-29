@@ -39,4 +39,24 @@
         {
           "question": "Which situation represents a truly dynamic optimization problem?\n(A) Recomputing a static problem every hour\n(B) Using different cost parameters at different times\n(C) Decisions today affect future system states\n(D) Solving the same model with updated data",
           "answer": "C",
-          "explain": "A problem is dynamic when decisions inf
+          "explain": "A problem is dynamic when decisions influence future states, not merely when parameters change over time."
+        },
+        {
+          "question": "Match each uncertainty description with the correct modeling approach:\n1. All parameters are known exactly\n2. Parameters follow probability distributions\n3. Parameters are unknown but bounded\nOptions: (A) Robust (B) Deterministic (C) Stochastic",
+          "answer": "1 → B, 2 → C, 3 → A",
+          "explain": "These correspond to the three main ways uncertainty is handled in optimization models."
+        },
+        {
+          "question": "True or False: If two decisions interact, their effects cannot be represented by simply summing independent costs.",
+          "answer": "True.",
+          "explain": "Interactions imply non-additive effects and usually require cross or product terms in the model."
+        },
+        {
+          "question": "What is the main difficulty of multi-objective optimization problems?\n(A) No feasible solutions exist\n(B) Objectives cannot be quantified\n(C) There is no single unique optimal solution\n(D) Constraints are too complex",
+          "answer": "C",
+          "explain": "Multi-objective problems typically result in a set of Pareto-optimal solutions rather than a single optimum."
+        }
+      ]
+    }
+  ]
+}
