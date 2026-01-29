@@ -4,11 +4,11 @@
       "id": "101",
       "title": "Problem Definition",
       "description": "How to define optimization problems through variables, constraints, objectives, time, uncertainty, and interactions.",
-      "video": "https://www.youtube.com/embed/VIDEO_ID",
+      "video": "https://www.youtube.com/embed/6z-TcOnd43A",
       "downloads": {
-        "slides": "assets/downloads/101.key",
-        "pdf": "assets/downloads/101.pdf",
-        "podcast": "assets/downloads/101_podcast_zh.mp3"
+        "slides": "assets/downloads/course101.key",
+        "pdf": "assets/downloads/course101.pdf",
+        "podcast": "assets/downloads/course101_podcast.m4a"
       },
       "practice": [
         {
@@ -39,24 +39,4 @@
         {
           "question": "Which situation represents a truly dynamic optimization problem?\n(A) Recomputing a static problem every hour\n(B) Using different cost parameters at different times\n(C) Decisions today affect future system states\n(D) Solving the same model with updated data",
           "answer": "C",
-          "explain": "A problem is dynamic when decisions influence future states, not merely when parameters change over time."
-        },
-        {
-          "question": "Match each uncertainty description with the correct modeling approach:\n1. All parameters are known exactly\n2. Parameters follow probability distributions\n3. Parameters are unknown but bounded\nOptions: (A) Robust (B) Deterministic (C) Stochastic",
-          "answer": "1 → B, 2 → C, 3 → A",
-          "explain": "These correspond to the three main ways uncertainty is handled in optimization models."
-        },
-        {
-          "question": "True or False: If two decisions interact, their effects cannot be represented by simply summing independent costs.",
-          "answer": "True.",
-          "explain": "Interactions imply non-additive effects and usually require cross or product terms in the model."
-        },
-        {
-          "question": "What is the main difficulty of multi-objective optimization problems?\n(A) No feasible solutions exist\n(B) Objectives cannot be quantified\n(C) There is no single unique optimal solution\n(D) Constraints are too complex",
-          "answer": "C",
-          "explain": "Multi-objective problems typically result in a set of Pareto-optimal solutions rather than a single optimum."
-        }
-      ]
-    }
-  ]
-}
+          "explain": "A problem is dynamic when decisions inf
