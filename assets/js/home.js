@@ -93,11 +93,11 @@
 
     const divider = el("div", "trackDivider");
     const desc = el("p", "muted trackDesc", meta.desc);
-    
+
     card.appendChild(head);
     card.appendChild(divider);
     card.appendChild(desc);
-    
+
     return card;
   }
 
@@ -147,50 +147,51 @@
     .then(data => {
       const courses = Array.isArray(data && data.courses) ? data.courses : [];
 
-      let totalLessons = 0;
       let totalMinutes = 0;
 
       const byTrack = {
-        modeling: { courses: [], lessonCount: 0, minuteCount: 0 },
-        quantum: { courses: [], lessonCount: 0, minuteCount: 0 },
-        demo: { courses: [], lessonCount: 0, minuteCount: 0 },
-        other: { courses: [], lessonCount: 0, minuteCount: 0 }
+        modeling: { courses: [], minuteCount: 0 },
+        quantum: { courses: [], minuteCount: 0 },
+        demo: { courses: [], minuteCount: 0 },
+        other: { courses: [], minuteCount: 0 }
       };
 
       courses.forEach(c => {
-        const lessons = Array.isArray(c && c.lessons) ? c.lessons : [];
         const mins = safeNumber(c && c.minutes, 0);
-
-        totalLessons += lessons.length;
         totalMinutes += mins;
 
         const track = getTrackById(c && c.id);
         const bucket = byTrack[track] || byTrack.other;
 
         bucket.courses.push(c);
-        bucket.lessonCount += lessons.length;
         bucket.minuteCount += mins;
       });
 
+      // KPI: Courses / Sections / Minutes
       setText(kpiCoursesEl, String(courses.length));
-      setText(kpiLessonsEl, String(totalLessons));
+
+      // Sections = number of non-empty main tracks among (modeling, quantum, demo)
+      const sectionKeys = ["modeling", "quantum", "demo"];
+      const sections = sectionKeys.filter(k => (byTrack[k].courses || []).length > 0).length;
+      setText(kpiLessonsEl, String(sections));
+
       setText(kpiMinutesEl, String(totalMinutes));
 
+      // Render track cards
       const tracksGrid = $("tracksGrid");
       if (tracksGrid) {
         tracksGrid.innerHTML = "";
-
         ["modeling", "quantum", "demo"].forEach(track => {
           const meta = trackMeta(track);
           const stats = {
             courseCount: byTrack[track].courses.length,
-            lessonCount: byTrack[track].lessonCount,
             minuteCount: byTrack[track].minuteCount
           };
           tracksGrid.appendChild(buildTrackCard(track, meta, stats));
         });
       }
 
+      // Suggested order
       const pathLine = $("pathLine");
       if (pathLine) {
         const ids = courses
@@ -198,13 +199,10 @@
           .filter(Boolean)
           .sort((a, b) => toCourseIdNumber(a) - toCourseIdNumber(b));
 
-        if (ids.length) {
-          pathLine.textContent = `Suggested order: ${ids.join(" → ")}.`;
-        } else {
-          pathLine.textContent = "";
-        }
+        pathLine.textContent = ids.length ? `Suggested order: ${ids.join(" → ")}.` : "";
       }
 
+      // Highlights (one per track)
       const highlightsList = $("highlightsList");
       if (highlightsList) {
         highlightsList.innerHTML = "";
@@ -224,8 +222,7 @@
         if (h3) highlightsList.appendChild(buildHighlightRow(h3, "demo"));
 
         if (!h1 && !h2 && !h3) {
-          const empty = el("p", "muted", "No courses found. Please check data/courses.json.");
-          highlightsList.appendChild(empty);
+          highlightsList.appendChild(el("p", "muted", "No courses found. Please check data/courses.json."));
         }
       }
     })
@@ -237,12 +234,7 @@
       const tracksGrid = $("tracksGrid");
       if (tracksGrid) {
         tracksGrid.innerHTML = "";
-        const p = document.createElement("p");
-        p.className = "muted";
-        p.textContent = "Failed to load course data. Please refresh or check data/courses.json.";
-        tracksGrid.appendChild(p);
+        tracksGrid.appendChild(el("p", "muted", "Failed to load course data. Please refresh or check data/courses.json."));
       }
     });
 })();
-
-
