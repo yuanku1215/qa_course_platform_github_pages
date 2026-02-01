@@ -522,3 +522,158 @@ details[open] .practiceSummary::before {
   margin-top: 10px;
   opacity: 0.85;
 }
+
+/* ==============================
+   Home tracks visual polish
+   ============================== */
+
+.tracksGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 16px;
+}
+
+@media (max-width: 980px) {
+  .tracksGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.trackCard {
+  position: relative;
+  border-radius: 28px;
+  padding: 18px 18px 16px 18px;
+
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  box-shadow:
+    0 22px 70px rgba(0, 0, 0, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+  overflow: hidden;
+}
+
+.trackCard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+  pointer-events: none;
+
+  background:
+    radial-gradient(800px 260px at 20% 0%, rgba(255,255,255,0.14), rgba(255,255,255,0) 55%),
+    radial-gradient(700px 260px at 80% 0%, rgba(255,255,255,0.10), rgba(255,255,255,0) 58%);
+  opacity: 0.75;
+}
+
+.trackCard::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: 27px;
+  pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  opacity: 0.55;
+}
+
+.trackCard:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.20);
+  box-shadow:
+    0 30px 90px rgba(0, 0, 0, 0.50),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.trackHead {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.trackBadge {
+  width: 46px;
+  height: 46px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.trackTitle {
+  margin: 0;
+  font-size: 19px;
+  line-height: 1.22;
+}
+
+.trackStats {
+  margin-top: 6px;
+  opacity: 0.9;
+}
+
+.trackDesc {
+  margin: 12px 0 0 0;
+  line-height: 1.55;
+}
+
+/* subtle color identity per track */
+.trackCard[data-track="modeling"] {
+  background:
+    radial-gradient(900px 420px at 0% 0%, rgba(255, 180, 80, 0.10), rgba(255,255,255,0.05) 55%),
+    rgba(255,255,255,0.045);
+}
+
+.trackCard[data-track="quantum"] {
+  background:
+    radial-gradient(900px 420px at 0% 0%, rgba(120, 180, 255, 0.10), rgba(255,255,255,0.05) 55%),
+    rgba(255,255,255,0.045);
+}
+
+.trackCard[data-track="demo"] {
+  background:
+    radial-gradient(900px 420px at 0% 0%, rgba(155, 255, 200, 0.09), rgba(255,255,255,0.05) 55%),
+    rgba(255,255,255,0.045);
+}
+
+/* Buttons aligned to cards */
+.tracksCtas {
+  margin-top: 14px;
+}
+
+.tracksBtnGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  align-items: stretch;
+}
+
+@media (max-width: 980px) {
+  .tracksBtnGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.trackBtn {
+  width: 100%;
+  justify-content: center;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.tracksPathLine {
+  margin-top: 10px;
+  opacity: 0.85;
+}
