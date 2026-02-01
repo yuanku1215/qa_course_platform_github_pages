@@ -12,8 +12,6 @@
     window.Background.initBackground();
   }
 
-  // Track filtering via query string
-  // lessons.html?track=modeling | quantum | demo
   const params = new URLSearchParams(window.location.search);
   const track = (params.get("track") || "").toLowerCase();
 
@@ -26,6 +24,7 @@
     if (!track) return true;
 
     const n = toIdNumber(course && course.id);
+
     if (track === "modeling") return n >= 100 && n < 200;
     if (track === "quantum") return n >= 200 && n < 300;
     if (track === "demo") return n >= 300 && n < 400;
@@ -102,8 +101,15 @@
     return row;
   }
 
-  // Load and render
-  fetch(DATA_URL, { cache: "force-cache" })
+  function trackLabel() {
+    if (track === "modeling") return "Modeling track";
+    if (track === "quantum") return "Quantum track";
+    if (track === "demo") return "Demo track";
+    if (track) return "Selected track";
+    return "";
+  }
+
+  fetch(DATA_URL, { cache: "no-store" })
     .then(r => {
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       return r.json();
@@ -114,8 +120,17 @@
 
       list.innerHTML = "";
 
+      if (!courses.length) {
+        list.innerHTML = `<p class="muted">Course data is empty. Please check data/courses.json.</p>`;
+        return;
+      }
+
       if (!filtered.length) {
-        list.innerHTML = `<p class="muted">No courses found in this track.</p>`;
+        const label = trackLabel();
+        const msg = label
+          ? `No courses found in ${label}. Please confirm your courses.json is updated on GitHub Pages.`
+          : "No courses found.";
+        list.innerHTML = `<p class="muted">${msg}</p>`;
         return;
       }
 
@@ -128,6 +143,6 @@
     })
     .catch(err => {
       console.error("Failed to load courses.json", err);
-      list.innerHTML = `<p class="muted">Failed to load course list.</p>`;
+      list.innerHTML = `<p class="muted">Failed to load course list. Please refresh and check data/courses.json.</p>`;
     });
 })();
