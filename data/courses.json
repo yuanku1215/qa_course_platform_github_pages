@@ -57,6 +57,78 @@
           "explain": "Multi-objective problems typically result in a set of Pareto-optimal solutions rather than a single optimum."
         }
       ]
+    },
+    {
+      "id": "102",
+      "title": "NP-hard Problems and Simulated Annealing",
+      "description": "Why NP-hard problems are difficult, common examples, and the core intuition behind simulated annealing as a baseline heuristic.",
+      "video": "",
+      "downloads": {
+        "slides": "assets/downloads/course102.key",
+        "pdf": "assets/downloads/course102.pdf",
+        "podcast": "assets/downloads/course102_podcast.m4a"
+      },
+      "practice": []
+    },
+    {
+      "id": "201",
+      "title": "Quantum Concepts and QUBO Modeling",
+      "description": "Core concepts for quantum annealing, Ising vs QUBO, and how to convert constraints into quadratic penalties for optimization.",
+      "video": "",
+      "downloads": {
+        "slides": "assets/downloads/course201.key",
+        "pdf": "assets/downloads/course201.pdf",
+        "podcast": "assets/downloads/course201_podcast.m4a"
+      },
+      "practice": []
+    },
+    {
+      "id": "202",
+      "title": "Simulated Quantum Annealing",
+      "description": "Understand simulated quantum annealing and how quantum fluctuations are approximated for solving QUBO and Ising models.",
+      "video": "",
+      "downloads": {
+        "slides": "assets/downloads/course202.key",
+        "pdf": "assets/downloads/course202.pdf",
+        "podcast": "assets/downloads/course202_podcast.m4a"
+      },
+      "practice": []
+    },
+    {
+      "id": "301",
+      "title": "D-Wave Demo",
+      "description": "A practical demo workflow using D-Wave tools to formulate and solve QUBO problems, including solution inspection and interpretation.",
+      "video": "",
+      "downloads": {
+        "slides": "assets/downloads/course301.key",
+        "pdf": "assets/downloads/course301.pdf",
+        "podcast": "assets/downloads/course301_podcast.m4a"
+      },
+      "practice": []
+    },
+    {
+      "id": "302",
+      "title": "Custom QUBO Application Demo (VRP)",
+      "description": "A hands-on demo for building a custom QUBO formulation for a vehicle routing style problem and testing it with annealing-based solvers.",
+      "video": "",
+      "downloads": {
+        "slides": "assets/downloads/course302.key",
+        "pdf": "assets/downloads/course302.pdf",
+        "podcast": "assets/downloads/course302_podcast.m4a"
+      },
+      "practice": []
+    },
+    {
+      "id": "303",
+      "title": "Custom QUBO Application Demo (Dynamic Routing)",
+      "description": "A demo focused on dynamic routing settings, showing how time and state introduce intertemporal decisions beyond static shortest path.",
+      "video": "",
+      "downloads": {
+        "slides": "assets/downloads/course303.key",
+        "pdf": "assets/downloads/course303.pdf",
+        "podcast": "assets/downloads/course303_podcast.m4a"
+      },
+      "practice": []
     }
   ]
 }
