@@ -29,7 +29,6 @@
    ===================================================== */
 
 * { box-sizing: border-box; }
-
 html, body { height: 100%; }
 
 body {
@@ -44,8 +43,17 @@ body {
 }
 
 a { color: inherit; text-decoration: none; }
-
 .muted { color: var(--muted); }
+
+.mutedSmall {
+  font-size: 13px;
+  color: rgba(238,242,255,0.62);
+}
+
+.mutedTiny {
+  font-size: 12px;
+  color: rgba(238,242,255,0.60);
+}
 
 /* =====================================================
    Animated Background (GLOBAL)
@@ -124,6 +132,7 @@ a { color: inherit; text-decoration: none; }
   cursor: pointer;
   border: 1px solid var(--border);
   background: transparent;
+  user-select: none;
 }
 
 .btnPrimary {
@@ -146,9 +155,19 @@ a { color: inherit; text-decoration: none; }
   border-radius: var(--radius-sm);
 }
 
-.btnDisabled {
+.btnDisabled,
+a[aria-disabled="true"] {
   opacity: 0.45;
   pointer-events: none;
+}
+
+/* 可選：把任何橘色按鈕做成膠囊並吃動畫
+   用法：class="btn btnPrimary btnPill"
+*/
+.btnPill {
+  border-radius: 999px;
+  position: relative;
+  overflow: hidden;
 }
 
 /* =====================================================
@@ -202,7 +221,111 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* =====================================================
-   HOME – Courses Section
+   Hero Primary CTA (Orange pill) + new micro animations
+   ===================================================== */
+
+@keyframes qaGlowPulse {
+  0%   { box-shadow: 0 12px 32px rgba(255,138,31,0.28), inset 0 1px 0 rgba(255,255,255,0.36); }
+  50%  { box-shadow: 0 16px 44px rgba(255,138,31,0.40), inset 0 1px 0 rgba(255,255,255,0.46); }
+  100% { box-shadow: 0 12px 32px rgba(255,138,31,0.28), inset 0 1px 0 rgba(255,255,255,0.36); }
+}
+
+.btnHero {
+  position: relative;
+  overflow: hidden;
+
+  padding: 14px 26px;
+  font-size: 15.5px;
+  letter-spacing: 0.3px;
+
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent), #ffb45a);
+
+  color: #0b1020;
+  border: 1px solid rgba(255,138,31,0.38);
+
+  box-shadow:
+    0 12px 32px rgba(255,138,31,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.35);
+
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    filter 0.18s ease;
+
+  animation: qaGlowPulse 3.2s ease-in-out infinite;
+}
+
+/* Shine sweep */
+.btnHero::before,
+.btnPill::before {
+  content: "";
+  position: absolute;
+  top: -30%;
+  left: -45%;
+  width: 55%;
+  height: 160%;
+  pointer-events: none;
+
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0),
+    rgba(255,255,255,0.32),
+    rgba(255,255,255,0)
+  );
+
+  transform: rotate(18deg) translateX(-30%);
+  opacity: 0;
+}
+
+/* Top highlight */
+.btnHero::after,
+.btnPill::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(120% 80% at 30% 15%, rgba(255,255,255,0.45), rgba(255,255,255,0) 55%);
+  opacity: 0.85;
+}
+
+.btnHero:hover,
+.btnPrimary.btnPill:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+  box-shadow:
+    0 18px 46px rgba(255,138,31,0.46),
+    inset 0 1px 0 rgba(255,255,255,0.50);
+}
+
+.btnHero:hover::before,
+.btnPrimary.btnPill:hover::before {
+  opacity: 1;
+  transform: rotate(18deg) translateX(240%);
+  transition: transform 0.70s ease, opacity 0.18s ease;
+}
+
+.btnHero:active,
+.btnPrimary.btnPill:active {
+  transform: translateY(0);
+  filter: brightness(1.02);
+  box-shadow:
+    0 10px 26px rgba(255,138,31,0.30),
+    inset 0 2px 4px rgba(0,0,0,0.25);
+}
+
+.btnHero:focus-visible,
+.btnPrimary.btnPill:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgba(255,138,31,0.35),
+    0 18px 46px rgba(255,138,31,0.46),
+    inset 0 1px 0 rgba(255,255,255,0.50);
+}
+
+/* =====================================================
+   HOME – Sections
    ===================================================== */
 
 .courseOverview {
@@ -362,99 +485,9 @@ details[open] .practiceSummary::before {
   align-items: center;
 }
 
-.mutedSmall {
-  font-size: 13px;
-  color: rgba(238,242,255,0.62);
-}
-
 /* =====================================================
-   Responsive
+   Home Tracks (3 glass cards) + alignment + divider
    ===================================================== */
-
-@media (max-width: 900px) {
-  .heroTitle { font-size: 36px; }
-
-  .courseHero {
-    width: 100%;
-    grid-template-columns: 1fr;
-    padding: 0 16px;
-  }
-
-  .coursePracticePanel {
-    height: auto;
-    border-left: none;
-    padding-left: 0;
-    margin-top: 28px;
-  }
-
-  .courseRow {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .courseActions {
-    margin-top: 10px;
-  }
-}
-
-/* =====================================================
-   Hero Primary CTA – Start learning
-   ===================================================== */
-
-.btnHero {
-  position: relative;
-  padding: 14px 26px;
-  font-size: 15.5px;
-  letter-spacing: 0.3px;
-
-  border-radius: 999px; /* 膠囊形，高級感 */
-  background: linear-gradient(
-    135deg,
-    var(--accent),
-    #ffb45a
-  );
-
-  color: #0b1020;
-  border: none;
-
-  box-shadow:
-    0 12px 32px rgba(255,138,31,0.35),
-    inset 0 1px 0 rgba(255,255,255,0.35);
-
-  transition:
-    transform 0.18s ease,
-    box-shadow 0.18s ease,
-    filter 0.18s ease;
-}
-
-/* Hover：輕微浮起 + 發光 */
-.btnHero:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.05);
-  box-shadow:
-    0 18px 46px rgba(255,138,31,0.45),
-    inset 0 1px 0 rgba(255,255,255,0.45);
-}
-
-/* Active：按下回饋 */
-.btnHero:active {
-  transform: translateY(0);
-  box-shadow:
-    0 10px 26px rgba(255,138,31,0.30),
-    inset 0 2px 4px rgba(0,0,0,0.25);
-}
-
-/* 鍵盤可及性 */
-.btnHero:focus-visible {
-  outline: none;
-  box-shadow:
-    0 0 0 3px rgba(255,138,31,0.35),
-    0 18px 46px rgba(255,138,31,0.45);
-}
-
-/* ==============================
-   Home tracks grid
-   ============================== */
 
 .tracksGrid {
   display: grid;
@@ -464,80 +497,7 @@ details[open] .practiceSummary::before {
 }
 
 @media (max-width: 980px) {
-  .tracksGrid {
-    grid-template-columns: 1fr;
-  }
-}
-
-.trackCard {
-  border-radius: 26px;
-  padding: 18px 18px 16px 18px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
-}
-
-.trackHead {
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-}
-
-.trackBadge {
-  width: 42px;
-  height: 42px;
-  border-radius: 14px;
-  display: grid;
-  place-items: center;
-  font-weight: 700;
-  background: rgba(255, 255, 255, 0.10);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-}
-
-.trackTitle {
-  margin: 0;
-  font-size: 18px;
-  line-height: 1.25;
-}
-
-.trackStats {
-  margin-top: 6px;
-}
-
-.trackDesc {
-  margin: 12px 0 0 0;
-}
-
-.tracksCtas {
-  margin-top: 16px;
-}
-
-.tracksBtnRow {
-  flex-wrap: wrap;
-}
-
-.tracksPathLine {
-  margin-top: 10px;
-  opacity: 0.85;
-}
-
-/* ==============================
-   Home tracks visual polish
-   ============================== */
-
-.tracksGrid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-  margin-top: 16px;
-}
-
-@media (max-width: 980px) {
-  .tracksGrid {
-    grid-template-columns: 1fr;
-  }
+  .tracksGrid { grid-template-columns: 1fr; }
 }
 
 .trackCard {
@@ -557,6 +517,11 @@ details[open] .practiceSummary::before {
 
   transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
   overflow: hidden;
+
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  row-gap: 12px;
+  min-height: 245px;
 }
 
 .trackCard::before {
@@ -591,130 +556,20 @@ details[open] .practiceSummary::before {
 }
 
 .trackHead {
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-}
-
-.trackBadge {
-  width: 46px;
-  height: 46px;
-  border-radius: 16px;
-  display: grid;
-  place-items: center;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-
-  background: rgba(255, 255, 255, 0.09);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-
-  box-shadow:
-    0 10px 28px rgba(0, 0, 0, 0.28),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
-}
-
-.trackTitle {
-  margin: 0;
-  font-size: 19px;
-  line-height: 1.22;
-}
-
-.trackStats {
-  margin-top: 6px;
-  opacity: 0.9;
-}
-
-.trackDesc {
-  margin: 12px 0 0 0;
-  line-height: 1.55;
-}
-
-/* subtle color identity per track */
-.trackCard[data-track="modeling"] {
-  background:
-    radial-gradient(900px 420px at 0% 0%, rgba(255, 180, 80, 0.10), rgba(255,255,255,0.05) 55%),
-    rgba(255,255,255,0.045);
-}
-
-.trackCard[data-track="quantum"] {
-  background:
-    radial-gradient(900px 420px at 0% 0%, rgba(120, 180, 255, 0.10), rgba(255,255,255,0.05) 55%),
-    rgba(255,255,255,0.045);
-}
-
-.trackCard[data-track="demo"] {
-  background:
-    radial-gradient(900px 420px at 0% 0%, rgba(155, 255, 200, 0.09), rgba(255,255,255,0.05) 55%),
-    rgba(255,255,255,0.045);
-}
-
-/* Buttons aligned to cards */
-.tracksCtas {
-  margin-top: 14px;
-}
-
-.tracksBtnGrid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-  align-items: stretch;
-}
-
-@media (max-width: 980px) {
-  .tracksBtnGrid {
-    grid-template-columns: 1fr;
-  }
-}
-
-.trackBtn {
-  width: 100%;
-  justify-content: center;
-  padding-top: 12px;
-  padding-bottom: 12px;
-}
-
-.tracksPathLine {
-  margin-top: 10px;
-  opacity: 0.85;
-}
-
-/* ==============================
-   Tracks layout alignment upgrade
-   ============================== */
-
-.trackCard {
-  display: grid;
-  grid-template-rows: auto auto 1fr; /* header, divider, body */
-  row-gap: 12px;
-  min-height: 245px; /* make the 3 cards visually consistent */
-}
-
-.trackHead {
   display: grid;
   grid-template-columns: 58px 1fr;
   gap: 14px;
   align-items: start;
 }
 
-.trackBadge {
-  width: 52px;
-  height: 52px;
-  border-radius: 18px;
-
-  background: rgba(255, 170, 60, 0.95);
-  color: #111;
-  border: 1px solid rgba(0, 0, 0, 0.25);
-
-  box-shadow:
-    0 16px 40px rgba(0, 0, 0, 0.25),
-    inset 0 1px 0 rgba(255, 255, 255, 0.35);
-}
-
 .trackTitle {
   margin: 0;
-  min-height: 48px; /* align title block height */
+  font-size: 19px;
+  line-height: 1.22;
+
+  min-height: 48px;
   display: -webkit-box;
-  -webkit-line-clamp: 2;           /* keep titles same line count */
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -724,7 +579,6 @@ details[open] .practiceSummary::before {
   opacity: 0.9;
 }
 
-/* divider between title+stats and description */
 .trackDivider {
   height: 1px;
   width: 100%;
@@ -736,26 +590,99 @@ details[open] .practiceSummary::before {
   opacity: 0.9;
 }
 
-/* description block height alignment */
 .trackDesc {
   margin: 0;
   min-height: 92px;
   line-height: 1.58;
+  opacity: 0.92;
 
   display: -webkit-box;
-  -webkit-line-clamp: 4;           /* keep body consistent */
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
-
-  opacity: 0.92;
 }
 
-/* ==============================
-   Buttons aligned & upgraded
-   ============================== */
+/* Q M D badge: rounded square, same orange vibe as the hero pill */
+.trackBadge {
+  width: 52px;
+  height: 52px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+
+  background: linear-gradient(135deg, var(--accent), #ffb45a);
+  color: #0b1020;
+
+  border: 1px solid rgba(255,138,31,0.38);
+
+  box-shadow:
+    0 12px 32px rgba(255,138,31,0.22),
+    0 18px 48px rgba(0,0,0,0.26),
+    inset 0 1px 0 rgba(255,255,255,0.42);
+
+  font-weight: 800;
+  letter-spacing: 0.02em;
+
+  position: relative;
+  overflow: hidden;
+}
+
+.trackBadge::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 85% at 30% 18%, rgba(255,255,255,0.60), rgba(255,255,255,0) 55%),
+    radial-gradient(90% 70% at 70% 85%, rgba(255,255,255,0.16), rgba(255,255,255,0) 60%);
+  opacity: 0.9;
+}
+
+.trackBadge::after {
+  content: "";
+  position: absolute;
+  inset: -18px;
+  pointer-events: none;
+  background: radial-gradient(closest-side, rgba(255,138,31,0.26), rgba(255,138,31,0) 70%);
+  opacity: 0.55;
+}
+
+.trackCard:hover .trackBadge {
+  filter: brightness(1.04);
+  transform: translateY(-1px);
+  transition: transform 0.18s ease, filter 0.18s ease;
+}
+
+/* subtle color identity per track */
+.trackCard[data-track="modeling"] {
+  background:
+    radial-gradient(900px 420px at 0% 0%, rgba(255, 180, 80, 0.10), rgba(255,255,255,0.05) 55%),
+    rgba(255,255,255,0.045);
+}
+.trackCard[data-track="quantum"] {
+  background:
+    radial-gradient(900px 420px at 0% 0%, rgba(120, 180, 255, 0.10), rgba(255,255,255,0.05) 55%),
+    rgba(255,255,255,0.045);
+}
+.trackCard[data-track="demo"] {
+  background:
+    radial-gradient(900px 420px at 0% 0%, rgba(155, 255, 200, 0.09), rgba(255,255,255,0.05) 55%),
+    rgba(255,255,255,0.045);
+}
+
+/* CTA buttons aligned with the 3 cards */
+.tracksCtas { margin-top: 14px; }
 
 .tracksBtnGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
+  align-items: stretch;
+}
+
+@media (max-width: 980px) {
+  .tracksBtnGrid { grid-template-columns: 1fr; }
 }
 
 .trackBtn {
@@ -774,15 +701,50 @@ details[open] .practiceSummary::before {
     0 18px 55px rgba(0, 0, 0, 0.40),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
 
-  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  position: relative;
+  overflow: hidden;
+
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease,
+    filter 180ms ease;
+}
+
+/* subtle shine on hover for glass buttons */
+.trackBtn::before {
+  content: "";
+  position: absolute;
+  top: -30%;
+  left: -40%;
+  width: 60%;
+  height: 160%;
+  pointer-events: none;
+
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0),
+    rgba(255,255,255,0.22),
+    rgba(255,255,255,0)
+  );
+
+  transform: rotate(18deg) translateX(-20%);
+  opacity: 0;
 }
 
 .trackBtn:hover {
   transform: translateY(-2px);
+  filter: brightness(1.02);
   border-color: rgba(255, 255, 255, 0.26);
   box-shadow:
     0 22px 70px rgba(0, 0, 0, 0.48),
     inset 0 1px 0 rgba(255, 255, 255, 0.10);
+}
+
+.trackBtn:hover::before {
+  opacity: 1;
+  transform: rotate(18deg) translateX(220%);
+  transition: transform 0.65s ease, opacity 0.18s ease;
 }
 
 .trackBtn:active {
@@ -790,4 +752,67 @@ details[open] .practiceSummary::before {
   box-shadow:
     0 16px 45px rgba(0, 0, 0, 0.36),
     inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.trackBtn:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgba(255,138,31,0.18),
+    0 22px 70px rgba(0, 0, 0, 0.48),
+    inset 0 1px 0 rgba(255, 255, 255, 0.10);
+}
+
+.tracksPathLine {
+  margin-top: 10px;
+  opacity: 0.85;
+}
+
+/* =====================================================
+   Responsive
+   ===================================================== */
+
+@media (max-width: 900px) {
+  .heroTitle { font-size: 36px; }
+
+  .courseHero {
+    width: 100%;
+    grid-template-columns: 1fr;
+    padding: 0 16px;
+  }
+
+  .coursePracticePanel {
+    height: auto;
+    border-left: none;
+    padding-left: 0;
+    margin-top: 28px;
+  }
+
+  .courseRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .courseActions {
+    margin-top: 10px;
+  }
+}
+
+/* =====================================================
+   Reduced motion
+   ===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .btnHero { animation: none; }
+  .btnHero,
+  .btnPrimary.btnPill,
+  .trackBtn,
+  .trackCard,
+  .trackBadge {
+    transition: none;
+  }
+  .btnHero::before,
+  .btnPill::before,
+  .trackBtn::before {
+    transition: none;
+  }
 }
