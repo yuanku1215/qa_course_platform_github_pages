@@ -452,3 +452,73 @@ details[open] .practiceSummary::before {
     0 18px 46px rgba(255,138,31,0.45);
 }
 
+/* ==============================
+   Home tracks grid
+   ============================== */
+
+.tracksGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 16px;
+}
+
+@media (max-width: 980px) {
+  .tracksGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.trackCard {
+  border-radius: 26px;
+  padding: 18px 18px 16px 18px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
+}
+
+.trackHead {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.trackBadge {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.trackTitle {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.trackStats {
+  margin-top: 6px;
+}
+
+.trackDesc {
+  margin: 12px 0 0 0;
+}
+
+.tracksCtas {
+  margin-top: 16px;
+}
+
+.tracksBtnRow {
+  flex-wrap: wrap;
+}
+
+.tracksPathLine {
+  margin-top: 10px;
+  opacity: 0.85;
+}
