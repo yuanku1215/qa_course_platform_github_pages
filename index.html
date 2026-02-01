@@ -20,9 +20,7 @@
 
       <nav class="nav" aria-label="Primary navigation">
         <a class="btn btnGhost" href="lessons.html">Lessons</a>
-        <a class="btn btnGhost" href="https://github.com/" target="_blank" rel="noopener">
-          GitHub
-        </a>
+        <a class="btn btnGhost" href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
       </nav>
     </div>
   </header>
@@ -36,32 +34,29 @@
 
         <div class="focusBadge">GitHub Pages Learning Hub</div>
 
-        <h1 class="heroTitle">Learn Quantum Annealing</h1>
+        <h1 class="heroTitle">From QUBO Modeling to Quantum Inspired Optimization</h1>
 
         <p class="heroSubtitle">
-          Build intuition, master QUBO modeling, and apply quantum inspired optimization
-          to routing and scheduling problems.
+          This hub is designed to help you build a clear path from mathematical modeling,
+          to quantum annealing concepts, and finally to practical demos you can run and modify.
         </p>
 
-        <!-- CTA：只留一顆 -->
         <div class="heroActions">
-          <a class="btn btnPrimary btnLarge btnHero" href="lessons.html">
-            Start learning
-          </a>
+          <a class="btn btnPrimary btnLarge btnHero" href="lessons.html">Explore all lessons</a>
         </div>
 
         <!-- KPI -->
         <div class="heroMeta">
           <div class="card metaCard">
-            <div class="metaKpi" id="kpiCourses">—</div>
+            <div class="metaKpi" id="kpiCourses">...</div>
             <div class="mutedTiny">Courses</div>
           </div>
           <div class="card metaCard">
-            <div class="metaKpi" id="kpiLessons">—</div>
+            <div class="metaKpi" id="kpiLessons">...</div>
             <div class="mutedTiny">Lessons</div>
           </div>
           <div class="card metaCard">
-            <div class="metaKpi" id="kpiMinutes">—</div>
+            <div class="metaKpi" id="kpiMinutes">...</div>
             <div class="mutedTiny">Minutes</div>
           </div>
         </div>
@@ -69,114 +64,48 @@
       </div>
     </section>
 
-    <!-- COURSES OVERVIEW -->
+    <!-- PURPOSE -->
     <section class="container courseOverview">
-      <h2 class="sectionTitle">Courses</h2>
+      <h2 class="sectionTitle">What this hub is for</h2>
 
-      <div class="courseList">
-
-        <div class="courseRow">
-          <div class="courseInfo">
-            <span class="courseCode">101</span>
-            <h3 class="courseName">Problem Definition</h3>
-          </div>
-          <div class="courseActions">
-            <a class="btn btnGhost btnTiny" href="#">Keynote</a>
-            <a class="btn btnGhost btnTiny" href="#">PDF</a>
-            <a class="btn btnGhost btnTiny" href="#">Podcast (ZH)</a>
-          </div>
-        </div>
-
-        <div class="courseRow">
-          <div class="courseInfo">
-            <span class="courseCode">102</span>
-            <h3 class="courseName">NP-hard & Introduction to Simulated Annealing</h3>
-          </div>
-          <div class="courseActions">
-            <a class="btn btnGhost btnTiny" href="#">Keynote</a>
-            <a class="btn btnGhost btnTiny" href="#">PDF</a>
-            <a class="btn btnGhost btnTiny" href="#">Podcast (ZH)</a>
-          </div>
-        </div>
-
-        <div class="courseRow">
-          <div class="courseInfo">
-            <span class="courseCode">201</span>
-            <h3 class="courseName">Quantum Concepts & QUBO Modeling</h3>
-          </div>
-          <div class="courseActions">
-            <a class="btn btnGhost btnTiny" href="#">Keynote</a>
-            <a class="btn btnGhost btnTiny" href="#">PDF</a>
-            <a class="btn btnGhost btnTiny" href="#">Podcast (ZH)</a>
-          </div>
-        </div>
-
-        <div class="courseRow">
-          <div class="courseInfo">
-            <span class="courseCode">202</span>
-            <h3 class="courseName">Simulated Quantum Annealing</h3>
-          </div>
-          <div class="courseActions">
-            <a class="btn btnGhost btnTiny" href="#">Keynote</a>
-            <a class="btn btnGhost btnTiny" href="#">PDF</a>
-            <a class="btn btnGhost btnTiny" href="#">Podcast (ZH)</a>
-          </div>
-        </div>
-
-        <div class="courseRow">
-          <div class="courseInfo">
-            <span class="courseCode">301</span>
-            <h3 class="courseName">D-Wave DEMO</h3>
-          </div>
-          <div class="courseActions">
-            <a class="btn btnGhost btnTiny" href="#">Keynote</a>
-            <a class="btn btnGhost btnTiny" href="#">PDF</a>
-            <a class="btn btnGhost btnTiny" href="#">Podcast (ZH)</a>
-          </div>
-        </div>
-
-        <div class="courseRow">
-          <div class="courseInfo">
-            <span class="courseCode">302</span>
-            <h3 class="courseName">Custom QUBO Application DEMO (VRP)</h3>
-          </div>
-          <div class="courseActions">
-            <a class="btn btnGhost btnTiny" href="#">Keynote</a>
-            <a class="btn btnGhost btnTiny" href="#">PDF</a>
-            <a class="btn btnGhost btnTiny" href="#">Podcast (ZH)</a>
-          </div>
-        </div>
-
-        <div class="courseRow">
-          <div class="courseInfo">
-            <span class="courseCode">303</span>
-            <h3 class="courseName">
-              Custom QUBO Application DEMO (Dynamic Routing Problem)
-            </h3>
-          </div>
-          <div class="courseActions">
-            <a class="btn btnGhost btnTiny" href="#">Keynote</a>
-            <a class="btn btnGhost btnTiny" href="#">PDF</a>
-            <a class="btn btnGhost btnTiny" href="#">Podcast (ZH)</a>
-          </div>
-        </div>
-
+      <div class="courseList" id="tracksList">
+        <!-- Filled by home.js -->
       </div>
     </section>
 
-    <!-- CONTINUE -->
-    <section class="container" id="continueSection" style="display:none;">
+    <!-- RECOMMENDED PATH -->
+    <section class="container courseOverview">
+      <h2 class="sectionTitle">Recommended path</h2>
+
       <article class="focusCard softFocus">
-        <div class="focusBadge" style="background: var(--accent2);">
-          Continue learning
+        <p class="muted" style="margin-top: 0;">
+          If you are new, follow this order. If you only want demos, jump to the demo track.
+        </p>
+
+        <div class="btnRow" style="flex-wrap: wrap;">
+          <a class="btn btnGhost" href="lessons.html?track=modeling">Start with Modeling</a>
+          <a class="btn btnGhost" href="lessons.html?track=quantum">Go to Quantum Concepts</a>
+          <a class="btn btnGhost" href="lessons.html?track=demo">Jump to Demos</a>
         </div>
-        <h2 id="continueTitle">Last lesson</h2>
-        <p class="muted" id="continueDesc">Resume where you left off.</p>
-        <div class="btnRow">
-          <a class="btn btnPrimary" id="continueBtn" href="#">Resume</a>
-          <button class="btn btnGhost" id="clearProgressBtn" type="button">Clear</button>
-        </div>
+
+        <div id="pathLine" class="mutedSmall" style="margin-top: 12px;"></div>
       </article>
+    </section>
+
+    <!-- HIGHLIGHTS -->
+    <section class="container courseOverview">
+      <h2 class="sectionTitle">Quick highlights</h2>
+      <p class="muted" style="margin-top: 0;">
+        One representative course from each track. For full details and downloads, open Lessons.
+      </p>
+
+      <div class="courseList" id="highlightsList">
+        <!-- Filled by home.js -->
+      </div>
+
+      <div class="heroActions" style="margin-top: 16px;">
+        <a class="btn btnPrimary" href="lessons.html">View all courses</a>
+      </div>
     </section>
 
   </main>
