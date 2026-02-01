@@ -34,33 +34,29 @@
   function trackMeta(track) {
     if (track === "modeling") {
       return {
+        badge: "M",
         title: "Modeling and algorithm foundations",
-        desc: "Learn how to define variables, constraints, objectives, and common NP hard patterns that lead to QUBO and heuristic solvers.",
-        cta: "Open modeling track",
-        href: "lessons.html?track=modeling"
+        desc: "Learn how to define variables, constraints, objectives, and common NP hard patterns that lead to QUBO and heuristic solvers."
       };
     }
     if (track === "quantum") {
       return {
+        badge: "Q",
         title: "Quantum annealing concepts",
-        desc: "Understand Ising and QUBO mapping, annealing intuition, and what simulated quantum annealing is doing under the hood.",
-        cta: "Open quantum track",
-        href: "lessons.html?track=quantum"
+        desc: "Understand Ising and QUBO mapping, annealing intuition, and what simulated quantum annealing is doing under the hood."
       };
     }
     if (track === "demo") {
       return {
+        badge: "D",
         title: "Demos and applications",
-        desc: "Run practical demos and modify templates for routing and scheduling. Focus on what you can reuse in your own projects.",
-        cta: "Open demo track",
-        href: "lessons.html?track=demo"
+        desc: "Run practical demos and modify templates for routing and scheduling. Focus on what you can reuse in your own projects."
       };
     }
     return {
+      badge: "O",
       title: "Other",
-      desc: "Miscellaneous content.",
-      cta: "Open lessons",
-      href: "lessons.html"
+      desc: "Miscellaneous content."
     };
   }
 
@@ -71,35 +67,33 @@
     return node;
   }
 
-  function buildTrackRow(meta, stats) {
-    const row = el("div", "courseRow");
+  function buildTrackCard(meta, stats) {
+    const card = el("article", "trackCard");
 
-    const info = el("div", "courseInfo");
-    const badge = el("span", "courseCode", stats.code);
-    const name = el("h3", "courseName", meta.title);
-    const small = el("div", "mutedSmall", `${stats.courseCount} courses, ${stats.lessonCount} lessons, ${stats.minuteCount} minutes`);
+    const head = el("div", "trackHead");
 
-    info.appendChild(badge);
-    info.appendChild(name);
-    info.appendChild(small);
+    const badge = el("div", "trackBadge", meta.badge);
 
-    const actions = el("div", "courseActions");
-    const a = el("a", "btn btnGhost btnTiny", meta.cta);
-    a.href = meta.href;
-    actions.appendChild(a);
+    const headText = el("div", "");
 
-    row.appendChild(info);
-    row.appendChild(actions);
+    const title = el("h3", "trackTitle", meta.title);
 
-    const desc = el("p", "muted");
-    desc.style.margin = "10px 0 0 0";
-    desc.textContent = meta.desc;
+    const statsLine = el("div", "mutedSmall trackStats",
+      `${stats.courseCount} courses, ${stats.lessonCount} lessons, ${stats.minuteCount} minutes`
+    );
 
-    const wrap = el("div", "");
-    wrap.appendChild(row);
-    wrap.appendChild(desc);
+    headText.appendChild(title);
+    headText.appendChild(statsLine);
 
-    return wrap;
+    head.appendChild(badge);
+    head.appendChild(headText);
+
+    const desc = el("p", "muted trackDesc", meta.desc);
+
+    card.appendChild(head);
+    card.appendChild(desc);
+
+    return card;
   }
 
   function buildHighlightRow(course, track) {
@@ -119,21 +113,21 @@
     open.href = `course.html?course=${encodeURIComponent(course.id || "")}`;
     actions.appendChild(open);
 
-    const goTrack = el("a", "btn btnGhost btnTiny", "View track");
-    goTrack.href = trackMeta(track).href;
-    actions.appendChild(goTrack);
+    const viewAll = el("a", "btn btnGhost btnTiny", "Lessons");
+    viewAll.href = "lessons.html";
+    actions.appendChild(viewAll);
 
     row.appendChild(info);
     row.appendChild(actions);
     return row;
   }
 
-  /* Background */
+  // Background
   if (window.Background && typeof window.Background.initBackground === "function") {
     window.Background.initBackground();
   }
 
-  /* Load data */
+  // KPI placeholders
   const kpiCoursesEl = $("kpiCourses");
   const kpiLessonsEl = $("kpiLessons");
   const kpiMinutesEl = $("kpiMinutes");
@@ -150,49 +144,52 @@
     .then(data => {
       const courses = Array.isArray(data && data.courses) ? data.courses : [];
 
-      let lessonCount = 0;
-      let minuteCount = 0;
+      let totalLessons = 0;
+      let totalMinutes = 0;
 
       const byTrack = {
-        modeling: { courses: [], lessonCount: 0, minuteCount: 0, code: "M" },
-        quantum: { courses: [], lessonCount: 0, minuteCount: 0, code: "Q" },
-        demo: { courses: [], lessonCount: 0, minuteCount: 0, code: "D" },
-        other: { courses: [], lessonCount: 0, minuteCount: 0, code: "O" }
+        modeling: { courses: [], lessonCount: 0, minuteCount: 0 },
+        quantum: { courses: [], lessonCount: 0, minuteCount: 0 },
+        demo: { courses: [], lessonCount: 0, minuteCount: 0 },
+        other: { courses: [], lessonCount: 0, minuteCount: 0 }
       };
 
       courses.forEach(c => {
         const lessons = Array.isArray(c && c.lessons) ? c.lessons : [];
         const mins = safeNumber(c && c.minutes, 0);
-        lessonCount += lessons.length;
-        minuteCount += mins;
+
+        totalLessons += lessons.length;
+        totalMinutes += mins;
 
         const track = getTrackById(c && c.id);
         const bucket = byTrack[track] || byTrack.other;
+
         bucket.courses.push(c);
         bucket.lessonCount += lessons.length;
         bucket.minuteCount += mins;
       });
 
       setText(kpiCoursesEl, String(courses.length));
-      setText(kpiLessonsEl, String(lessonCount));
-      setText(kpiMinutesEl, String(minuteCount));
+      setText(kpiLessonsEl, String(totalLessons));
+      setText(kpiMinutesEl, String(totalMinutes));
 
-      const tracksList = $("tracksList");
-      if (tracksList) {
-        tracksList.innerHTML = "";
+      // Render three glass blocks
+      const tracksGrid = $("tracksGrid");
+      if (tracksGrid) {
+        tracksGrid.innerHTML = "";
 
         ["modeling", "quantum", "demo"].forEach(track => {
           const meta = trackMeta(track);
           const stats = {
-            code: byTrack[track].code,
             courseCount: byTrack[track].courses.length,
             lessonCount: byTrack[track].lessonCount,
             minuteCount: byTrack[track].minuteCount
           };
-          tracksList.appendChild(buildTrackRow(meta, stats));
+          tracksGrid.appendChild(buildTrackCard(meta, stats));
         });
       }
 
+      // Suggested order line
       const pathLine = $("pathLine");
       if (pathLine) {
         const ids = courses
@@ -201,21 +198,22 @@
           .sort((a, b) => toCourseIdNumber(a) - toCourseIdNumber(b));
 
         if (ids.length) {
-          pathLine.textContent = `Suggested order: ${ids.join("  ")}.`;
+          pathLine.textContent = `Suggested order: ${ids.join(" → ")}.`;
         } else {
           pathLine.textContent = "";
         }
       }
 
+      // Highlights
       const highlightsList = $("highlightsList");
       if (highlightsList) {
         highlightsList.innerHTML = "";
 
-        const pickFirst = (track) => {
+        function pickFirst(track) {
           const list = (byTrack[track] && byTrack[track].courses) ? byTrack[track].courses : [];
           const sorted = list.slice().sort((a, b) => toCourseIdNumber(a.id) - toCourseIdNumber(b.id));
           return sorted[0] || null;
-        };
+        }
 
         const h1 = pickFirst("modeling");
         const h2 = pickFirst("quantum");
@@ -236,13 +234,13 @@
       setText(kpiLessonsEl, "N/A");
       setText(kpiMinutesEl, "N/A");
 
-      const tracksList = $("tracksList");
-      if (tracksList) {
-        tracksList.innerHTML = "";
+      const tracksGrid = $("tracksGrid");
+      if (tracksGrid) {
+        tracksGrid.innerHTML = "";
         const p = document.createElement("p");
         p.className = "muted";
         p.textContent = "Failed to load course data. Please refresh or check data/courses.json.";
-        tracksList.appendChild(p);
+        tracksGrid.appendChild(p);
       }
     });
 })();
