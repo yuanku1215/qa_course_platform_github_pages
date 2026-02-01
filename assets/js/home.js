@@ -91,11 +91,13 @@
     head.appendChild(badge);
     head.appendChild(headText);
 
+    const divider = el("div", "trackDivider");
     const desc = el("p", "muted trackDesc", meta.desc);
-
+    
     card.appendChild(head);
+    card.appendChild(divider);
     card.appendChild(desc);
-
+    
     return card;
   }
 
@@ -242,3 +244,4 @@
       }
     });
 })();
+
