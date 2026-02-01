@@ -82,7 +82,7 @@
     const statsLine = el(
       "div",
       "mutedSmall trackStats",
-      `${stats.courseCount} courses, ${stats.lessonCount} lessons, ${stats.minuteCount} minutes`
+      `${stats.courseCount} courses, ${stats.minuteCount} minutes`
     );
 
     headText.appendChild(title);
@@ -244,4 +244,5 @@
       }
     });
 })();
+
 
