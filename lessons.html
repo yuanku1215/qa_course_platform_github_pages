@@ -1,154 +1,63 @@
-// assets/js/lessons.js
-(function () {
-  "use strict";
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lessons | Quantum Annealing</title>
+  <meta name="description" content="All quantum annealing courses and lessons." />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
 
-  const DATA_URL = "data/courses.json";
+<body id="top">
+  <!-- Background -->
+  <canvas id="bgCanvas" class="bgCanvas" aria-hidden="true"></canvas>
+  <div class="bgVignette" aria-hidden="true"></div>
 
-  function $(id) {
-    return document.getElementById(id);
-  }
+  <!-- Header -->
+  <header class="topbar">
+    <div class="container topbarInner">
+      <a class="brandText" href="./index.html">Quantum Annealing</a>
 
-  function el(tag, className, text) {
-    const node = document.createElement(tag);
-    if (className) node.className = className;
-    if (typeof text === "string") node.textContent = text;
-    return node;
-  }
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="btn btnGhost" href="./index.html">Home</a>
+        <a class="btn btnGhost" href="https://github.com/" target="_blank" rel="noopener">
+          GitHub
+        </a>
+      </nav>
+    </div>
+  </header>
 
-  function toIdNumber(id) {
-    const n = Number(id);
-    return Number.isFinite(n) ? n : 0;
-  }
+  <!-- Main -->
+  <main class="container">
 
-  function getTrackParam() {
-    const params = new URLSearchParams(location.search);
-    const t = (params.get("track") || "").trim().toLowerCase();
-    if (t === "modeling" || t === "quantum" || t === "demo") return t;
-    return "";
-  }
+    <!-- Hero -->
+    <section class="hero" style="padding-top:64px; padding-bottom:48px;">
+      <h1 class="heroTitle">Lessons</h1>
+      <p class="heroSubtitle muted">
+        Browse all available courses and enter each module with videos,
+        downloads, and practice problems.
+      </p>
+    </section>
 
-  function inTrack(course, track) {
-    if (!track) return true;
-    const n = toIdNumber(course && course.id);
-    if (track === "modeling") return n >= 100 && n < 200;
-    if (track === "quantum") return n >= 200 && n < 300;
-    if (track === "demo") return n >= 300 && n < 400;
-    return true;
-  }
+    <!-- Course list -->
+    <section class="courseOverview">
+      <div class="courseList" id="lessonList">
+        <!-- JS injects rows here -->
+      </div>
+    </section>
 
-  function safeLink(v) {
-    if (typeof v !== "string") return "";
-    const s = v.trim();
-    return s ? s : "";
-  }
+  </main>
 
-  function buildActionLink(label, href) {
-    const a = el("a", "btn btnGhost btnTiny", label);
-    a.href = href;
-    return a;
-  }
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footerInner">
+      <span class="mutedSmall">Quantum Annealing Learning Hub</span>
+      <a class="btn btnGhost" href="#top">Back to top</a>
+    </div>
+  </footer>
 
-  function buildCourseRow(course) {
-    const row = el("div", "courseRow");
-
-    const info = el("div", "courseInfo");
-    const code = el("span", "courseCode", String(course.id || ""));
-    const name = el("h3", "courseName", String(course.title || "Untitled"));
-    info.appendChild(code);
-    info.appendChild(name);
-
-    if (course.description) {
-      const desc = el("div", "mutedSmall", String(course.description));
-      info.appendChild(desc);
-    }
-
-    const actions = el("div", "courseActions");
-
-    const slides = safeLink(course?.downloads?.slides);
-    const pdf = safeLink(course?.downloads?.pdf);
-    const podcast = safeLink(course?.downloads?.podcast);
-
-    if (slides) actions.appendChild(buildActionLink("Keynote", slides));
-    if (pdf) actions.appendChild(buildActionLink("PDF", pdf));
-    if (podcast) actions.appendChild(buildActionLink("Podcast (ZH)", podcast));
-
-    const open = el("a", "btn btnPrimary btnTiny", "Open");
-    open.href = `course.html?course=${encodeURIComponent(course.id || "")}`;
-    actions.appendChild(open);
-
-    row.appendChild(info);
-    row.appendChild(actions);
-
-    return row;
-  }
-
-  function setHeroTextByTrack(track) {
-    const h1 = document.querySelector("h1.heroTitle");
-    const p = document.querySelector("p.heroSubtitle");
-    if (!h1 || !p) return;
-
-    if (!track) return;
-
-    if (track === "modeling") {
-      h1.textContent = "Lessons: Modeling";
-      p.textContent = "Foundations of mathematical modeling and algorithm basics.";
-      return;
-    }
-    if (track === "quantum") {
-      h1.textContent = "Lessons: Quantum";
-      p.textContent = "Quantum annealing concepts and QUBO mapping intuition.";
-      return;
-    }
-    if (track === "demo") {
-      h1.textContent = "Lessons: Demos";
-      p.textContent = "Practical demos and application templates you can modify.";
-      return;
-    }
-  }
-
-  function render(courses, track) {
-    const list = $("lessonList");
-    if (!list) return;
-
-    list.innerHTML = "";
-
-    const filtered = courses
-      .filter(c => inTrack(c, track))
-      .sort((a, b) => toIdNumber(a.id) - toIdNumber(b.id));
-
-    if (!filtered.length) {
-      const empty = el("p", "muted", "No courses found for this track.");
-      list.appendChild(empty);
-      return;
-    }
-
-    filtered.forEach(course => {
-      list.appendChild(buildCourseRow(course));
-    });
-  }
-
-  // Background shared implementation
-  if (window.Background && typeof window.Background.initBackground === "function") {
-    window.Background.initBackground();
-  }
-
-  const track = getTrackParam();
-  setHeroTextByTrack(track);
-
-  fetch(DATA_URL, { cache: "force-cache" })
-    .then(r => {
-      if (!r.ok) throw new Error(`HTTP ${r.status}`);
-      return r.json();
-    })
-    .then(data => {
-      const courses = Array.isArray(data?.courses) ? data.courses : [];
-      render(courses, track);
-    })
-    .catch(() => {
-      const list = $("lessonList");
-      if (!list) return;
-      list.innerHTML = "";
-      const msg = el("p", "muted", "Failed to load course data. Please check data/courses.json.");
-      list.appendChild(msg);
-    });
-})();
+  <!-- Scripts -->
+  <script src="assets/js/background.js"></script>
+  <script src="assets/js/lessons.js"></script>
+</body>
+</html>
