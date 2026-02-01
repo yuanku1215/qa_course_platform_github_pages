@@ -67,8 +67,9 @@
     return node;
   }
 
-  function buildTrackCard(meta, stats) {
+  function buildTrackCard(track, meta, stats) {
     const card = el("article", "trackCard");
+    card.setAttribute("data-track", track);
 
     const head = el("div", "trackHead");
 
@@ -78,7 +79,9 @@
 
     const title = el("h3", "trackTitle", meta.title);
 
-    const statsLine = el("div", "mutedSmall trackStats",
+    const statsLine = el(
+      "div",
+      "mutedSmall trackStats",
       `${stats.courseCount} courses, ${stats.lessonCount} lessons, ${stats.minuteCount} minutes`
     );
 
@@ -122,12 +125,10 @@
     return row;
   }
 
-  // Background
   if (window.Background && typeof window.Background.initBackground === "function") {
     window.Background.initBackground();
   }
 
-  // KPI placeholders
   const kpiCoursesEl = $("kpiCourses");
   const kpiLessonsEl = $("kpiLessons");
   const kpiMinutesEl = $("kpiMinutes");
@@ -173,7 +174,6 @@
       setText(kpiLessonsEl, String(totalLessons));
       setText(kpiMinutesEl, String(totalMinutes));
 
-      // Render three glass blocks
       const tracksGrid = $("tracksGrid");
       if (tracksGrid) {
         tracksGrid.innerHTML = "";
@@ -185,11 +185,10 @@
             lessonCount: byTrack[track].lessonCount,
             minuteCount: byTrack[track].minuteCount
           };
-          tracksGrid.appendChild(buildTrackCard(meta, stats));
+          tracksGrid.appendChild(buildTrackCard(track, meta, stats));
         });
       }
 
-      // Suggested order line
       const pathLine = $("pathLine");
       if (pathLine) {
         const ids = courses
@@ -204,7 +203,6 @@
         }
       }
 
-      // Highlights
       const highlightsList = $("highlightsList");
       if (highlightsList) {
         highlightsList.innerHTML = "";
